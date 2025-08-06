@@ -1,0 +1,15 @@
+Active Conda Environment: wmt21
+
+First 10 Predicted Labels: [1, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+
+First 10 Explanations:
+1: Major meaning error or omission detected.
+2: Meaning preserved; only minor stylistic issues.
+3: Major meaning error or omission detected.
+4: Major meaning error or omission detected.
+5: Meaning preserved; only minor stylistic issues.
+6: Meaning preserved; only minor stylistic issues.
+7: Meaning preserved; only minor stylistic issues.
+8: Meaning preserved; only minor stylistic issues.
+9: Major meaning error or omission detected.
+10: Major meaning error or omission detected.

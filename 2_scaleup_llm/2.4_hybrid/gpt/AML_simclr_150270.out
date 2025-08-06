@@ -1,0 +1,18 @@
+Active Conda Environment: wmt21
+
+Total GPT tokens: 5480  →  Estimated cost: $0.0110
+
+
+First 10 Predicted Labels: [1, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+
+First 10 Explanations:
+1: Minor meaning error or omission detected.
+2: Meaning preserved; only minor grammatical issues.
+3: Major meaning error or omission detected.
+4: Meaning preserved; only minor stylistic issues.
+5: Meaning preserved; only minor stylistic issues.
+6: Translation error: "unde construction" should be "im Aufbau" not "unkonstruiert".
+7: Meaning preserved; only minor stylistic issues.
+8: Meaning preserved; only minor stylistic issues.
+9: Translation errors present: "fräubers" and "fräuber" are incorrect translations for "pretender."
+10: Meaning preserved; only minor stylistic issues.

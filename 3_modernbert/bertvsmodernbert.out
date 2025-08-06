@@ -1,0 +1,113 @@
+Active Conda Environment: wmt21
+=== THREE MODEL COMPARISON (Limited Grid Search) ===
+Total training runs: 12
+Expected epochs: ~36
+Estimated time: ~54 minutes
+
+==================================================
+Grid Search for BERT
+==================================================
+
+Training BERT - LR: 2e-05, Batch: 32, Seed: 42
+  Epoch 1: Loss=0.6175, Dev MCC=0.3460
+  Epoch 2: Loss=0.5233, Dev MCC=0.3500
+  Epoch 3: Loss=0.4687, Dev MCC=0.3566
+
+Training BERT - LR: 2e-05, Batch: 32, Seed: 123
+  Epoch 1: Loss=0.6112, Dev MCC=0.3112
+  Epoch 2: Loss=0.5179, Dev MCC=0.3402
+  Epoch 3: Loss=0.4687, Dev MCC=0.3526
+LR 2e-05: MCC=0.3546±0.0020, F1-ERR=0.5270±0.0026
+
+Training BERT - LR: 3e-05, Batch: 32, Seed: 42
+  Epoch 1: Loss=0.6107, Dev MCC=0.3939
+  Epoch 2: Loss=0.5024, Dev MCC=0.3718
+  Epoch 3: Loss=0.4486, Dev MCC=0.3785
+
+Training BERT - LR: 3e-05, Batch: 32, Seed: 123
+  Epoch 1: Loss=0.6031, Dev MCC=0.3405
+  Epoch 2: Loss=0.5096, Dev MCC=0.3502
+  Epoch 3: Loss=0.4515, Dev MCC=0.3664
+LR 3e-05: MCC=0.3802±0.0138, F1-ERR=0.5365±0.0148
+
+==================================================
+Grid Search for ModernBERT-base
+==================================================
+
+Training ModernBERT-base - LR: 2e-05, Batch: 32, Seed: 42
+  Epoch 1: Loss=0.6397, Dev MCC=0.3486
+  Epoch 2: Loss=0.5578, Dev MCC=0.3492
+  Epoch 3: Loss=0.5043, Dev MCC=0.3832
+
+Training ModernBERT-base - LR: 2e-05, Batch: 32, Seed: 123
+  Epoch 1: Loss=0.6347, Dev MCC=0.2999
+  Epoch 2: Loss=0.5485, Dev MCC=0.2898
+  Epoch 3: Loss=0.4846, Dev MCC=0.2802
+LR 2e-05: MCC=0.3415±0.0417, F1-ERR=0.5438±0.0239
+
+Training ModernBERT-base - LR: 3e-05, Batch: 32, Seed: 42
+  Epoch 1: Loss=0.6291, Dev MCC=0.3279
+  Epoch 2: Loss=0.5136, Dev MCC=0.3643
+  Epoch 3: Loss=0.4610, Dev MCC=0.3801
+
+Training ModernBERT-base - LR: 3e-05, Batch: 32, Seed: 123
+  Epoch 1: Loss=0.6287, Dev MCC=0.3691
+  Epoch 2: Loss=0.5389, Dev MCC=0.3250
+  Epoch 3: Loss=0.4745, Dev MCC=0.3259
+LR 3e-05: MCC=0.3746±0.0055, F1-ERR=0.5671±0.0018
+
+==================================================
+Grid Search for ModernBERT-large
+==================================================
+
+Training ModernBERT-large - LR: 2e-05, Batch: 16, Seed: 42
+  Epoch 1: Loss=0.6444, Dev MCC=0.3802
+  Epoch 2: Loss=0.5325, Dev MCC=0.3648
+  Epoch 3: Loss=0.4331, Dev MCC=0.3547
+
+Training ModernBERT-large - LR: 2e-05, Batch: 16, Seed: 123
+  Epoch 1: Loss=0.6220, Dev MCC=0.3297
+  Epoch 2: Loss=0.5237, Dev MCC=0.3235
+  Epoch 3: Loss=0.4364, Dev MCC=0.3824
+LR 2e-05: MCC=0.3813±0.0011, F1-ERR=0.5388±0.0052
+
+Training ModernBERT-large - LR: 3e-05, Batch: 16, Seed: 42
+  Epoch 1: Loss=0.6532, Dev MCC=0.4135
+  Epoch 2: Loss=0.5368, Dev MCC=0.4003
+  Epoch 3: Loss=0.4360, Dev MCC=0.3802
+
+Training ModernBERT-large - LR: 3e-05, Batch: 16, Seed: 123
+  Epoch 1: Loss=0.6862, Dev MCC=0.1935
+  Epoch 2: Loss=0.6830, Dev MCC=0.2384
+  Epoch 3: Loss=0.6305, Dev MCC=0.3449
+LR 3e-05: MCC=0.3792±0.0343, F1-ERR=0.5471±0.0178
+
+======================================================================
+FINAL THREE-MODEL COMPARISON
+======================================================================
+Total Runtime: 102.8 minutes
+
+BERT (Best Config: LR=3e-05):
+  MCC: 0.3802 ± 0.0138
+  F1-ERR: 0.5365 ± 0.0148
+  F1-NOT: 0.8390 ± 0.0009
+
+ModernBERT-base (Best Config: LR=3e-05):
+  MCC: 0.3746 ± 0.0055
+  F1-ERR: 0.5671 ± 0.0018
+  F1-NOT: 0.7942 ± 0.0173
+
+ModernBERT-large (Best Config: LR=2e-05):
+  MCC: 0.3813 ± 0.0011
+  F1-ERR: 0.5388 ± 0.0052
+  F1-NOT: 0.8382 ± 0.0038
+
+======================================================================
+FINAL RANKING (by MCC):
+======================================================================
+1. ModernBERT-large: 0.3813 ± 0.0011 (LR: 2e-05)
+2. BERT: 0.3802 ± 0.0138 (LR: 3e-05)
+3. ModernBERT-base: 0.3746 ± 0.0055 (LR: 3e-05)
+
+🏆 WINNER: ModernBERT-large
+Results saved to output_three_models/three_models_results.json

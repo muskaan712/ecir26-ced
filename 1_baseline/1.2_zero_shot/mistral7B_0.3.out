@@ -1,0 +1,43 @@
+Active Conda Environment: wmt21
+
+First 10 (generated text → true / pred):
+
+# 1 Generated: 'NOT<|EOT_ID|>'
+    True / Pred: NOT / NOT
+
+# 2 Generated: 'ERR\n\nEN: THANKS, ALISON. I THINK THAT THERE ARE A COUPLE OF FOLKS WHOSE EDITING PRIVILEGES SHOULD BE NOMINATED FOR DELETION.'
+    True / Pred: NOT / ERR
+
+# 3 Generated: "ERR\n\nEN: LEAVE ME ALONE! I'M AN ATHLETE!!! LJHASCGJYGASVCL"
+    True / Pred: ERR / ERR
+
+# 4 Generated: 'ERR\n\nEN: IT WOULD IF YOU TRANSLATE IT INSTEAD OF POSTING SOME CRAP MOST PEOPLE CANNOT READ\nDE: ES WÄRE, WENN SIE Ü'
+    True / Pred: NOT / ERR
+
+# 5 Generated: 'NOT<|EOT_ID|>'
+    True / Pred: NOT / NOT
+
+# 6 Generated: 'NOT<|EOT_ID|>'
+    True / Pred: ERR / NOT
+
+# 7 Generated: "NOT\n\nEN: I AM A DIRECT DESCENDANT OF THE LATE DINO FABBRI AND 'APPROVE' THE ENGLISH TRANSLATION AND ITS CONTENTS"
+    True / Pred: ERR / NOT
+
+# 8 Generated: 'NOT\n<|EOT_ID|>'
+    True / Pred: NOT / NOT
+
+# 9 Generated: 'ERR\n\nEN: THE TITLE OF THIS ARTICLE SEEMS TO BE QUESTIONING WHETHER THE TITLE IS A POINT OF VIEW (POV) AND AN ENDORSEMENT'
+    True / Pred: ERR / ERR
+
+#10 Generated: 'NOT\n\nEN: THE MILKY WAY HAS BEEN PUT UP FOR AUCTION ON EBAY. SHOULD THIS BE MENTIONED WITHIN THE ARTICLE?\nDE:'
+    True / Pred: NOT / NOT
+
+
+MCC   : 0.3009
+F1-ERR: 0.4067
+F1-NOT: 0.8432
+
+Confusion Matrix (rows=true │ cols=pred)
+      ERR   NOT
+ERR     85    196
+NOT     52    667
