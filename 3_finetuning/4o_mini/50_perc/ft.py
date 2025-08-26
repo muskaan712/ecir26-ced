@@ -87,6 +87,7 @@ def launch_and_stream(training_jsonl):
             time.sleep(SLEEP_SECS)
 
 def main():
+    """Run inference over the dataset and report metrics."""
     if not os.path.exists(SRC_JSONL):
         raise SystemExit(f"[ERROR] Source JSONL not found: {SRC_JSONL}")
 

@@ -52,6 +52,7 @@ def download_and_cache_model():
         )
 
 def load_data(path):
+    """Load TSV data into a DataFrame and map labels to numeric IDs."""
     df = pd.read_csv(
         path,
         sep="\t",
@@ -83,6 +84,7 @@ def extract_label(text: str) -> str:
     return matches[-1] if matches else "NOT"
 
 def main():
+    """Run inference over the dataset and report metrics."""
     # 1) Cache locally
     download_and_cache_model()
 

@@ -37,6 +37,7 @@ FEW_SHOT_NOT_CNT = 3
 # ────────────────────────────────────────────────────────────────────────────────
 
 def load_data(path):
+    """Load TSV data into a DataFrame and map labels to numeric IDs."""
     df = pd.read_csv(
         path,
         sep="\t",
@@ -74,6 +75,7 @@ def select_few_shot_examples():
 
 
 def build_messages(src: str, mt: str, examples):
+    """Construct chat messages for classification tasks."""
     system_prompt = (
         "You are a precise translation evaluator.\n"
         "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: 'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate or only has minor imperfections.\n"
@@ -90,6 +92,7 @@ def build_messages(src: str, mt: str, examples):
 
 
 def main():
+    """Run inference over the dataset and report metrics."""
     # Load dev set and few-shot examples
     df = load_data(DEV_TSV)
     examples = select_few_shot_examples()

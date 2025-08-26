@@ -164,6 +164,7 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3):
 
 # ===================== Main ================================================
 def main():
+    """Run inference over the dataset and report metrics."""
     df_full = load_tsv_noheader(DEV_TSV)
     eval_df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
     rows = list(eval_df.itertuples(index=False))

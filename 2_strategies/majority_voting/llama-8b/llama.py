@@ -200,6 +200,7 @@ def extract_label(text: str) -> str:
     return hits[-1] if hits else "NOT"
 
 def main():
+    """Run inference over the dataset and report metrics."""
     # 1) Cache model locally
     download_and_cache_model()
 

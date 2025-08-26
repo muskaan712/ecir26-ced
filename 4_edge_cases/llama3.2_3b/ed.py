@@ -54,6 +54,7 @@ def download_and_cache_model():
 
 
 def load_data(path):
+    """Load TSV data into a DataFrame and map labels to numeric IDs."""
     df = pd.read_csv(
         path,
         sep="\t",
@@ -133,6 +134,7 @@ def extract_text(out):
 
 
 def main():
+    """Run inference over the dataset and report metrics."""
     download_and_cache_model()
 
     # Enable TinyLlama fused kernels

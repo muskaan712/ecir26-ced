@@ -168,6 +168,7 @@ def train_model(model_name, model_path, lr, batch_size, epochs, seed):
 
 # ---- Main Function ----
 def main():
+    """Run inference over the dataset and report metrics."""
     os.makedirs(output_dir, exist_ok=True)
     
     start_time = torch.cuda.Event(enable_timing=True)

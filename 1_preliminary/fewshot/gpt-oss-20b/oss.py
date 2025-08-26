@@ -220,6 +220,7 @@ def generate_label(model, tok, msgs, reasoning_effort: Optional[str] = None) -> 
     return _sanitize_label(parsed)
 
 def main():
+    """Run inference over the dataset and report metrics."""
     log.info("Starting GPT-OSS Option-A evaluation (parse FINAL).")
     model, tok = load_model_and_tokenizer()
 

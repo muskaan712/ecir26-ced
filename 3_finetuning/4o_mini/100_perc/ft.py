@@ -86,6 +86,7 @@ def launch_and_stream(training_jsonl):
             time.sleep(SLEEP_SECS)
 
 def main():
+    """Run inference over the dataset and report metrics."""
     p("[START] Using FULL dataset (no sampling)")
     inspect_dataset(SRC_JSONL)
     p("[FINISH] Dataset inspection")

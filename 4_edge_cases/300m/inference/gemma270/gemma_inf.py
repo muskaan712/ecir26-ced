@@ -173,6 +173,7 @@ def load_gemma(model_id: str, hf_token: Optional[str]):
     return tokenizer, model
 
 def build_messages(src: str, mt: str):
+    """Construct chat messages for classification tasks."""
     sys_msg  = "Binary classifier for MT critical errors. Reply with exactly one token: ERR or NOT. If uncertain, reply NOT. No other text."
     parts = []
     # optional few-shot anchors
@@ -261,6 +262,7 @@ def evaluate(y_true: List[str], margins: List[float], delta: float):
 
 # ───────────────────────────── Main ─────────────────────────────
 def main():
+    """Run inference over the dataset and report metrics."""
     # 1) Data
     df, src_col, mt_col, label_col = read_tsv_flex(DEV_TSV)
 
