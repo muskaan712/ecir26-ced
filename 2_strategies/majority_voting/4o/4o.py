@@ -48,6 +48,7 @@ TIE_BREAK          = "NOT"   # "NOT" for precision-leaning; "ERR" for recall-lea
 
 
 def load_data(path):
+    """Load TSV data into a DataFrame and map labels to numeric IDs."""
     df = pd.read_csv(
         path,
         sep="\t",
@@ -85,6 +86,7 @@ FEW_SHOT_BLOCK = (
 
 
 def build_messages(src: str, mt: str):
+    """Construct chat messages for classification tasks."""
     # WMT’21 Task 3 — STRICT binary classifier prompt (ERR/NOT)
     system_prompt = (
         "You are a STRICT binary classifier for WMT’21 Task 3 (Critical Error Detection, EN→DE).\n\n"
@@ -144,6 +146,7 @@ def sanitize_label(text: str) -> str:
 
 
 def main():
+    """Run inference over the dataset and report metrics."""
     if not openai.api_key:
         raise RuntimeError("OpenAI API key not found. Set env var OAPI.")
 

@@ -58,6 +58,7 @@ HARD_CAP_FALLBACK_PCT   = 0.25     # never escalate >25% of rows; set to 0.00 to
 # ───────────────────────────────────────────────────────────────────────────────
 
 def load_data(path):
+    """Load TSV data into a DataFrame and map labels to numeric IDs."""
     df = pd.read_csv(
         path,
         sep="\t",
@@ -102,6 +103,7 @@ FEW_SHOT_BLOCK = (
 )
 
 def build_messages(src: str, mt: str):
+    """Construct chat messages for classification tasks."""
     system_prompt = FT_SYSTEM_PROMPT
     if USE_FEW_SHOT:
         system_prompt += "\n\n" + FEW_SHOT_BLOCK
@@ -135,6 +137,7 @@ def sanitize_label(text: str) -> str:
 
 
 def main():
+    """Run inference over the dataset and report metrics."""
     if not openai.api_key:
         raise RuntimeError("OpenAI API key not found. Set env var OPENAI_API_KEY or OAPI.")
 

@@ -38,6 +38,7 @@ def load_all(tsv_path: str) -> pd.DataFrame:
     return df
 
 def main() -> None:
+    """Run inference over the dataset and report metrics."""
     df = load_all(DEV_TSV)
     preds, raw_out = [], []
 

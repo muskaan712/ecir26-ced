@@ -100,6 +100,7 @@ def evaluate(model, dataloader, device):
 
 # ---- Main Training Routine ----
 def main():
+    """Run inference over the dataset and report metrics."""
     os.makedirs(output_dir, exist_ok=True)
 
     # Tokenizer & Datasets

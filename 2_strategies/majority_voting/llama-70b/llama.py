@@ -188,6 +188,7 @@ def call_llm_multi(messages, n, temperature, top_p=1.0):
 
 # ===================== MAIN =====================
 def main():
+    """Run inference over the dataset and report metrics."""
     # load data
     df_full = load_tsv_noheader(DEV_TSV)
     eval_df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full

@@ -28,6 +28,7 @@ SYSTEM_PROMPT = (
 
 )
 def build_messages(src: str, mt: str):
+    """Construct chat messages for classification tasks."""
     user_prompt = f"EN: {src.strip()}\nDE: {mt.strip()}"
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
@@ -75,6 +76,7 @@ def infer_one(src, mt):
     return sanitize_label(out)
 
 def main():
+    """Run inference over the dataset and report metrics."""
     df_full = load_tsv_noheader(DEV_TSV)
     df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
 

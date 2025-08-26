@@ -35,6 +35,7 @@ COST_PER_1K    = 0.002
 # ────────────────────────────────────────────────────────────────────────────────
 
 def load_data(path):
+    """Load TSV data into a DataFrame and map labels to numeric IDs."""
     df = pd.read_csv(
         path,
         sep="\t",
@@ -47,6 +48,7 @@ def load_data(path):
 
 
 def build_messages(src: str, mt: str):
+    """Construct chat messages for classification tasks."""
     # Optimized system prompt for GPT-4o classification
     system_prompt = (
         "You are a precise translation evaluator.\n"
@@ -61,6 +63,7 @@ def build_messages(src: str, mt: str):
 
 
 def main():
+    """Run inference over the dataset and report metrics."""
     df = load_data(DEV_TSV)
     gen_labels = []
     preds = []

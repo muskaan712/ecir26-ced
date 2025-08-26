@@ -270,6 +270,7 @@ def majority_decide(labels: List[str]) -> str:
 
 # ===================== Main ================================================
 def main():
+    """Run inference over the dataset and report metrics."""
     log.info("Starting GPT-OSS Option-A evaluation (parse FINAL) + Majority Voting.")
     model, tok = load_model_and_tokenizer()
 

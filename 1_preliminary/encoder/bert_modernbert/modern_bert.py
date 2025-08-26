@@ -232,6 +232,7 @@ def grid_search_model(model_name, config):
 
 # ---- Main Function ----
 def main():
+    """Run inference over the dataset and report metrics."""
     os.makedirs(output_dir, exist_ok=True)
     
     all_results = []
