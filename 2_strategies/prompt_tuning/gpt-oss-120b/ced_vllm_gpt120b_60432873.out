@@ -1,0 +1,180 @@
+Running GPU job on partition ML
+Active Environment: /rwthfs/rz/cluster/home/ni124545/.local/share/mamba/envs/wmt21
+Python 3.12.11
+Name: vllm
+Version: 0.10.1
+Summary: A high-throughput and memory-efficient inference and serving engine for LLMs
+Home-page: https://github.com/vllm-project/vllm
+Author: vLLM Team
+Starting vLLM server...
+vLLM PID: 1226484
+Waiting for vLLM to become ready...
+[still loading @ 120s] tail of server log:
+INFO 08-21 01:54:43 [__init__.py:241] Automatically detected platform cuda.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:54:59 [api_server.py:1805] vLLM API server version 0.10.1
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:54:59 [utils.py:326] non-default args: {'model_tag': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'host': '127.0.0.1', 'model': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'trust_remote_code': True, 'dtype': 'bfloat16', 'max_model_len': 4096, 'served_model_name': ['gpt-oss-120b'], 'download_dir': '/hpcwork/ni124545/hf_cache', 'tensor_parallel_size': 2, 'gpu_memory_utilization': 0.85}
+[1;36m(APIServer pid=1226484)[0;0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[still loading @ 150s] tail of server log:
+INFO 08-21 01:54:43 [__init__.py:241] Automatically detected platform cuda.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:54:59 [api_server.py:1805] vLLM API server version 0.10.1
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:54:59 [utils.py:326] non-default args: {'model_tag': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'host': '127.0.0.1', 'model': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'trust_remote_code': True, 'dtype': 'bfloat16', 'max_model_len': 4096, 'served_model_name': ['gpt-oss-120b'], 'download_dir': '/hpcwork/ni124545/hf_cache', 'tensor_parallel_size': 2, 'gpu_memory_utilization': 0.85}
+[1;36m(APIServer pid=1226484)[0;0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:34 [__init__.py:711] Resolved architecture: GptOssForCausalLM
+[1;36m(APIServer pid=1226484)[0;0m ERROR 08-21 01:55:34 [config.py:130] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b'. Use `repo_type` argument if needed., retrying 1 of 2
+[1;36m(APIServer pid=1226484)[0;0m ERROR 08-21 01:55:36 [config.py:128] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b'. Use `repo_type` argument if needed.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:2816] Downcasting torch.float32 to torch.bfloat16.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:1750] Using max model len 4096
+[1;36m(APIServer pid=1226484)[0;0m WARNING 08-21 01:55:36 [__init__.py:1171] mxfp4 quantization is not fully optimized yet. The speed can be slower than non-quantized models.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [scheduler.py:222] Chunked prefill is enabled with max_num_batched_tokens=8192.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [config.py:273] Overriding max cuda graph capture size to 1024 for performance.
+[still loading @ 180s] tail of server log:
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:54:59 [utils.py:326] non-default args: {'model_tag': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'host': '127.0.0.1', 'model': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'trust_remote_code': True, 'dtype': 'bfloat16', 'max_model_len': 4096, 'served_model_name': ['gpt-oss-120b'], 'download_dir': '/hpcwork/ni124545/hf_cache', 'tensor_parallel_size': 2, 'gpu_memory_utilization': 0.85}
+[1;36m(APIServer pid=1226484)[0;0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:34 [__init__.py:711] Resolved architecture: GptOssForCausalLM
+[1;36m(APIServer pid=1226484)[0;0m ERROR 08-21 01:55:34 [config.py:130] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b'. Use `repo_type` argument if needed., retrying 1 of 2
+[1;36m(APIServer pid=1226484)[0;0m ERROR 08-21 01:55:36 [config.py:128] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b'. Use `repo_type` argument if needed.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:2816] Downcasting torch.float32 to torch.bfloat16.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:1750] Using max model len 4096
+[1;36m(APIServer pid=1226484)[0;0m WARNING 08-21 01:55:36 [__init__.py:1171] mxfp4 quantization is not fully optimized yet. The speed can be slower than non-quantized models.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [scheduler.py:222] Chunked prefill is enabled with max_num_batched_tokens=8192.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [config.py:273] Overriding max cuda graph capture size to 1024 for performance.
+INFO 08-21 01:56:10 [__init__.py:241] Automatically detected platform cuda.
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [core.py:636] Waiting for init message from front-end.
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [core.py:74] Initializing a V1 LLM engine (v0.10.1) with config: model='/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', speculative_config=None, tokenizer='/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config={}, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir='/hpcwork/ni124545/hf_cache', load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=mxfp4, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend='GptOss'), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=gpt-oss-120b, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output","vllm.mamba_mixer2"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"cudagraph_mode":1,"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[1024,1008,992,976,960,944,928,912,896,880,864,848,832,816,800,784,768,752,736,720,704,688,672,656,640,624,608,592,576,560,544,528,512,496,480,464,448,432,416,400,384,368,352,336,320,304,288,272,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"pass_config":{},"max_capture_size":1024,"local_cache_dir":null}
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0, 1], buffer_handle=(2, 16777216, 10, 'psm_cb40dcf0'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60432873/a4121ef5-48f9-4184-96ce-7dbf1fef42e8', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[still loading @ 210s] tail of server log:
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:54:59 [utils.py:326] non-default args: {'model_tag': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'host': '127.0.0.1', 'model': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', 'trust_remote_code': True, 'dtype': 'bfloat16', 'max_model_len': 4096, 'served_model_name': ['gpt-oss-120b'], 'download_dir': '/hpcwork/ni124545/hf_cache', 'tensor_parallel_size': 2, 'gpu_memory_utilization': 0.85}
+[1;36m(APIServer pid=1226484)[0;0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:34 [__init__.py:711] Resolved architecture: GptOssForCausalLM
+[1;36m(APIServer pid=1226484)[0;0m ERROR 08-21 01:55:34 [config.py:130] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b'. Use `repo_type` argument if needed., retrying 1 of 2
+[1;36m(APIServer pid=1226484)[0;0m ERROR 08-21 01:55:36 [config.py:128] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b'. Use `repo_type` argument if needed.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:2816] Downcasting torch.float32 to torch.bfloat16.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:1750] Using max model len 4096
+[1;36m(APIServer pid=1226484)[0;0m WARNING 08-21 01:55:36 [__init__.py:1171] mxfp4 quantization is not fully optimized yet. The speed can be slower than non-quantized models.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [scheduler.py:222] Chunked prefill is enabled with max_num_batched_tokens=8192.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [config.py:273] Overriding max cuda graph capture size to 1024 for performance.
+INFO 08-21 01:56:10 [__init__.py:241] Automatically detected platform cuda.
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [core.py:636] Waiting for init message from front-end.
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [core.py:74] Initializing a V1 LLM engine (v0.10.1) with config: model='/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', speculative_config=None, tokenizer='/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config={}, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir='/hpcwork/ni124545/hf_cache', load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=mxfp4, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend='GptOss'), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=gpt-oss-120b, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output","vllm.mamba_mixer2"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"cudagraph_mode":1,"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[1024,1008,992,976,960,944,928,912,896,880,864,848,832,816,800,784,768,752,736,720,704,688,672,656,640,624,608,592,576,560,544,528,512,496,480,464,448,432,416,400,384,368,352,336,320,304,288,272,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"pass_config":{},"max_capture_size":1024,"local_cache_dir":null}
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0, 1], buffer_handle=(2, 16777216, 10, 'psm_cb40dcf0'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60432873/a4121ef5-48f9-4184-96ce-7dbf1fef42e8', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[still loading @ 240s] tail of server log:
+[1;36m(APIServer pid=1226484)[0;0m ERROR 08-21 01:55:36 [config.py:128] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b'. Use `repo_type` argument if needed.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:2816] Downcasting torch.float32 to torch.bfloat16.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:36 [__init__.py:1750] Using max model len 4096
+[1;36m(APIServer pid=1226484)[0;0m WARNING 08-21 01:55:36 [__init__.py:1171] mxfp4 quantization is not fully optimized yet. The speed can be slower than non-quantized models.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [scheduler.py:222] Chunked prefill is enabled with max_num_batched_tokens=8192.
+[1;36m(APIServer pid=1226484)[0;0m INFO 08-21 01:55:40 [config.py:273] Overriding max cuda graph capture size to 1024 for performance.
+INFO 08-21 01:56:10 [__init__.py:241] Automatically detected platform cuda.
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [core.py:636] Waiting for init message from front-end.
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [core.py:74] Initializing a V1 LLM engine (v0.10.1) with config: model='/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', speculative_config=None, tokenizer='/hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config={}, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir='/hpcwork/ni124545/hf_cache', load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=mxfp4, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend='GptOss'), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=gpt-oss-120b, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output","vllm.mamba_mixer2"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"cudagraph_mode":1,"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[1024,1008,992,976,960,944,928,912,896,880,864,848,832,816,800,784,768,752,736,720,704,688,672,656,640,624,608,592,576,560,544,528,512,496,480,464,448,432,416,400,384,368,352,336,320,304,288,272,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"pass_config":{},"max_capture_size":1024,"local_cache_dir":null}
+[1;36m(EngineCore_0 pid=1228548)[0;0m INFO 08-21 01:56:17 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0, 1], buffer_handle=(2, 16777216, 10, 'psm_cb40dcf0'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60432873/a4121ef5-48f9-4184-96ce-7dbf1fef42e8', remote_subscribe_addr=None, remote_addr_ipv6=False)
+INFO 08-21 01:57:08 [__init__.py:241] Automatically detected platform cuda.
+INFO 08-21 01:57:08 [__init__.py:241] Automatically detected platform cuda.
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 01:57:26 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0], buffer_handle=(1, 10485760, 10, 'psm_523c615e'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60432873/8a31e399-a4ac-4116-865c-26e80e0d13b5', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 01:57:26 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0], buffer_handle=(1, 10485760, 10, 'psm_88f611c1'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60432873/45b0b164-efee-4e3e-b72e-129c2f5055cc', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[still loading @ 420s] tail of server log:
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 01:57:28 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 01:57:29 [gpu_model_runner.py:1985] Loading model from scratch...
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 01:57:29 [gpu_model_runner.py:1985] Loading model from scratch...
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 01:57:29 [cuda.py:328] Using Flash Attention backend on V1 engine.
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 01:57:29 [cuda.py:328] Using Flash Attention backend on V1 engine.
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [00:21<05:07, 21.96s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [00:45<04:56, 22.79s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [01:09<04:39, 23.33s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [01:32<04:14, 23.13s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [01:55<03:53, 23.38s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [02:15<03:17, 21.97s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [02:41<03:06, 23.27s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [02:55<02:23, 20.54s/it]
+[still loading @ 450s] tail of server log:
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 01:57:29 [gpu_model_runner.py:1985] Loading model from scratch...
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 01:57:29 [gpu_model_runner.py:1985] Loading model from scratch...
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 01:57:29 [cuda.py:328] Using Flash Attention backend on V1 engine.
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 01:57:29 [cuda.py:328] Using Flash Attention backend on V1 engine.
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [00:21<05:07, 21.96s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [00:45<04:56, 22.79s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [01:09<04:39, 23.33s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [01:32<04:14, 23.13s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [01:55<03:53, 23.38s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [02:15<03:17, 21.97s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [02:41<03:06, 23.27s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [02:55<02:23, 20.54s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [03:14<01:59, 19.86s/it]
+[still loading @ 480s] tail of server log:
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 01:57:29 [cuda.py:328] Using Flash Attention backend on V1 engine.
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 01:57:29 [cuda.py:328] Using Flash Attention backend on V1 engine.
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [00:21<05:07, 21.96s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [00:45<04:56, 22.79s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [01:09<04:39, 23.33s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [01:32<04:14, 23.13s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [01:55<03:53, 23.38s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [02:15<03:17, 21.97s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [02:41<03:06, 23.27s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [02:55<02:23, 20.54s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [03:14<01:59, 19.86s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [03:31<01:34, 18.99s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [03:46<01:11, 17.76s/it]
+[still loading @ 510s] tail of server log:
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [00:21<05:07, 21.96s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [00:45<04:56, 22.79s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [01:09<04:39, 23.33s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [01:32<04:14, 23.13s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [01:55<03:53, 23.38s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [02:15<03:17, 21.97s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [02:41<03:06, 23.27s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [02:55<02:23, 20.54s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [03:14<01:59, 19.86s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [03:31<01:34, 18.99s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [03:46<01:11, 17.76s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  80% Completed | 12/15 [04:01<00:50, 16.91s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  87% Completed | 13/15 [04:14<00:31, 15.97s/it]
+[still loading @ 540s] tail of server log:
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [03:31<01:34, 18.99s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [03:46<01:11, 17.76s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  80% Completed | 12/15 [04:01<00:50, 16.91s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  87% Completed | 13/15 [04:14<00:31, 15.97s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards:  93% Completed | 14/15 [04:37<00:18, 18.02s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards: 100% Completed | 15/15 [04:53<00:00, 17.43s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m Loading safetensors checkpoint shards: 100% Completed | 15/15 [04:53<00:00, 19.59s/it]
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m 
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 02:02:23 [default_loader.py:262] Loading weights took 293.82 seconds
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m WARNING 08-21 02:02:23 [marlin_utils_fp4.py:196] Your GPU does not have native support for FP4 computation but FP4 quantization is being used. Weight-only FP4 compression will be used leveraging the Marlin kernel. This may degrade performance for compute-heavy workloads.
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 02:02:23 [default_loader.py:262] Loading weights took 293.82 seconds
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m WARNING 08-21 02:02:23 [marlin_utils_fp4.py:196] Your GPU does not have native support for FP4 computation but FP4 quantization is being used. Weight-only FP4 compression will be used leveraging the Marlin kernel. This may degrade performance for compute-heavy workloads.
+[1;36m(VllmWorker TP1 pid=1229495)[0;0m INFO 08-21 02:02:25 [gpu_model_runner.py:2007] Model loading took 34.3807 GiB and 296.268156 seconds
+[1;36m(VllmWorker TP0 pid=1229494)[0;0m INFO 08-21 02:02:25 [gpu_model_runner.py:2007] Model loading took 34.3807 GiB and 296.158056 seconds
+vLLM is ready.
+Processing: 1000 rows | Few-shot: ON | Max tokens: 256
+Few-shot demos prepared: 5 ERR + 3 NOT
+
+=== PREVIEW (first 10) ===
+[001] TRUE=NOT | PRED=NOT
+[002] TRUE=NOT | PRED=NOT
+[003] TRUE=ERR | PRED=ERR
+[004] TRUE=NOT | PRED=NOT
+[005] TRUE=NOT | PRED=NOT
+[006] TRUE=ERR | PRED=NOT
+[007] TRUE=ERR | PRED=NOT
+[008] TRUE=NOT | PRED=NOT
+[009] TRUE=ERR | PRED=NOT
+[010] TRUE=NOT | PRED=NOT
+Progress: 200/1000 | partial_acc=0.765
+Progress: 400/1000 | partial_acc=0.740
+Progress: 600/1000 | partial_acc=0.730
+Progress: 800/1000 | partial_acc=0.736
+Progress: 1000/1000 | partial_acc=0.737
+
+Processed: 1000 rows | Few-shot: ON
+MCC   : 0.2016
+F1-ERR: 0.1703 | F1-NOT: 0.8437 | Acc: 0.7370
+
+Confusion Matrix (rows=true │ cols=pred)
+      ERR   NOT
+ERR     27   254
+NOT      9   710
+Stopping vLLM...
+Done.

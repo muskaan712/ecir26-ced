@@ -20,10 +20,8 @@ MAX_COMP_TOK   = 8                                    # small safety margin
 
 SYSTEM_PROMPT = (
     "You are a precise translation evaluator.\n"
-    "Given an English sentence (EN) and its German translation (DE), "
-    "respond with exactly one token: ERR if DE has a major error "
-    "(meaning shift, omission, or inaccuracy); otherwise NOT. "
-    "Return nothing else."
+    "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: 'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate or only has minor imperfections.\n"
+    "Do not add any explanation, punctuation, or additional text."
 )
 
 def first_token(text: str) -> str:

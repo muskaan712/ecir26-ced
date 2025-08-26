@@ -1,0 +1,29 @@
+Active Conda Environment: wmt21
+
+Token usage summary:
+  Prompt tokens     : 625930
+  Completion tokens : 1000
+  Total tokens      : 626930
+Estimated cost      : $1.5673
+
+First 10 results:
+
+# 1 Generated: 'NOT' | True: NOT | Pred: NOT
+# 2 Generated: 'NOT' | True: NOT | Pred: NOT
+# 3 Generated: 'ERR' | True: ERR | Pred: ERR
+# 4 Generated: 'ERR' | True: NOT | Pred: ERR
+# 5 Generated: 'NOT' | True: NOT | Pred: NOT
+# 6 Generated: 'NOT' | True: ERR | Pred: NOT
+# 7 Generated: 'NOT' | True: ERR | Pred: NOT
+# 8 Generated: 'NOT' | True: NOT | Pred: NOT
+# 9 Generated: 'ERR' | True: ERR | Pred: ERR
+#10 Generated: 'NOT' | True: NOT | Pred: NOT
+
+MCC   : 0.3956
+F1-ERR: 0.5729
+F1-NOT: 0.8213
+
+Confusion Matrix (rows=true │ cols=pred)
+      ERR   NOT
+ERR    169    112
+NOT    140    579

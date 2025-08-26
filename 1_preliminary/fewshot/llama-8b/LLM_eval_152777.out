@@ -1,0 +1,43 @@
+Active Conda Environment: wmt21
+
+First 10 (generated → true / pred):
+
+# 1 Generated: 'ERR'
+    True / Pred: NOT / ERR
+
+# 2 Generated: 'ERR'
+    True / Pred: NOT / ERR
+
+# 3 Generated: 'ERR'
+    True / Pred: ERR / ERR
+
+# 4 Generated: 'ERR'
+    True / Pred: NOT / ERR
+
+# 5 Generated: 'ERR'
+    True / Pred: NOT / ERR
+
+# 6 Generated: 'ERR'
+    True / Pred: ERR / ERR
+
+# 7 Generated: 'ERR'
+    True / Pred: ERR / ERR
+
+# 8 Generated: 'NOT'
+    True / Pred: NOT / NOT
+
+# 9 Generated: 'ERR'
+    True / Pred: ERR / ERR
+
+#10 Generated: 'NOT'
+    True / Pred: NOT / NOT
+
+
+MCC   : 0.2660
+F1-ERR: 0.5154
+F1-NOT: 0.5938
+
+Confusion Matrix (rows=true │ cols=pred)
+      ERR   NOT
+ERR    235     46
+NOT    396    323

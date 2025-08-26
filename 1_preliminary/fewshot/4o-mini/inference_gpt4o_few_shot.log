@@ -1,0 +1,2020 @@
+2025-08-16 01:46:22,961 - Loaded 5 ERR and 3 NOT few-shot examples.
+2025-08-16 01:46:25,785 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:25,802 - Row 0: generated=NOT, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:46:26,630 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:26,637 - Row 1: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:46:27,371 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:27,375 - Row 2: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:46:28,091 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:28,092 - Row 3: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:46:28,632 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:28,640 - Row 4: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:46:29,162 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:29,163 - Row 5: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:46:29,860 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:29,863 - Row 6: generated=NOT, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:46:30,579 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:30,583 - Row 7: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:46:31,127 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:31,133 - Row 8: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:46:31,791 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:31,795 - Row 9: generated=NOT, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:46:33,330 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:33,336 - Row 10: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:46:33,759 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:33,764 - Row 11: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:46:34,268 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:34,276 - Row 12: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:46:35,040 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:35,045 - Row 13: generated=ERR, prompt_tokens=627, completion_tokens=1
+2025-08-16 01:46:35,409 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:35,412 - Row 14: generated=NOT, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:46:35,815 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:35,821 - Row 15: generated=NOT, prompt_tokens=571, completion_tokens=1
+2025-08-16 01:46:36,180 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:36,183 - Row 16: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:46:36,549 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:36,554 - Row 17: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:46:36,952 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:36,956 - Row 18: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:46:37,383 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:37,387 - Row 19: generated=ERR, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:46:37,775 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:37,779 - Row 20: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:46:38,208 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:38,213 - Row 21: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:46:38,601 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:38,611 - Row 22: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:46:39,019 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:39,023 - Row 23: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:46:39,690 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:39,694 - Row 24: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:46:40,147 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:40,152 - Row 25: generated=NOT, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:46:40,617 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:40,621 - Row 26: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:46:41,012 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:41,018 - Row 27: generated=NOT, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:46:41,759 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:41,765 - Row 28: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:46:42,312 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:42,316 - Row 29: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:46:42,734 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:42,742 - Row 30: generated=NOT, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:46:43,150 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:43,155 - Row 31: generated=NOT, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:46:43,566 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:43,572 - Row 32: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:46:44,014 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:44,019 - Row 33: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:46:44,466 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:44,467 - Row 34: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:46:44,821 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:44,824 - Row 35: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:46:45,167 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:45,171 - Row 36: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:46:45,599 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:45,604 - Row 37: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:46:45,961 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:45,964 - Row 38: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:46:46,399 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:46,402 - Row 39: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:46:47,140 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:47,147 - Row 40: generated=NOT, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:46:47,578 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:47,582 - Row 41: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:46:48,099 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:48,103 - Row 42: generated=NOT, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:46:48,627 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:48,635 - Row 43: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:46:49,080 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:49,085 - Row 44: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:46:49,594 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:49,599 - Row 45: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:46:50,141 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:50,148 - Row 46: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:46:51,080 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:51,085 - Row 47: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:46:51,787 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:51,793 - Row 48: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:46:52,256 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:52,261 - Row 49: generated=ERR, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:46:52,919 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:52,929 - Row 50: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:46:53,390 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:53,395 - Row 51: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:46:53,832 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:53,842 - Row 52: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:46:54,325 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:54,330 - Row 53: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:46:54,809 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:54,813 - Row 54: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:46:55,241 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:55,246 - Row 55: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:46:55,687 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:55,690 - Row 56: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:46:56,044 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:56,049 - Row 57: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:46:56,404 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:56,405 - Row 58: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:46:56,847 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:56,851 - Row 59: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:46:57,290 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:57,294 - Row 60: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:46:57,744 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:57,752 - Row 61: generated=NOT, prompt_tokens=625, completion_tokens=1
+2025-08-16 01:46:58,228 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:58,234 - Row 62: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:46:58,667 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:58,670 - Row 63: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:46:59,074 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:59,079 - Row 64: generated=NOT, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:46:59,439 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:59,443 - Row 65: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:46:59,881 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:46:59,887 - Row 66: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:47:00,351 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:00,357 - Row 67: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:47:00,762 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:00,769 - Row 68: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:47:01,348 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:01,364 - Row 69: generated=ERR, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:47:01,808 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:01,812 - Row 70: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:47:02,206 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:02,208 - Row 71: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:47:02,657 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:02,661 - Row 72: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:47:03,085 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:03,090 - Row 73: generated=NOT, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:47:03,539 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:03,544 - Row 74: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:47:04,194 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:04,200 - Row 75: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:47:04,591 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:04,595 - Row 76: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:47:05,675 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:05,688 - Row 77: generated=ERR, prompt_tokens=626, completion_tokens=1
+2025-08-16 01:47:06,186 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:06,193 - Row 78: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:47:06,605 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:06,609 - Row 79: generated=NOT, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:47:07,028 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:07,045 - Row 80: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:47:07,459 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:07,463 - Row 81: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:47:07,809 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:07,815 - Row 82: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:47:08,246 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:08,253 - Row 83: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:47:08,716 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:08,720 - Row 84: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:47:09,197 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:09,205 - Row 85: generated=NOT, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:47:10,309 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:10,313 - Row 86: generated=NOT, prompt_tokens=574, completion_tokens=1
+2025-08-16 01:47:10,788 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:10,794 - Row 87: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:47:11,136 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:11,144 - Row 88: generated=ERR, prompt_tokens=573, completion_tokens=1
+2025-08-16 01:47:11,597 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:11,601 - Row 89: generated=ERR, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:47:12,027 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:12,032 - Row 90: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:47:12,465 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:12,470 - Row 91: generated=NOT, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:47:12,902 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:12,906 - Row 92: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:47:13,354 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:13,360 - Row 93: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:47:13,790 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:13,796 - Row 94: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:47:14,199 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:14,204 - Row 95: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:47:14,624 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:14,631 - Row 96: generated=ERR, prompt_tokens=628, completion_tokens=1
+2025-08-16 01:47:15,101 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:15,108 - Row 97: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:47:15,563 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:15,567 - Row 98: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:47:16,072 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:16,078 - Row 99: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:47:16,514 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:16,515 - Row 100: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:47:16,982 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:16,988 - Row 101: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:47:17,449 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:17,455 - Row 102: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:47:17,902 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:17,908 - Row 103: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:47:18,319 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:18,320 - Row 104: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:47:18,779 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:18,784 - Row 105: generated=NOT, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:47:19,152 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:19,156 - Row 106: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:47:21,365 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:21,380 - Row 107: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:47:21,787 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:21,793 - Row 108: generated=NOT, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:47:22,186 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:22,190 - Row 109: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:47:22,647 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:22,652 - Row 110: generated=ERR, prompt_tokens=623, completion_tokens=1
+2025-08-16 01:47:23,091 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:23,097 - Row 111: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:47:23,476 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:23,480 - Row 112: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:47:23,926 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:23,931 - Row 113: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:47:24,480 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:24,481 - Row 114: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:47:24,877 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:24,884 - Row 115: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:47:25,527 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:25,535 - Row 116: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:47:25,928 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:25,934 - Row 117: generated=ERR, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:47:26,657 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:26,667 - Row 118: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:47:27,027 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:27,030 - Row 119: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:47:27,440 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:27,444 - Row 120: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:47:27,941 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:27,948 - Row 121: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:47:28,361 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:28,366 - Row 122: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:47:28,767 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:28,771 - Row 123: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:47:29,225 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:29,231 - Row 124: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:47:29,665 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:29,671 - Row 125: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:47:30,140 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:30,149 - Row 126: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:47:30,573 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:30,579 - Row 127: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:47:30,992 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:30,996 - Row 128: generated=NOT, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:47:31,887 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:31,890 - Row 129: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:47:32,247 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:32,250 - Row 130: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:47:32,668 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:32,671 - Row 131: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:47:33,119 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:33,140 - Row 132: generated=ERR, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:47:33,565 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:33,568 - Row 133: generated=NOT, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:47:34,096 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:34,101 - Row 134: generated=ERR, prompt_tokens=572, completion_tokens=1
+2025-08-16 01:47:34,548 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:34,550 - Row 135: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:47:34,936 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:34,937 - Row 136: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:47:35,291 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:35,297 - Row 137: generated=NOT, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:47:35,743 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:35,747 - Row 138: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:47:36,216 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:36,222 - Row 139: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:47:36,668 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:36,673 - Row 140: generated=ERR, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:47:37,167 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:37,173 - Row 141: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:47:37,653 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:37,659 - Row 142: generated=ERR, prompt_tokens=624, completion_tokens=1
+2025-08-16 01:47:38,191 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:38,194 - Row 143: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:47:38,692 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:38,695 - Row 144: generated=NOT, prompt_tokens=623, completion_tokens=1
+2025-08-16 01:47:39,116 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:39,120 - Row 145: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:47:39,524 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:39,526 - Row 146: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:47:39,957 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:39,962 - Row 147: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:47:40,394 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:40,398 - Row 148: generated=NOT, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:47:40,810 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:40,822 - Row 149: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:47:41,246 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:41,251 - Row 150: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:47:41,672 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:41,677 - Row 151: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:47:42,119 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:42,124 - Row 152: generated=ERR, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:47:42,478 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:42,481 - Row 153: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:47:42,890 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:42,895 - Row 154: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:47:43,332 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:43,337 - Row 155: generated=NOT, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:47:43,713 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:43,717 - Row 156: generated=ERR, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:47:44,156 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:44,160 - Row 157: generated=ERR, prompt_tokens=625, completion_tokens=1
+2025-08-16 01:47:44,601 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:44,605 - Row 158: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:47:45,050 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:45,055 - Row 159: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:47:45,452 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:45,457 - Row 160: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:47:45,860 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:45,865 - Row 161: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:47:46,445 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:46,453 - Row 162: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:47:46,891 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:46,898 - Row 163: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:47:47,265 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:47,269 - Row 164: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:47:47,732 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:47,738 - Row 165: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:47:48,173 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:48,179 - Row 166: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:47:48,758 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:48,764 - Row 167: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:47:49,219 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:49,224 - Row 168: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:47:49,653 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:49,661 - Row 169: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:47:50,062 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:50,063 - Row 170: generated=NOT, prompt_tokens=615, completion_tokens=1
+2025-08-16 01:47:50,828 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:50,833 - Row 171: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:47:51,273 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:51,277 - Row 172: generated=ERR, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:47:51,785 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:51,790 - Row 173: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:47:52,295 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:52,300 - Row 174: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:47:52,932 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:52,939 - Row 175: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:47:53,370 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:53,376 - Row 176: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:47:54,350 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:54,355 - Row 177: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:47:54,839 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:54,839 - Row 178: generated=ERR, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:47:55,246 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:55,250 - Row 179: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:47:55,621 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:55,622 - Row 180: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:47:55,983 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:55,987 - Row 181: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:47:56,503 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:56,509 - Row 182: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:47:57,282 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:57,283 - Row 183: generated=NOT, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:47:57,775 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:57,786 - Row 184: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:47:58,139 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:58,142 - Row 185: generated=NOT, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:47:58,618 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:58,625 - Row 186: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:47:59,459 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:59,464 - Row 187: generated=ERR, prompt_tokens=625, completion_tokens=1
+2025-08-16 01:47:59,920 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:47:59,923 - Row 188: generated=ERR, prompt_tokens=629, completion_tokens=1
+2025-08-16 01:48:00,417 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:00,427 - Row 189: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:48:00,847 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:00,853 - Row 190: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:48:01,299 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:01,303 - Row 191: generated=ERR, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:48:01,755 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:01,760 - Row 192: generated=ERR, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:48:02,271 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:02,278 - Row 193: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:48:02,770 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:02,775 - Row 194: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:48:03,213 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:03,224 - Row 195: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:48:03,709 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:03,715 - Row 196: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:48:04,122 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:04,127 - Row 197: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:48:04,788 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:04,791 - Row 198: generated=NOT, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:48:05,213 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:05,218 - Row 199: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:48:05,665 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:05,671 - Row 200: generated=ERR, prompt_tokens=628, completion_tokens=1
+2025-08-16 01:48:06,074 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:06,079 - Row 201: generated=NOT, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:48:06,568 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:06,569 - Row 202: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:48:07,312 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:07,313 - Row 203: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:48:07,742 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:07,747 - Row 204: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:48:08,179 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:08,185 - Row 205: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:48:08,680 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:08,688 - Row 206: generated=ERR, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:48:09,129 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:09,134 - Row 207: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:48:09,515 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:09,519 - Row 208: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:48:10,065 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:10,071 - Row 209: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:48:10,486 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:10,491 - Row 210: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:48:10,893 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:10,896 - Row 211: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:48:11,320 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:11,324 - Row 212: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:48:11,786 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:11,795 - Row 213: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:48:12,181 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:12,182 - Row 214: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:48:13,335 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:13,342 - Row 215: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:48:13,776 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:13,784 - Row 216: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:48:14,218 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:14,223 - Row 217: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:48:14,648 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:14,653 - Row 218: generated=ERR, prompt_tokens=634, completion_tokens=1
+2025-08-16 01:48:15,107 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:15,111 - Row 219: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:48:15,583 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:15,592 - Row 220: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:48:15,957 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:15,962 - Row 221: generated=ERR, prompt_tokens=573, completion_tokens=1
+2025-08-16 01:48:16,362 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:16,367 - Row 222: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:48:16,872 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:16,875 - Row 223: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:48:17,814 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:17,823 - Row 224: generated=NOT, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:48:18,218 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:18,220 - Row 225: generated=NOT, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:48:18,588 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:18,592 - Row 226: generated=NOT, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:48:19,007 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:19,012 - Row 227: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:48:19,518 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:19,519 - Row 228: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:48:19,988 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:19,991 - Row 229: generated=NOT, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:48:20,420 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:20,427 - Row 230: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:48:20,829 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:20,833 - Row 231: generated=NOT, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:48:21,228 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:21,232 - Row 232: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:48:21,705 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:21,711 - Row 233: generated=NOT, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:48:22,117 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:22,123 - Row 234: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:48:22,611 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:22,614 - Row 235: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:48:23,113 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:23,118 - Row 236: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:48:23,639 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:23,644 - Row 237: generated=NOT, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:48:24,123 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:24,131 - Row 238: generated=NOT, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:48:24,535 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:24,535 - Row 239: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:48:24,892 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:24,897 - Row 240: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:48:25,280 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:25,283 - Row 241: generated=NOT, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:48:25,763 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:25,767 - Row 242: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:48:26,181 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:26,182 - Row 243: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:48:26,643 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:26,648 - Row 244: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:48:27,071 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:27,075 - Row 245: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:48:27,529 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:27,530 - Row 246: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:48:27,885 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:27,888 - Row 247: generated=NOT, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:48:28,337 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:28,340 - Row 248: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:48:28,808 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:28,814 - Row 249: generated=NOT, prompt_tokens=637, completion_tokens=1
+2025-08-16 01:48:29,250 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:29,258 - Row 250: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:48:30,330 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:30,334 - Row 251: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:48:30,768 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:30,775 - Row 252: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:48:31,166 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:31,169 - Row 253: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:48:31,579 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:31,582 - Row 254: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:48:32,035 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:32,040 - Row 255: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:48:32,476 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:32,482 - Row 256: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:48:32,966 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:32,971 - Row 257: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:48:33,472 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:33,475 - Row 258: generated=ERR, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:48:33,832 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:33,838 - Row 259: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:48:34,245 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:34,252 - Row 260: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:48:39,561 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:39,712 - Row 261: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:48:40,156 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:40,173 - Row 262: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:48:40,358 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 503 Service Unavailable"
+2025-08-16 01:48:40,359 - Retrying request to /chat/completions in 0.435698 seconds
+2025-08-16 01:48:41,209 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:41,218 - Row 263: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:48:41,691 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:41,696 - Row 264: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:48:42,595 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:42,596 - Row 265: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:48:43,036 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:43,047 - Row 266: generated=NOT, prompt_tokens=573, completion_tokens=1
+2025-08-16 01:48:43,524 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:43,526 - Row 267: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:48:44,009 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:44,013 - Row 268: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:48:44,367 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:44,370 - Row 269: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:48:45,073 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:45,080 - Row 270: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:48:45,541 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:45,547 - Row 271: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:48:45,887 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:45,889 - Row 272: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:48:46,433 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:46,438 - Row 273: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:48:46,937 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:46,941 - Row 274: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:48:47,348 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:47,353 - Row 275: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:48:47,808 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:47,814 - Row 276: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:48:48,266 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:48,275 - Row 277: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:48:48,556 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+2025-08-16 01:48:48,556 - Retrying request to /chat/completions in 0.398782 seconds
+2025-08-16 01:48:49,373 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:49,381 - Row 278: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:48:49,791 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:49,792 - Row 279: generated=NOT, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:48:50,382 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:50,390 - Row 280: generated=ERR, prompt_tokens=627, completion_tokens=1
+2025-08-16 01:48:50,837 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:50,843 - Row 281: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:48:51,377 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:51,384 - Row 282: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:48:51,856 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:51,864 - Row 283: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:48:52,373 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:52,377 - Row 284: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:48:52,939 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:52,945 - Row 285: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:48:53,362 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:53,368 - Row 286: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:48:53,844 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:53,853 - Row 287: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:48:54,342 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:54,348 - Row 288: generated=ERR, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:48:54,727 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:54,730 - Row 289: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:48:55,097 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:55,101 - Row 290: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:48:55,585 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:55,593 - Row 291: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:48:56,071 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:56,078 - Row 292: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:48:56,569 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:56,575 - Row 293: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:48:56,951 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:56,955 - Row 294: generated=NOT, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:48:57,448 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:57,454 - Row 295: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:48:57,896 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:57,899 - Row 296: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:48:58,627 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:58,632 - Row 297: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:48:59,005 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:59,012 - Row 298: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:48:59,417 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:59,421 - Row 299: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:48:59,995 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:48:59,997 - Row 300: generated=NOT, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:49:00,482 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:00,483 - Row 301: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:49:01,003 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:01,008 - Row 302: generated=NOT, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:49:01,468 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:01,469 - Row 303: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:49:01,830 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:01,835 - Row 304: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:49:02,233 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:02,238 - Row 305: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:49:02,663 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:02,668 - Row 306: generated=ERR, prompt_tokens=624, completion_tokens=1
+2025-08-16 01:49:03,178 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+2025-08-16 01:49:03,178 - Retrying request to /chat/completions in 0.451164 seconds
+2025-08-16 01:49:04,037 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:04,043 - Row 307: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:49:04,858 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:04,868 - Row 308: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:49:05,305 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:05,310 - Row 309: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:49:05,703 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:05,708 - Row 310: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:49:06,197 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:06,200 - Row 311: generated=ERR, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:49:06,547 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:06,549 - Row 312: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:49:06,962 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:06,967 - Row 313: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:49:07,353 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:07,359 - Row 314: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:49:07,762 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:07,768 - Row 315: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:49:08,230 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:08,231 - Row 316: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:49:08,823 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:08,828 - Row 317: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:49:09,239 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:09,248 - Row 318: generated=ERR, prompt_tokens=629, completion_tokens=1
+2025-08-16 01:49:09,813 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:09,821 - Row 319: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:49:10,510 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:10,516 - Row 320: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:49:10,868 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:10,872 - Row 321: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:49:11,641 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:11,645 - Row 322: generated=ERR, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:49:12,112 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:12,118 - Row 323: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:49:12,516 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:12,522 - Row 324: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:49:12,932 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:12,936 - Row 325: generated=NOT, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:49:13,348 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:13,352 - Row 326: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:49:13,773 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:13,780 - Row 327: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:49:14,224 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:14,230 - Row 328: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:49:14,923 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:14,927 - Row 329: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:49:15,324 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:15,326 - Row 330: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:49:15,829 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:15,837 - Row 331: generated=ERR, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:49:16,308 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:16,314 - Row 332: generated=ERR, prompt_tokens=615, completion_tokens=1
+2025-08-16 01:49:16,759 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:16,767 - Row 333: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:49:20,642 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:20,650 - Row 334: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:49:21,120 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:21,128 - Row 335: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:49:21,640 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:21,650 - Row 336: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:49:22,056 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:22,061 - Row 337: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:49:22,529 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:22,536 - Row 338: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:49:22,988 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:22,996 - Row 339: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:49:23,654 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:23,664 - Row 340: generated=NOT, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:49:24,118 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:24,123 - Row 341: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:49:24,784 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:24,797 - Row 342: generated=NOT, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:49:25,214 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:25,219 - Row 343: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:49:25,915 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:25,920 - Row 344: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:49:26,297 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:26,301 - Row 345: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:49:26,786 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:26,792 - Row 346: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:49:27,624 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:27,629 - Row 347: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:49:28,122 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:28,125 - Row 348: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:49:28,641 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:28,642 - Row 349: generated=NOT, prompt_tokens=573, completion_tokens=1
+2025-08-16 01:49:29,200 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:29,203 - Row 350: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:49:29,586 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:29,592 - Row 351: generated=ERR, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:49:30,441 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:30,446 - Row 352: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:49:30,907 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:30,914 - Row 353: generated=ERR, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:49:31,326 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:31,332 - Row 354: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:49:31,757 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:31,764 - Row 355: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:49:32,747 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:32,753 - Row 356: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:49:33,136 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:33,139 - Row 357: generated=NOT, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:49:33,663 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:33,671 - Row 358: generated=NOT, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:49:34,130 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:34,135 - Row 359: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:49:34,554 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:34,558 - Row 360: generated=NOT, prompt_tokens=573, completion_tokens=1
+2025-08-16 01:49:34,946 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:34,951 - Row 361: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:49:35,357 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:35,360 - Row 362: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:49:35,733 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:35,735 - Row 363: generated=ERR, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:49:36,153 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:36,158 - Row 364: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:49:36,585 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:36,597 - Row 365: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:49:36,965 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:36,969 - Row 366: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:49:37,341 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:37,346 - Row 367: generated=NOT, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:49:37,791 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:37,796 - Row 368: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:49:38,176 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:38,179 - Row 369: generated=NOT, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:49:38,535 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:38,538 - Row 370: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:49:38,916 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:38,920 - Row 371: generated=ERR, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:49:39,410 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:39,413 - Row 372: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:49:39,803 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:39,808 - Row 373: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:49:40,247 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:40,255 - Row 374: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:49:40,615 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:40,618 - Row 375: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:49:41,060 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:41,066 - Row 376: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:49:41,499 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:41,500 - Row 377: generated=ERR, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:49:41,912 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:41,922 - Row 378: generated=ERR, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:49:42,373 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:42,378 - Row 379: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:49:42,736 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:42,747 - Row 380: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:49:43,320 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:43,330 - Row 381: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:49:43,729 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:43,735 - Row 382: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:49:44,181 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:44,186 - Row 383: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:49:44,710 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:44,719 - Row 384: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:49:45,101 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:45,103 - Row 385: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:49:45,538 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:45,542 - Row 386: generated=ERR, prompt_tokens=624, completion_tokens=1
+2025-08-16 01:49:46,002 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:46,006 - Row 387: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:49:46,500 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:46,505 - Row 388: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:49:46,963 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:46,970 - Row 389: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:49:47,479 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:47,484 - Row 390: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:49:47,898 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:47,904 - Row 391: generated=ERR, prompt_tokens=633, completion_tokens=1
+2025-08-16 01:49:48,344 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:48,349 - Row 392: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:49:48,686 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:48,693 - Row 393: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:49:49,102 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:49,109 - Row 394: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:49:49,519 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:49,526 - Row 395: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:49:50,054 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:50,061 - Row 396: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:49:50,547 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:50,551 - Row 397: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:49:50,978 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:50,983 - Row 398: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:49:51,334 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:51,341 - Row 399: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:49:51,720 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:51,725 - Row 400: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:49:52,147 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:52,152 - Row 401: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:49:52,570 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:52,574 - Row 402: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:49:52,979 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:52,985 - Row 403: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:49:53,523 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:53,529 - Row 404: generated=NOT, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:49:53,975 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:53,978 - Row 405: generated=NOT, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:49:54,568 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:54,573 - Row 406: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:49:55,023 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:55,024 - Row 407: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:49:55,450 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:55,457 - Row 408: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:49:55,917 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:55,926 - Row 409: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:49:56,487 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:56,504 - Row 410: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:49:56,933 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:56,938 - Row 411: generated=NOT, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:49:57,340 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:57,343 - Row 412: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:49:57,776 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:57,781 - Row 413: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:49:58,341 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:58,347 - Row 414: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:49:58,758 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:58,763 - Row 415: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:49:59,197 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:59,203 - Row 416: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:49:59,614 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:49:59,619 - Row 417: generated=ERR, prompt_tokens=615, completion_tokens=1
+2025-08-16 01:50:00,061 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:00,068 - Row 418: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:50:00,507 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:00,512 - Row 419: generated=NOT, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:50:00,867 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:00,871 - Row 420: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:50:01,330 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:01,335 - Row 421: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:50:01,874 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:01,881 - Row 422: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:50:02,434 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:02,440 - Row 423: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:50:02,791 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:02,795 - Row 424: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:50:03,203 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:03,209 - Row 425: generated=NOT, prompt_tokens=633, completion_tokens=1
+2025-08-16 01:50:03,548 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:03,550 - Row 426: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:50:04,174 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:04,185 - Row 427: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:50:04,671 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:04,677 - Row 428: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:50:05,131 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:05,139 - Row 429: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:50:05,552 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:05,558 - Row 430: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:50:06,033 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:06,044 - Row 431: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:50:06,491 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:06,497 - Row 432: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:50:07,393 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:07,398 - Row 433: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:50:07,997 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:08,003 - Row 434: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:50:08,534 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:08,538 - Row 435: generated=NOT, prompt_tokens=574, completion_tokens=1
+2025-08-16 01:50:08,966 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:08,970 - Row 436: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:50:09,422 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:09,427 - Row 437: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:50:09,850 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:09,853 - Row 438: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:50:10,224 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:10,229 - Row 439: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:50:10,644 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:10,648 - Row 440: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:50:11,077 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:11,084 - Row 441: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:50:11,633 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:11,649 - Row 442: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:50:12,028 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:12,034 - Row 443: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:50:12,443 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:12,449 - Row 444: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:50:13,090 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:13,095 - Row 445: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:50:13,528 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:13,533 - Row 446: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:50:14,031 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:14,037 - Row 447: generated=ERR, prompt_tokens=572, completion_tokens=1
+2025-08-16 01:50:15,013 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:15,019 - Row 448: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:50:15,456 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:15,463 - Row 449: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:50:15,913 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:15,917 - Row 450: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:50:16,271 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:16,274 - Row 451: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:50:16,680 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:16,687 - Row 452: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:50:17,172 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:17,178 - Row 453: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:50:17,663 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:17,668 - Row 454: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:50:18,147 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:18,153 - Row 455: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:50:18,651 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:18,656 - Row 456: generated=NOT, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:50:19,375 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:19,379 - Row 457: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:50:19,869 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:19,874 - Row 458: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:50:20,256 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:20,260 - Row 459: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:50:20,810 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:20,817 - Row 460: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:50:21,443 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:21,450 - Row 461: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:50:21,788 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:21,791 - Row 462: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:50:22,182 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:22,186 - Row 463: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:50:22,542 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:22,548 - Row 464: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:50:22,962 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:22,968 - Row 465: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:50:23,422 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:23,424 - Row 466: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:50:23,860 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:23,861 - Row 467: generated=NOT, prompt_tokens=574, completion_tokens=1
+2025-08-16 01:50:24,279 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:24,285 - Row 468: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:50:24,657 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:24,661 - Row 469: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:50:25,060 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:25,065 - Row 470: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:50:25,453 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:25,458 - Row 471: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:50:25,858 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:25,862 - Row 472: generated=ERR, prompt_tokens=627, completion_tokens=1
+2025-08-16 01:50:26,196 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:26,201 - Row 473: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:50:26,593 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:26,596 - Row 474: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:50:26,960 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:26,963 - Row 475: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:50:27,378 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+2025-08-16 01:50:27,379 - Retrying request to /chat/completions in 0.461427 seconds
+2025-08-16 01:50:28,295 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:28,302 - Row 476: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:50:28,751 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:28,756 - Row 477: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:50:29,169 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+2025-08-16 01:50:29,169 - Retrying request to /chat/completions in 0.470041 seconds
+2025-08-16 01:50:30,639 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:30,651 - Row 478: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:50:31,138 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:31,145 - Row 479: generated=NOT, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:50:31,556 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:31,566 - Row 480: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:50:32,151 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:32,152 - Row 481: generated=NOT, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:50:32,739 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:32,746 - Row 482: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:50:33,266 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:33,278 - Row 483: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:50:33,696 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:33,703 - Row 484: generated=NOT, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:50:34,123 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:34,128 - Row 485: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:50:34,550 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:34,555 - Row 486: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:50:35,018 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:35,022 - Row 487: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:50:35,403 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+2025-08-16 01:50:35,403 - Retrying request to /chat/completions in 0.436259 seconds
+2025-08-16 01:50:36,195 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:36,199 - Row 488: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:50:36,633 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:36,641 - Row 489: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:50:37,245 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:37,249 - Row 490: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:50:37,675 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:37,678 - Row 491: generated=ERR, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:50:38,617 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:38,630 - Row 492: generated=NOT, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:50:39,004 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:39,008 - Row 493: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:50:39,497 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:39,502 - Row 494: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:50:39,936 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:39,943 - Row 495: generated=ERR, prompt_tokens=637, completion_tokens=1
+2025-08-16 01:50:40,383 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:40,387 - Row 496: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:50:40,847 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:40,851 - Row 497: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:50:41,242 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:41,246 - Row 498: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:50:41,801 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:41,817 - Row 499: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:50:42,320 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:42,321 - Row 500: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:50:42,754 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:42,758 - Row 501: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:50:43,215 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:43,221 - Row 502: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:50:43,688 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:43,693 - Row 503: generated=ERR, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:50:44,140 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:44,147 - Row 504: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:50:44,569 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:44,573 - Row 505: generated=ERR, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:50:45,003 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:45,009 - Row 506: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:50:45,411 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:45,416 - Row 507: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:50:45,866 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:45,871 - Row 508: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:50:46,229 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:46,233 - Row 509: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:50:47,881 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:47,922 - Row 510: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:50:48,815 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:48,820 - Row 511: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:50:49,256 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:49,264 - Row 512: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:50:49,614 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:49,619 - Row 513: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:50:49,991 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:49,995 - Row 514: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:50:50,439 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:50,443 - Row 515: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:50:50,846 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:50,851 - Row 516: generated=NOT, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:50:51,274 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:51,278 - Row 517: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:50:51,764 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:51,774 - Row 518: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:50:52,260 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:52,264 - Row 519: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:50:52,738 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:52,745 - Row 520: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:50:53,208 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:53,212 - Row 521: generated=NOT, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:50:53,613 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:53,619 - Row 522: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:50:54,038 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:54,043 - Row 523: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:50:54,492 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:54,510 - Row 524: generated=NOT, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:50:54,932 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:54,937 - Row 525: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:50:55,295 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:55,298 - Row 526: generated=NOT, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:50:55,874 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:55,879 - Row 527: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:50:56,451 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:56,455 - Row 528: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:50:56,863 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:56,865 - Row 529: generated=ERR, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:50:57,287 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:57,297 - Row 530: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:50:57,698 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:57,707 - Row 531: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:50:58,137 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:58,142 - Row 532: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:50:58,690 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:58,695 - Row 533: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:50:59,175 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:59,187 - Row 534: generated=NOT, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:50:59,750 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:50:59,754 - Row 535: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:51:00,121 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:00,125 - Row 536: generated=ERR, prompt_tokens=646, completion_tokens=1
+2025-08-16 01:51:00,659 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:00,662 - Row 537: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:51:01,108 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:01,115 - Row 538: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:01,744 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:01,756 - Row 539: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:51:02,161 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:02,167 - Row 540: generated=NOT, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:51:02,525 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:02,528 - Row 541: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:51:02,913 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:02,918 - Row 542: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:51:03,356 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:03,359 - Row 543: generated=ERR, prompt_tokens=625, completion_tokens=1
+2025-08-16 01:51:03,771 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:03,775 - Row 544: generated=ERR, prompt_tokens=632, completion_tokens=1
+2025-08-16 01:51:04,159 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:04,166 - Row 545: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:51:04,550 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:04,555 - Row 546: generated=ERR, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:51:04,905 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:04,908 - Row 547: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:51:05,263 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:05,264 - Row 548: generated=ERR, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:51:05,795 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:05,805 - Row 549: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:51:06,252 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:06,259 - Row 550: generated=NOT, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:51:06,729 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:06,735 - Row 551: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:51:07,102 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:07,106 - Row 552: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:51:07,582 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:07,590 - Row 553: generated=NOT, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:51:07,999 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:08,003 - Row 554: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:51:08,480 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:08,484 - Row 555: generated=NOT, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:51:08,851 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:08,852 - Row 556: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:51:09,289 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:09,295 - Row 557: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:09,651 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:09,651 - Row 558: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:51:09,998 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:10,002 - Row 559: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:51:10,337 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:10,341 - Row 560: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:51:11,033 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:11,038 - Row 561: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:51:11,482 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:11,486 - Row 562: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:11,916 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:11,921 - Row 563: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:51:12,367 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:12,373 - Row 564: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:51:12,793 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:12,799 - Row 565: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:51:13,304 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:13,309 - Row 566: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:51:13,760 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:13,765 - Row 567: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:51:14,460 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:14,471 - Row 568: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:51:14,876 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:14,880 - Row 569: generated=ERR, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:51:15,259 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:15,267 - Row 570: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:51:15,722 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:15,729 - Row 571: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:51:16,085 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:16,089 - Row 572: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:51:16,461 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:16,461 - Row 573: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:51:16,917 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:16,918 - Row 574: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:51:17,312 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:17,316 - Row 575: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:51:17,763 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:17,768 - Row 576: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:51:18,303 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:18,309 - Row 577: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:51:18,696 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:18,703 - Row 578: generated=NOT, prompt_tokens=615, completion_tokens=1
+2025-08-16 01:51:19,124 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:19,130 - Row 579: generated=ERR, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:51:19,628 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:19,633 - Row 580: generated=ERR, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:51:20,074 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:20,080 - Row 581: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:20,484 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:20,489 - Row 582: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:51:20,933 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:20,943 - Row 583: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:51:21,366 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:21,371 - Row 584: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:51:21,781 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:21,786 - Row 585: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:51:22,184 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:22,189 - Row 586: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:51:22,625 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:22,632 - Row 587: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:51:23,013 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:23,018 - Row 588: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:51:23,551 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:23,557 - Row 589: generated=ERR, prompt_tokens=625, completion_tokens=1
+2025-08-16 01:51:23,975 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:23,980 - Row 590: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:51:24,406 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:24,412 - Row 591: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:51:24,773 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:24,776 - Row 592: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:51:25,191 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:25,196 - Row 593: generated=ERR, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:51:25,719 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:25,731 - Row 594: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:51:26,136 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:26,139 - Row 595: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:51:26,559 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:26,562 - Row 596: generated=ERR, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:51:26,950 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:26,955 - Row 597: generated=NOT, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:51:27,345 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:27,351 - Row 598: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:51:27,762 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:27,769 - Row 599: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:51:28,226 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:28,227 - Row 600: generated=NOT, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:51:28,572 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:28,574 - Row 601: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:51:29,009 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:29,016 - Row 602: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:51:29,604 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:29,611 - Row 603: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:51:30,031 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:30,031 - Row 604: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:51:30,459 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:30,464 - Row 605: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:51:30,865 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:30,870 - Row 606: generated=NOT, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:51:31,595 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:31,596 - Row 607: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:51:32,024 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:32,029 - Row 608: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:32,382 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:32,387 - Row 609: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:32,743 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:32,747 - Row 610: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:51:33,146 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:33,149 - Row 611: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:51:33,616 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:33,623 - Row 612: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:51:34,055 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:34,057 - Row 613: generated=NOT, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:51:34,435 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:34,437 - Row 614: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:34,825 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:34,830 - Row 615: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:51:35,229 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:35,234 - Row 616: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:51:35,635 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:35,640 - Row 617: generated=NOT, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:51:36,271 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:36,277 - Row 618: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:51:36,696 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:36,705 - Row 619: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:51:37,143 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:37,148 - Row 620: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:51:37,586 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:37,590 - Row 621: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:51:38,249 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:38,254 - Row 622: generated=ERR, prompt_tokens=630, completion_tokens=1
+2025-08-16 01:51:39,015 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:39,023 - Row 623: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:51:39,629 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:39,632 - Row 624: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:51:40,122 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:40,128 - Row 625: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:51:40,476 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:40,479 - Row 626: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:51:40,954 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:40,957 - Row 627: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:51:41,384 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:41,389 - Row 628: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:51:41,755 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:41,763 - Row 629: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:51:42,245 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:42,250 - Row 630: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:51:42,729 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:42,735 - Row 631: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:51:43,148 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:43,154 - Row 632: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:51:43,616 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:43,622 - Row 633: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:51:44,078 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:44,083 - Row 634: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:51:44,538 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:44,544 - Row 635: generated=ERR, prompt_tokens=624, completion_tokens=1
+2025-08-16 01:51:44,967 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:44,973 - Row 636: generated=NOT, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:51:45,420 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:45,435 - Row 637: generated=ERR, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:51:45,836 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:45,841 - Row 638: generated=ERR, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:51:46,289 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:46,296 - Row 639: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:51:46,716 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:46,719 - Row 640: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:51:47,188 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:47,195 - Row 641: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:51:47,578 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:47,584 - Row 642: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:51:48,006 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:48,007 - Row 643: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:51:48,400 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:48,404 - Row 644: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:51:48,830 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:48,835 - Row 645: generated=ERR, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:51:49,290 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:49,295 - Row 646: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:51:49,726 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:49,731 - Row 647: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:51:50,340 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:50,345 - Row 648: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:51:50,832 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:50,838 - Row 649: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:51:51,194 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:51,197 - Row 650: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:51:51,624 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:51,629 - Row 651: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:51:52,134 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:52,138 - Row 652: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:52,629 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:52,634 - Row 653: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:51:53,111 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:53,115 - Row 654: generated=ERR, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:51:53,553 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:53,556 - Row 655: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:51:54,119 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:54,124 - Row 656: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:51:54,459 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:54,462 - Row 657: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:51:54,902 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:54,908 - Row 658: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:51:55,369 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:55,373 - Row 659: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:51:55,957 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:55,962 - Row 660: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:51:56,424 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:56,426 - Row 661: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:51:56,782 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:56,785 - Row 662: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:51:57,332 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:57,336 - Row 663: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:51:57,673 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:57,676 - Row 664: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:51:58,100 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:58,111 - Row 665: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:51:58,529 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:58,532 - Row 666: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:51:58,954 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:58,958 - Row 667: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:51:59,430 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:51:59,431 - Row 668: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:52:00,106 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:00,109 - Row 669: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:52:00,302 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 503 Service Unavailable"
+2025-08-16 01:52:00,302 - Retrying request to /chat/completions in 0.439745 seconds
+2025-08-16 01:52:01,419 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:01,425 - Row 670: generated=ERR, prompt_tokens=615, completion_tokens=1
+2025-08-16 01:52:01,908 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:01,913 - Row 671: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:52:02,338 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:02,343 - Row 672: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:52:02,710 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:02,710 - Row 673: generated=NOT, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:52:03,109 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:03,115 - Row 674: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:52:03,523 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:03,528 - Row 675: generated=ERR, prompt_tokens=629, completion_tokens=1
+2025-08-16 01:52:03,876 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:03,879 - Row 676: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:52:04,318 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:04,322 - Row 677: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:52:05,065 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:05,072 - Row 678: generated=NOT, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:52:05,422 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:05,426 - Row 679: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:52:05,810 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:05,814 - Row 680: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:52:06,259 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:06,265 - Row 681: generated=ERR, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:52:06,638 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:06,639 - Row 682: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:52:07,068 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:07,073 - Row 683: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:52:07,417 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:07,420 - Row 684: generated=ERR, prompt_tokens=647, completion_tokens=1
+2025-08-16 01:52:07,817 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:07,821 - Row 685: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:52:08,224 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:08,230 - Row 686: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:52:08,671 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:08,678 - Row 687: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:52:09,473 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:09,488 - Row 688: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:52:09,970 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:09,975 - Row 689: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:52:10,317 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:10,323 - Row 690: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:52:10,715 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:10,720 - Row 691: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:52:11,161 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:11,169 - Row 692: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:52:11,606 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:11,612 - Row 693: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:52:11,958 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:11,961 - Row 694: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:52:12,316 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:12,320 - Row 695: generated=ERR, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:52:12,741 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:12,741 - Row 696: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:52:13,252 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:13,258 - Row 697: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:52:13,683 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:13,686 - Row 698: generated=ERR, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:52:14,111 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:14,115 - Row 699: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:52:14,662 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:14,668 - Row 700: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:52:14,858 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 503 Service Unavailable"
+2025-08-16 01:52:14,858 - Retrying request to /chat/completions in 0.407335 seconds
+2025-08-16 01:52:15,678 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:15,682 - Row 701: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:52:16,270 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:16,274 - Row 702: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:52:16,720 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:16,726 - Row 703: generated=NOT, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:52:17,140 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:17,147 - Row 704: generated=NOT, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:52:17,581 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:17,589 - Row 705: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:52:18,014 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:18,018 - Row 706: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:52:18,376 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:18,377 - Row 707: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:52:18,830 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:18,835 - Row 708: generated=ERR, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:52:19,310 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:19,313 - Row 709: generated=ERR, prompt_tokens=623, completion_tokens=1
+2025-08-16 01:52:19,761 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:19,764 - Row 710: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:52:20,225 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:20,229 - Row 711: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:52:20,619 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:20,626 - Row 712: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:52:21,660 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:21,668 - Row 713: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:52:22,124 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:22,124 - Row 714: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:52:22,653 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:22,658 - Row 715: generated=NOT, prompt_tokens=624, completion_tokens=1
+2025-08-16 01:52:23,133 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:23,140 - Row 716: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:52:23,553 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:23,557 - Row 717: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:52:24,006 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:24,014 - Row 718: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:52:24,464 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:24,471 - Row 719: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:52:25,168 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:25,173 - Row 720: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:52:26,573 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:26,595 - Row 721: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:52:27,036 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:27,037 - Row 722: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:52:27,476 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:27,484 - Row 723: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:52:27,903 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:27,908 - Row 724: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:52:28,262 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:28,265 - Row 725: generated=NOT, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:52:28,702 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:28,707 - Row 726: generated=ERR, prompt_tokens=615, completion_tokens=1
+2025-08-16 01:52:29,121 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:29,127 - Row 727: generated=NOT, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:52:29,515 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:29,519 - Row 728: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:52:30,463 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:30,466 - Row 729: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:52:30,957 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:30,972 - Row 730: generated=ERR, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:52:31,546 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:31,556 - Row 731: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:52:31,968 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:31,973 - Row 732: generated=NOT, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:52:32,848 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:32,856 - Row 733: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:52:33,341 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:33,348 - Row 734: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:52:33,796 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:33,799 - Row 735: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:52:34,247 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:34,254 - Row 736: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:52:34,834 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:34,838 - Row 737: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:52:35,791 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:35,791 - Row 738: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:52:36,236 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:36,237 - Row 739: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:52:36,620 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:36,623 - Row 740: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:52:37,067 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:37,070 - Row 741: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:52:37,464 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:37,468 - Row 742: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:52:37,826 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:37,830 - Row 743: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:52:38,244 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:38,249 - Row 744: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:52:38,771 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:38,771 - Row 745: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:52:39,198 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:39,205 - Row 746: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:52:39,573 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:39,580 - Row 747: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:52:40,334 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:40,338 - Row 748: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:52:40,984 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:40,990 - Row 749: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:52:41,365 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:41,369 - Row 750: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:52:41,767 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:41,772 - Row 751: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:52:42,168 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:42,172 - Row 752: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:52:42,543 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:42,549 - Row 753: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:52:42,980 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:42,987 - Row 754: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:52:43,442 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:43,443 - Row 755: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:52:43,922 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:43,929 - Row 756: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:52:44,357 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:44,361 - Row 757: generated=ERR, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:52:45,372 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:45,389 - Row 758: generated=NOT, prompt_tokens=623, completion_tokens=1
+2025-08-16 01:52:45,849 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:45,854 - Row 759: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:52:46,191 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:46,194 - Row 760: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:52:46,641 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:46,652 - Row 761: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:52:47,013 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:47,016 - Row 762: generated=ERR, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:52:47,473 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:47,481 - Row 763: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:52:47,991 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:47,997 - Row 764: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:52:48,399 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:48,405 - Row 765: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:52:48,864 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:48,869 - Row 766: generated=NOT, prompt_tokens=609, completion_tokens=1
+2025-08-16 01:52:49,302 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:49,308 - Row 767: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:52:49,797 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:49,801 - Row 768: generated=NOT, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:52:50,222 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:50,233 - Row 769: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:52:50,643 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:50,648 - Row 770: generated=ERR, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:52:51,116 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:51,122 - Row 771: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:52:51,472 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:51,478 - Row 772: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:52:51,873 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:51,875 - Row 773: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:52:52,271 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:52,275 - Row 774: generated=NOT, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:52:52,988 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:52,993 - Row 775: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:52:53,479 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:53,486 - Row 776: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:52:53,938 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:53,945 - Row 777: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:52:54,758 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:54,765 - Row 778: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:52:55,230 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:55,235 - Row 779: generated=NOT, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:52:55,731 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:55,739 - Row 780: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:52:56,077 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:56,078 - Row 781: generated=NOT, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:52:56,569 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:56,581 - Row 782: generated=ERR, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:52:57,028 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:57,035 - Row 783: generated=NOT, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:52:57,494 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:57,498 - Row 784: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:52:57,929 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:57,933 - Row 785: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:52:58,364 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:58,371 - Row 786: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:52:58,934 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:58,940 - Row 787: generated=ERR, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:52:59,340 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:59,345 - Row 788: generated=NOT, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:52:59,851 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:52:59,861 - Row 789: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:53:00,449 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:00,454 - Row 790: generated=NOT, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:53:00,829 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:00,834 - Row 791: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:53:01,358 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:01,362 - Row 792: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:53:01,907 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:01,917 - Row 793: generated=ERR, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:53:02,347 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:02,353 - Row 794: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:53:02,910 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:02,915 - Row 795: generated=NOT, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:53:03,299 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:03,300 - Row 796: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:53:03,738 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:03,745 - Row 797: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:53:04,207 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:04,212 - Row 798: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:53:04,846 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:04,853 - Row 799: generated=NOT, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:53:05,266 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:05,271 - Row 800: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:53:05,772 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:05,776 - Row 801: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:53:06,181 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:06,186 - Row 802: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:53:06,618 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:06,623 - Row 803: generated=NOT, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:53:06,997 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:07,002 - Row 804: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:53:07,487 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:07,492 - Row 805: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:53:07,972 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:07,978 - Row 806: generated=NOT, prompt_tokens=572, completion_tokens=1
+2025-08-16 01:53:08,554 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:08,559 - Row 807: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:53:09,061 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:09,066 - Row 808: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:53:09,475 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:09,481 - Row 809: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:53:09,962 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:09,968 - Row 810: generated=ERR, prompt_tokens=604, completion_tokens=1
+2025-08-16 01:53:10,329 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:10,334 - Row 811: generated=ERR, prompt_tokens=574, completion_tokens=1
+2025-08-16 01:53:10,760 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:10,761 - Row 812: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:53:11,278 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:11,278 - Row 813: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:53:11,720 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:11,731 - Row 814: generated=ERR, prompt_tokens=625, completion_tokens=1
+2025-08-16 01:53:12,170 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:12,172 - Row 815: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:53:12,597 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:12,602 - Row 816: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:53:13,018 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:13,025 - Row 817: generated=ERR, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:53:13,442 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:13,446 - Row 818: generated=ERR, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:53:13,806 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:13,810 - Row 819: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:53:14,197 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:14,213 - Row 820: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:53:14,648 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:14,648 - Row 821: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:53:15,090 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:15,096 - Row 822: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:53:15,526 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:15,531 - Row 823: generated=ERR, prompt_tokens=608, completion_tokens=1
+2025-08-16 01:53:16,001 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:16,007 - Row 824: generated=NOT, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:53:16,428 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:16,433 - Row 825: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:53:16,915 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:16,916 - Row 826: generated=ERR, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:53:17,578 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:17,605 - Row 827: generated=ERR, prompt_tokens=575, completion_tokens=1
+2025-08-16 01:53:18,190 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:18,194 - Row 828: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:53:18,583 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:18,588 - Row 829: generated=ERR, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:53:18,933 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:18,936 - Row 830: generated=ERR, prompt_tokens=571, completion_tokens=1
+2025-08-16 01:53:19,531 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:19,536 - Row 831: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:53:20,206 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:20,212 - Row 832: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:53:20,653 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:20,660 - Row 833: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:53:21,103 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:21,110 - Row 834: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:53:21,564 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:21,573 - Row 835: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:53:21,988 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:22,000 - Row 836: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:53:22,467 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:22,468 - Row 837: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:53:22,872 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:22,885 - Row 838: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:53:23,367 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:23,378 - Row 839: generated=ERR, prompt_tokens=623, completion_tokens=1
+2025-08-16 01:53:23,850 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:23,858 - Row 840: generated=NOT, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:53:24,327 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:24,335 - Row 841: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:53:24,764 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:24,769 - Row 842: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:53:25,191 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:25,195 - Row 843: generated=ERR, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:53:25,793 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:25,799 - Row 844: generated=ERR, prompt_tokens=622, completion_tokens=1
+2025-08-16 01:53:26,865 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:26,873 - Row 845: generated=ERR, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:53:27,327 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:27,334 - Row 846: generated=ERR, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:53:27,784 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:27,790 - Row 847: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:53:28,212 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:28,219 - Row 848: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:53:28,658 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:28,664 - Row 849: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:53:29,097 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:29,104 - Row 850: generated=ERR, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:53:29,712 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:29,712 - Row 851: generated=ERR, prompt_tokens=618, completion_tokens=1
+2025-08-16 01:53:30,121 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:30,125 - Row 852: generated=NOT, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:53:30,640 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:30,648 - Row 853: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:53:32,197 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:32,206 - Row 854: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:53:32,681 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:32,681 - Row 855: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:53:33,037 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:33,040 - Row 856: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:53:33,402 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:33,407 - Row 857: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:53:33,844 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:33,849 - Row 858: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:53:34,243 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:34,248 - Row 859: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:53:34,965 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:34,970 - Row 860: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:53:35,393 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:35,395 - Row 861: generated=NOT, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:53:36,007 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:36,015 - Row 862: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:53:36,443 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:36,447 - Row 863: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:53:36,820 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:36,823 - Row 864: generated=ERR, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:53:37,303 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:37,309 - Row 865: generated=NOT, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:53:37,799 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:37,804 - Row 866: generated=NOT, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:53:38,571 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:38,575 - Row 867: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:53:39,159 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:39,165 - Row 868: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:53:40,152 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:40,157 - Row 869: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:53:40,578 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:40,583 - Row 870: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:53:40,979 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:40,981 - Row 871: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:53:41,391 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:41,395 - Row 872: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:53:41,775 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:41,778 - Row 873: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:53:42,212 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:42,219 - Row 874: generated=ERR, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:53:42,699 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:42,703 - Row 875: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:53:43,126 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:43,132 - Row 876: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:53:43,551 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:43,556 - Row 877: generated=ERR, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:53:43,952 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:43,956 - Row 878: generated=NOT, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:53:44,358 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:44,362 - Row 879: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:53:44,765 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:44,770 - Row 880: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:53:45,130 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:45,135 - Row 881: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:53:45,607 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:45,611 - Row 882: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:53:46,053 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:46,061 - Row 883: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:53:46,495 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:46,498 - Row 884: generated=NOT, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:53:46,905 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:46,909 - Row 885: generated=NOT, prompt_tokens=583, completion_tokens=1
+2025-08-16 01:53:47,260 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:47,264 - Row 886: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:53:47,650 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:47,654 - Row 887: generated=ERR, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:53:48,022 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:48,026 - Row 888: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:53:48,477 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:48,483 - Row 889: generated=NOT, prompt_tokens=571, completion_tokens=1
+2025-08-16 01:53:48,891 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:48,898 - Row 890: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:53:49,336 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:49,343 - Row 891: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:53:49,808 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:49,810 - Row 892: generated=NOT, prompt_tokens=577, completion_tokens=1
+2025-08-16 01:53:50,480 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:50,484 - Row 893: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:53:50,855 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:50,861 - Row 894: generated=NOT, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:53:51,382 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:51,387 - Row 895: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:53:51,835 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:51,836 - Row 896: generated=ERR, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:53:52,348 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:52,349 - Row 897: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:53:55,176 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:55,224 - Row 898: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:53:55,659 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:55,660 - Row 899: generated=ERR, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:53:56,069 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:56,072 - Row 900: generated=NOT, prompt_tokens=586, completion_tokens=1
+2025-08-16 01:53:56,582 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:56,589 - Row 901: generated=NOT, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:53:57,750 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:57,754 - Row 902: generated=NOT, prompt_tokens=588, completion_tokens=1
+2025-08-16 01:53:58,184 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:58,190 - Row 903: generated=NOT, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:53:58,693 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:58,700 - Row 904: generated=ERR, prompt_tokens=596, completion_tokens=1
+2025-08-16 01:53:59,166 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:59,171 - Row 905: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:53:59,981 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:53:59,990 - Row 906: generated=NOT, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:54:00,504 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:00,510 - Row 907: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:54:00,963 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:00,966 - Row 908: generated=NOT, prompt_tokens=611, completion_tokens=1
+2025-08-16 01:54:01,546 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:01,550 - Row 909: generated=NOT, prompt_tokens=614, completion_tokens=1
+2025-08-16 01:54:02,035 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:02,039 - Row 910: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:54:02,455 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:02,463 - Row 911: generated=ERR, prompt_tokens=610, completion_tokens=1
+2025-08-16 01:54:02,962 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:02,972 - Row 912: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:54:03,425 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:03,426 - Row 913: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:54:03,841 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:03,846 - Row 914: generated=ERR, prompt_tokens=594, completion_tokens=1
+2025-08-16 01:54:04,233 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:04,237 - Row 915: generated=NOT, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:54:04,775 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:04,780 - Row 916: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:54:05,176 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:05,182 - Row 917: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:54:05,640 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:05,646 - Row 918: generated=ERR, prompt_tokens=641, completion_tokens=1
+2025-08-16 01:54:06,072 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:06,077 - Row 919: generated=ERR, prompt_tokens=573, completion_tokens=1
+2025-08-16 01:54:06,511 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:06,512 - Row 920: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:54:06,987 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:06,992 - Row 921: generated=NOT, prompt_tokens=602, completion_tokens=1
+2025-08-16 01:54:07,484 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:07,495 - Row 922: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:54:07,908 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:07,913 - Row 923: generated=NOT, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:54:08,349 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:08,353 - Row 924: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:54:08,753 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:08,754 - Row 925: generated=NOT, prompt_tokens=571, completion_tokens=1
+2025-08-16 01:54:09,153 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:09,156 - Row 926: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:54:09,671 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:09,680 - Row 927: generated=NOT, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:54:10,176 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:10,186 - Row 928: generated=ERR, prompt_tokens=579, completion_tokens=1
+2025-08-16 01:54:10,589 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:10,594 - Row 929: generated=NOT, prompt_tokens=606, completion_tokens=1
+2025-08-16 01:54:10,981 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:10,985 - Row 930: generated=NOT, prompt_tokens=576, completion_tokens=1
+2025-08-16 01:54:11,452 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:11,462 - Row 931: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:54:11,881 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:11,887 - Row 932: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:54:12,277 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:12,280 - Row 933: generated=ERR, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:54:12,722 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:12,730 - Row 934: generated=NOT, prompt_tokens=587, completion_tokens=1
+2025-08-16 01:54:13,167 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:13,176 - Row 935: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:54:13,617 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:13,625 - Row 936: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:54:14,012 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:14,015 - Row 937: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:54:14,410 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:14,414 - Row 938: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:54:14,873 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:14,880 - Row 939: generated=ERR, prompt_tokens=612, completion_tokens=1
+2025-08-16 01:54:15,370 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:15,375 - Row 940: generated=ERR, prompt_tokens=626, completion_tokens=1
+2025-08-16 01:54:16,173 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:16,186 - Row 941: generated=NOT, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:54:16,625 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:16,631 - Row 942: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:54:17,085 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:17,086 - Row 943: generated=NOT, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:54:17,737 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:17,738 - Row 944: generated=NOT, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:54:18,422 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:18,426 - Row 945: generated=NOT, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:54:18,901 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:18,906 - Row 946: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:54:19,385 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:19,394 - Row 947: generated=NOT, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:54:19,841 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:19,845 - Row 948: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:54:20,274 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:20,279 - Row 949: generated=NOT, prompt_tokens=616, completion_tokens=1
+2025-08-16 01:54:20,656 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:20,661 - Row 950: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:54:21,078 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:21,085 - Row 951: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:54:21,570 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:21,576 - Row 952: generated=ERR, prompt_tokens=607, completion_tokens=1
+2025-08-16 01:54:22,018 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:22,024 - Row 953: generated=ERR, prompt_tokens=624, completion_tokens=1
+2025-08-16 01:54:22,458 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:22,463 - Row 954: generated=ERR, prompt_tokens=600, completion_tokens=1
+2025-08-16 01:54:22,906 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:22,911 - Row 955: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:54:23,300 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:23,304 - Row 956: generated=NOT, prompt_tokens=572, completion_tokens=1
+2025-08-16 01:54:23,781 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:23,795 - Row 957: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:54:24,331 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:24,339 - Row 958: generated=ERR, prompt_tokens=598, completion_tokens=1
+2025-08-16 01:54:24,694 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:24,699 - Row 959: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:54:25,080 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:25,086 - Row 960: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:54:25,479 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:25,483 - Row 961: generated=ERR, prompt_tokens=638, completion_tokens=1
+2025-08-16 01:54:25,859 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:25,863 - Row 962: generated=ERR, prompt_tokens=589, completion_tokens=1
+2025-08-16 01:54:26,354 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:26,361 - Row 963: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:54:26,723 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:26,729 - Row 964: generated=NOT, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:54:27,225 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:27,233 - Row 965: generated=NOT, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:54:27,783 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:27,788 - Row 966: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:54:28,550 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:28,554 - Row 967: generated=NOT, prompt_tokens=597, completion_tokens=1
+2025-08-16 01:54:28,967 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:28,972 - Row 968: generated=NOT, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:54:29,443 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:29,447 - Row 969: generated=ERR, prompt_tokens=619, completion_tokens=1
+2025-08-16 01:54:29,860 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:29,867 - Row 970: generated=NOT, prompt_tokens=621, completion_tokens=1
+2025-08-16 01:54:30,421 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:30,424 - Row 971: generated=ERR, prompt_tokens=605, completion_tokens=1
+2025-08-16 01:54:30,883 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:30,890 - Row 972: generated=NOT, prompt_tokens=582, completion_tokens=1
+2025-08-16 01:54:31,268 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:31,273 - Row 973: generated=ERR, prompt_tokens=592, completion_tokens=1
+2025-08-16 01:54:31,644 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:31,647 - Row 974: generated=ERR, prompt_tokens=603, completion_tokens=1
+2025-08-16 01:54:32,045 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:32,053 - Row 975: generated=ERR, prompt_tokens=595, completion_tokens=1
+2025-08-16 01:54:32,725 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:32,732 - Row 976: generated=ERR, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:54:33,321 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:33,329 - Row 977: generated=NOT, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:54:33,828 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:33,832 - Row 978: generated=NOT, prompt_tokens=593, completion_tokens=1
+2025-08-16 01:54:40,988 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:40,993 - Row 979: generated=ERR, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:54:41,397 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:41,401 - Row 980: generated=ERR, prompt_tokens=628, completion_tokens=1
+2025-08-16 01:54:42,562 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:42,566 - Row 981: generated=NOT, prompt_tokens=628, completion_tokens=1
+2025-08-16 01:54:42,964 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:42,966 - Row 982: generated=ERR, prompt_tokens=581, completion_tokens=1
+2025-08-16 01:54:43,351 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:43,355 - Row 983: generated=NOT, prompt_tokens=590, completion_tokens=1
+2025-08-16 01:54:43,766 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:43,770 - Row 984: generated=NOT, prompt_tokens=585, completion_tokens=1
+2025-08-16 01:54:44,260 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:44,261 - Row 985: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:54:44,756 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:44,760 - Row 986: generated=ERR, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:54:45,253 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:45,257 - Row 987: generated=NOT, prompt_tokens=599, completion_tokens=1
+2025-08-16 01:54:45,668 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:45,672 - Row 988: generated=ERR, prompt_tokens=578, completion_tokens=1
+2025-08-16 01:54:46,067 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:46,070 - Row 989: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:54:46,550 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:46,558 - Row 990: generated=ERR, prompt_tokens=613, completion_tokens=1
+2025-08-16 01:54:47,037 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:47,038 - Row 991: generated=NOT, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:54:47,494 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:47,498 - Row 992: generated=NOT, prompt_tokens=620, completion_tokens=1
+2025-08-16 01:54:47,920 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:47,923 - Row 993: generated=NOT, prompt_tokens=572, completion_tokens=1
+2025-08-16 01:54:48,283 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:48,283 - Row 994: generated=NOT, prompt_tokens=617, completion_tokens=1
+2025-08-16 01:54:48,703 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:48,720 - Row 995: generated=NOT, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:54:49,286 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:49,290 - Row 996: generated=NOT, prompt_tokens=591, completion_tokens=1
+2025-08-16 01:54:49,779 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:49,785 - Row 997: generated=ERR, prompt_tokens=584, completion_tokens=1
+2025-08-16 01:54:50,240 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:50,242 - Row 998: generated=ERR, prompt_tokens=601, completion_tokens=1
+2025-08-16 01:54:50,850 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-16 01:54:50,857 - Row 999: generated=ERR, prompt_tokens=580, completion_tokens=1
+2025-08-16 01:54:50,857 - Total inference time: 507.90s
+2025-08-16 01:54:50,857 - Total tokens used: 597698
+2025-08-16 01:54:50,857 - Estimated cost: $1.1954

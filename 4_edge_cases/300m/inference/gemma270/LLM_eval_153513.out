@@ -1,0 +1,14 @@
+Active Conda Environment: wmt21
+
+[Δ-sweep] Best Δ = -1.6000 | MCC(dev) = 0.0693
+F1-ERR: 0.4105 | F1-NOT: 0.5749
+
+Confusion Matrix (rows=true │ cols=pred)
+      ERR   NOT
+ERR    172   109
+NOT    385   334
+
+Accuracy: 0.5060
+Total examples: 1000
+ERR examples: 281
+NOT examples: 719

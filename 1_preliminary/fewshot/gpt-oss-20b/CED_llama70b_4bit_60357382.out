@@ -1,0 +1,42 @@
+Active Environment: /rwthfs/rz/cluster/home/ni124545/.local/share/mamba/envs/wmt21
+/rwthfs/rz/cluster/home/ni124545/.local/share/mamba/envs/wmt21/bin/python
+Python 3.9.23
+torch: 2.7.1+cu126 cuda_available: True build: 12.6
+transformers: 4.55.0
+bitsandbytes: 0.46.1
+2025-08-19 02:29:08,066 | INFO | Starting GPT-OSS Option-A evaluation (parse FINAL).
+2025-08-19 02:29:08,066 | INFO | Snapshotting repo 'openai/gpt-oss-20b' → /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-20b
+2025-08-19 02:29:08,249 | INFO | Snapshot ready.
+2025-08-19 02:29:08,250 | INFO | flash_attn not found → using PyTorch SDPA
+2025-08-19 02:29:12,854 | INFO | We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+2025-08-19 02:29:27,109 | INFO | torch.compile applied.
+2025-08-19 02:29:27,109 | INFO | Loading TSV: /home/ni124545/llm/data/wmt21/ende_majority_dev.tsv
+2025-08-19 02:29:27,141 | INFO | Processing rows: 1000  |  USE_FEW_SHOT=True  |  MAX_NEW_TOKENS=256
+2025-08-19 02:29:27,141 | INFO | Loading TSV: /home/ni124545/llm/data/wmt21/ende_majority_train.tsv
+2025-08-19 02:29:27,191 | INFO | Few-shot demos prepared: 5 ERR + 3 NOT
+
+=== PREVIEW (first 10) ===
+[001] TRUE=NOT | PRED=NOT
+[002] TRUE=NOT | PRED=NOT
+[003] TRUE=ERR | PRED=ERR
+[004] TRUE=NOT | PRED=ERR
+[005] TRUE=NOT | PRED=NOT
+[006] TRUE=ERR | PRED=ERR
+[007] TRUE=ERR | PRED=ERR
+[008] TRUE=NOT | PRED=ERR
+[009] TRUE=ERR | PRED=ERR
+[010] TRUE=NOT | PRED=NOT
+2025-08-19 02:39:24,144 | INFO | Progress: 200/1000  partial_acc=0.725
+2025-08-19 02:49:31,307 | INFO | Progress: 400/1000  partial_acc=0.682
+2025-08-19 02:59:36,786 | INFO | Progress: 600/1000  partial_acc=0.677
+2025-08-19 03:09:29,984 | INFO | Progress: 800/1000  partial_acc=0.684
+2025-08-19 03:19:12,329 | INFO | Progress: 1000/1000  partial_acc=0.683
+
+Processed: 1000 rows  |  Few-shot: ON
+MCC   : 0.3247
+F1-ERR: 0.5412  F1-NOT: 0.7578
+
+Confusion Matrix (rows=true │ cols=pred)
+      ERR   NOT
+ERR    187    94
+NOT    223   496
