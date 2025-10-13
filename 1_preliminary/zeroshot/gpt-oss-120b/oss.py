@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing (like 20B)
+# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing
+# - Processes the full DEV_TSV (no eval limit)
+# - Few-shot optional from TRAIN_TSV
+# - Parses FINAL channel if present, otherwise first ERR/NOT token
+# - Computes MCC, class-wise F1, accuracy, confusion matrix
 
 import os
 import re
@@ -9,38 +13,33 @@ from tqdm import tqdm
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
 
 # ===================== CONFIG =============================================
-VLLM_BASE_URL   = "http://127.0.0.1:8000"
-MODEL_ID        = "gpt-oss-120b"
+VLLM_BASE_URL   = os.environ.get("VLLM_BASE_URL", "http://127.0.0.1:8000")
+MODEL_ID        = os.environ.get("MODEL_ID", "gpt-oss-120b")
 
-DEV_TSV         = "/home/ni124545/llm/data/wmt21/ende_majority_dev.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/wmt21/ende_majority_train.tsv"
+DEV_TSV         = os.environ.get("DEV_TSV",   "/home/ni124545/llm/data/wmt22/ende_wmt22_dev.tsv")
+TRAIN_TSV       = os.environ.get("TRAIN_TSV", "/home/ni124545/llm/data/wmt22/ende_wmt22_train.tsv")
 
-EVAL_LIMIT      = 1000
+# Decoding (allow long reasoning and parse FINAL)
+TIMEOUT_SEC     = int(os.environ.get("TIMEOUT_SEC", "300"))
+MAX_NEW_TOKENS  = int(os.environ.get("MAX_NEW_TOKENS", "256"))
+TEMPERATURE     = float(os.environ.get("TEMPERATURE", "0.0"))
+TOP_P           = float(os.environ.get("TOP_P", "1.0"))
+STOP_TOKENS     = os.environ.get("STOP_TOKENS", "<|end|>,<|return|>").split(",")
 
-# Decoding (match 20B: allow long reasoning and parse FINAL)
-TIMEOUT_SEC     = 300
-MAX_NEW_TOKENS  = 256
-TEMPERATURE     = 0.0
-TOP_P           = 1.0
-STOP_TOKENS     = ["<|end|>", "<|return|>"]  # optional; lets the model close the message naturally
-
-# Few-shot (keep your 5 ERR / 3 NOT)
-USE_FEW_SHOT        = False
-FEW_SHOT_ERR_CNT    = 5
-FEW_SHOT_NOT_CNT    = 3
-RANDOM_STATE        = 42
+# Few-shot configuration (static)
+USE_FEW_SHOT     = False          # ← set to False for zero-shot
+FEW_SHOT_ERR_CNT = 5
+FEW_SHOT_NOT_CNT = 3
+RANDOM_STATE     = 42
 
 SYSTEM_PROMPT = (
-    # "You are a precise translation evaluator.\n"
-    # "Given an English sentence (EN) and its German translation (DE), think carefully and then provide a FINAL decision.\n"
-    # "Decision rules:\n"
-    # "- ERR: major meaning error, omission, or inaccuracy.\n"
-    # "- NOT: accurate or only minor imperfections.\n"
-    # "In your FINAL message, output ONLY one token: ERR or NOT.\n"
-    # "Use your usual internal structure; if you use channels, ensure the FINAL channel contains exactly ERR or NOT."
     "You are a precise translation evaluator.\n"
-    "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: 'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate or only has minor imperfections.\n"
-    "Do not add any explanation, punctuation, or additional text."
+    "Given an English sentence (EN) and its German translation (DE), think carefully and then provide a FINAL decision.\n"
+    "Decision rules:\n"
+    "- ERR: major meaning error, omission, or inaccuracy.\n"
+    "- NOT: accurate or only minor imperfections.\n"
+    "In your FINAL message, output ONLY one token: ERR or NOT.\n"
+    "Use your usual internal structure; if you use channels, ensure the FINAL channel contains exactly ERR or NOT."
 )
 
 API_URL = f"{VLLM_BASE_URL}/v1/chat/completions"
@@ -70,7 +69,7 @@ def build_messages_fewshot(examples, src: str, mt: str):
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
         msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}\n\nProvide your FINAL decision."})
-        # As in your 20B script: assistant shows only the label (acts as FINAL)
+        # assistant shows only the label (acts as FINAL)
         msgs.append({"role": "assistant", "content": ex['label'].strip().upper()})
     msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."})
     return msgs
@@ -101,7 +100,7 @@ LABEL_RE = re.compile(r"\b(ERR|NOT)\b", re.I)
 FINAL_BLOCK_RE = re.compile(r"<\|channel\|\>final<\|message\|\>(.*?)(?:<\|end\|\>|<\|return\|\>|$)", re.S)
 
 def extract_text_from_choice(choice: dict) -> str:
-    # Combine all potential fields that may contain model text.
+    # Combine fields that may contain model text (vLLM 0.10.x+ often uses reasoning_content).
     msg = choice.get("message", {}) or {}
     content = msg.get("content") or ""
     reasoning = msg.get("reasoning_content") or ""
@@ -114,15 +113,12 @@ def extract_final_or_label(text: str) -> str:
     m = FINAL_BLOCK_RE.search(text)
     if m:
         final_text = (m.group(1) or "").strip()
-        # If FINAL contains label, return that; else return whatever is inside FINAL
         m2 = LABEL_RE.search(final_text)
         return m2.group(1).upper() if m2 else final_text
-    # No FINAL channel; fall back to first label anywhere
     m3 = LABEL_RE.search(text)
     return m3.group(1).upper() if m3 else text.strip()
 
 def sanitize_label(t: str) -> str:
-    # Match 20B behavior: conservative fallback to ERR
     s = (t or "").strip().upper()
     if "ERR" in s and "NOT" in s:
         return "ERR" if s.index("ERR") < s.index("NOT") else "NOT"
@@ -141,7 +137,8 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3):
         "temperature": TEMPERATURE,
         "top_p": TOP_P,
         "stop": STOP_TOKENS,
-        # n=1 default
+        # Optionally reduce chain-of-thought verbosity if your server supports it:
+        # "reasoning": {"effort": "low"},
     }
 
     for attempt in range(max_retries):
@@ -153,7 +150,7 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3):
                 if attempt < max_retries - 1:
                     continue
                 else:
-                    return "ERR"  # conservative on hard server failure
+                    return "ERR"
 
             r.raise_for_status()
             resp = r.json()
@@ -164,16 +161,14 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3):
 
         except requests.exceptions.RequestException:
             if attempt == max_retries - 1:
-                return "ERR"  # match 20B's conservative stance
-            # else retry
+                return "ERR"
 
     return "ERR"
 
 # ===================== Main ================================================
 def main():
-    """Run inference over the dataset and report metrics."""
     df_full = load_tsv_noheader(DEV_TSV)
-    eval_df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
+    eval_df = df_full  # ← always use all rows (no eval limit)
     rows = list(eval_df.itertuples(index=False))
 
     print(f"Processing: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} | Max tokens: {MAX_NEW_TOKENS}")

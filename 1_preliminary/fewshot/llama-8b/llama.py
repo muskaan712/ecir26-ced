@@ -2,11 +2,11 @@
 # fewshot_llama31_8b_batch_generate.py
 #
 # Critical Error Detection (EN→DE) with Meta-Llama-3.1-8B-Instruct
-# - Local cache via snapshot_download (first run only)
-# - Llama 3.1 chat template (system + few-shot demos + user)
-# - Batched manual generate (fast tokenizer batch path)
-# - Forces eager attention (no FlashAttention2 / SDPA)
-# - Few-shot demos: 5 ERR + 3 NOT sampled from TRAIN (order: ERR first, then NOT)
+# - Robust TSV loading: 3/4/5+ columns supported
+# - Maps WMT22 labels BAD/OK → ERR/NOT
+# - Few-shot demos: 5 ERR + 3 NOT sampled from TRAIN
+# - Batched generation (fast tokenizer batch path)
+# - Forces eager attention (no FlashAttention2 / no SDPA)
 #
 # pip install "transformers>=4.42.0" accelerate huggingface_hub torch pandas scikit-learn tqdm
 
@@ -24,9 +24,9 @@ from sklearn.metrics import (
 )
 
 # ─── Paths ─────────────────────────────────────────────────────────────────────
-DATA_DIR   = "/home/s13mchop/LLMs/data/wmt21"
-DEV_TSV    = os.path.join(DATA_DIR, "ende_majority_dev.tsv")
-TRAIN_TSV  = os.path.join(DATA_DIR, "ende_majority_train.tsv")
+DATA_DIR   = "/home/s13mchop/LLMs/data/wmt22"
+DEV_TSV    = os.path.join(DATA_DIR, "ende_wmt22_dev.tsv")
+TRAIN_TSV  = os.path.join(DATA_DIR, "ende_wmt22_train.tsv")
 
 HF_TOKEN   = os.getenv("HF_TOKEN")  # accept license for Meta-Llama-3.1-8B-Instruct on HF
 MODEL_ID   = "meta-llama/Meta-Llama-3.1-8B-Instruct"
@@ -36,11 +36,11 @@ CACHE_DIR  = os.path.join(CACHE_ROOT, MODEL_ID.replace("/", "_"))
 # ─── Inference ─────────────────────────────────────────────────────────────────
 BATCH_SIZE     = 8
 MAX_NEW_TOKENS = 3         # only need 'ERR' or 'NOT'
-DO_SAMPLE      = False     # deterministic
 MIN_NEW_TOKENS = 1         # ensure at least one token
+DO_SAMPLE      = False     # deterministic
 
 # Attention backend: force eager (no FA2 / SDPA)
-ATTN_IMPL = "eager"
+ATTN_IMPL = "eager"  # (transformers sets this via config/kwargs if available)
 
 # ─── Few-shot config (enable/disable + counts) ─────────────────────────────────
 USE_FEW_SHOT        = True
@@ -58,7 +58,6 @@ SYSTEM_PROMPT = (
 )
 
 # ───────────────────────────────────────────────────────────────────────────────
-
 def download_and_cache_model():
     """Download MODEL_ID into CACHE_DIR once, then reuse."""
     if not os.path.isdir(CACHE_DIR) or not os.listdir(CACHE_DIR):
@@ -67,44 +66,71 @@ def download_and_cache_model():
             repo_id=MODEL_ID,
             local_dir=CACHE_DIR,
             token=HF_TOKEN,
-            allow_patterns=["*.json", "*.safetensors", "*.model", "*.txt", "*.md", "*.py"]
+            allow_patterns=["*.json", "*.safetensors", "*.bin", "*.model", "*.txt", "*.md", "*.py"]
         )
 
-def load_dev(path: str) -> pd.DataFrame:
-    df = pd.read_csv(
-        path, sep="\t", header=None,
-        names=["id","src","mt","toklabels","label"],
-        dtype={"id": str}
-    )
-    df["label"] = df["label"].str.strip().str.upper()
-    df["label_id"] = df["label"].map({"ERR": 1, "NOT": 0})
-    return df
+def _map_label_to_err_not(x: str) -> str:
+    """Normalize labels to {'ERR','NOT'}; handle BAD/OK and noisy variants."""
+    s = str(x or "").strip().upper()
+    if s == "BAD": return "ERR"
+    if s == "OK":  return "NOT"
+    if s in ("ERR", "NOT"): return s
+    # If both substrings appear, honor the first occurrence
+    err_i = s.find("ERR")
+    not_i = s.find("NOT")
+    if err_i != -1 and not_i != -1:
+        return "ERR" if err_i < not_i else "NOT"
+    if err_i != -1: return "ERR"
+    if not_i != -1: return "NOT"
+    return "ERR"  # conservative fallback
 
-def load_train_minimal(path: str) -> pd.DataFrame:
-    """Load TRAIN_TSV robustly and keep only src, mt, label (uppercase)."""
+def _split_tsv_flex(path: str):
+    """
+    Read TSV with no header and return (src, mt, label) Series.
+    Supports:
+      - 3 cols: src, mt, label
+      - 4 cols: src, mt, raw('_'), label
+      - ≥5 cols: id, src, mt, raw, label (WMT21-style)
+    """
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
-    if n >= 5:
-        df = df.iloc[:, :5]; df.columns = ["id","src","mt","raw","label"]
+    if n < 3:
+        raise ValueError(f"Expected ≥3 columns (src, mt, label). Got {n} in {path}")
+
+    if n == 3:
+        src = df.iloc[:, 0]; mt = df.iloc[:, 1]; label = df.iloc[:, 2]
     elif n == 4:
-        df.columns = ["src","mt","raw","label"]; df.insert(0, "id", range(len(df)))
-    elif n == 3:
-        df.columns = ["src","mt","label"]; df.insert(0, "id", range(len(df))); df.insert(3,"raw","")
-    else:
-        raise ValueError(f"Unexpected TRAIN TSV columns: {n}")
-    df["label"] = df["label"].str.strip().str.upper()
-    return df[["src","mt","label"]]
+        src = df.iloc[:, 0]; mt = df.iloc[:, 1]; label = df.iloc[:, 3]
+    else:  # n >= 5
+        src = df.iloc[:, 1]; mt = df.iloc[:, 2]; label = df.iloc[:, 4]
+
+    # Coerce to string (prevents .str crashes) & normalize labels
+    src   = src.astype(str)
+    mt    = mt.astype(str)
+    label = label.astype(str).map(_map_label_to_err_not)
+
+    return src, mt, label
+
+def load_dev(path: str) -> pd.DataFrame:
+    src, mt, label = _split_tsv_flex(path)
+    out = pd.DataFrame({"src": src, "mt": mt, "label": label})
+    out["label_id"] = out["label"].map({"ERR": 1, "NOT": 0})
+    return out
+
+def load_train_minimal(path: str) -> pd.DataFrame:
+    src, mt, label = _split_tsv_flex(path)
+    return pd.DataFrame({"src": src, "mt": mt, "label": label})
 
 def sample_few_shot_examples(train_tsv: str,
                              n_err: int,
                              n_not: int,
                              random_state: int = 42):
     """
-    Sample 5 ERR (oversample) + 3 NOT (with replacement if needed).
-    Return list of {src, mt, label} with ERR first, then NOT.
+    Sample 5 ERR + 3 NOT (with replacement if needed).
+    Return list of {src, mt, label} with ERRs first, then NOTs.
     """
     train_df = load_train_minimal(train_tsv)
-    train_df = train_df[train_df["label"].isin(["ERR","NOT"])]
+    train_df = train_df[train_df["label"].isin(["ERR", "NOT"])]
 
     def _sample(df, k):
         if len(df) == 0:
@@ -136,7 +162,6 @@ def build_messages_few_shot(examples, src: str, mt: str):
       user: EN/DE pair → assistant: gold label
       ...
       user: EN/DE (query)
-    ERR examples appear first, then NOT (matches your prior GPT-4o logic).
     """
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
@@ -152,7 +177,6 @@ def extract_label(text: str) -> str:
     return hits[-1] if hits else "NOT"
 
 def main():
-    """Run inference over the dataset and report metrics."""
     # 1) Cache model locally
     download_and_cache_model()
 
@@ -160,14 +184,16 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(CACHE_DIR, use_fast=True, local_files_only=True)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
-    tokenizer.padding_side = "left"  # best for decoder-only batched gen
+    tokenizer.padding_side = "left"  # better for decoder-only batched gen
 
+    # Force eager backend if the model supports setting it via config kwargs.
+    # (Meta Llama 3.1 works fine without explicitly passing attn_implementation.)
     dtype = torch.bfloat16 if torch.cuda.is_available() else "auto"
     model = AutoModelForCausalLM.from_pretrained(
         CACHE_DIR,
         local_files_only=True,
         device_map="auto",
-        torch_dtype=dtype # <- force eager; no FA2/SDPA
+        torch_dtype=dtype
     ).eval()
 
     # 3) Load data
@@ -192,23 +218,22 @@ def main():
         pass
 
     total = len(df)
-    for start in tqdm(range(0, total, BATCH_SIZE), desc=f"{'Few-shot' if USE_FEW_SHOT else 'Zero-shot'} (Llama 3.1-8B, eager)"):
+    bar_desc = f"{'Few-shot' if USE_FEW_SHOT else 'Zero-shot'} (Llama 3.1-8B, eager)"
+    for start in tqdm(range(0, total, BATCH_SIZE), desc=bar_desc):
         end = min(start + BATCH_SIZE, total)
         rows = df.iloc[start:end]
 
         # Build chat prompts (strings) using official template
         prompts = []
         for _, r in rows.iterrows():
-            msgs = build_messages_few_shot(few_shots, r.src, r.mt) if USE_FEW_SHOT else build_messages_zero_shot(r.src, r.mt)
+            msgs = (build_messages_few_shot(few_shots, r.src, r.mt)
+                    if USE_FEW_SHOT and few_shots else
+                    build_messages_zero_shot(r.src, r.mt))
             s = tokenizer.apply_chat_template(msgs, add_generation_prompt=True, tokenize=False)
             prompts.append(s)
 
         # Fast tokenizer batch path
-        enc = tokenizer(
-            prompts,
-            padding=True,             # left padding already configured
-            return_tensors="pt"
-        )
+        enc = tokenizer(prompts, padding=True, return_tensors="pt")
         input_ids    = enc["input_ids"].to(model.device)
         attention_ms = enc["attention_mask"].to(model.device)
         Lmax         = input_ids.size(1)   # all prompts padded to this length
@@ -228,7 +253,7 @@ def main():
         for row_idx in range(outputs.size(0)):
             gen_ids = outputs[row_idx, Lmax:]
             text = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
-            if not text:  # fallback
+            if not text:  # fallback, keep specials if needed
                 text = tokenizer.decode(gen_ids, skip_special_tokens=False).strip()
             gen_texts.append(text)
             lbl = extract_label(text)
@@ -238,8 +263,8 @@ def main():
     print("\nFirst 10 (generated → true / pred):\n")
     for i in range(min(10, len(df))):
         gt = gen_texts[i] if gen_texts[i] else "<EMPTY>"
-        true = "ERR" if df.loc[i,'label_id']==1 else "NOT"
-        pred = "ERR" if preds[i]==1 else "NOT"
+        true = "ERR" if df.loc[i, 'label_id'] == 1 else "NOT"
+        pred = "ERR" if preds[i] == 1 else "NOT"
         print(f"#{i+1:2d} Generated: {gt!r}")
         print(f"    True / Pred: {true} / {pred}\n")
 

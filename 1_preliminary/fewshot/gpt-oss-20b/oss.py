@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-# GPT-OSS CED (Option A): long decode + parse FINAL label → metrics
-# - Python 3.9 compatible
-# - Uses your HF cache paths & SYSTEM_PROMPT
-# - Few-shot optional (from TRAIN_TSV)
-# - Row limit knob (PROCESS_N); set 0 for ALL rows
-# - No log-prob scoring, just parsing FINAL (fallback to first ERR/NOT)
+# GPT-OSS CED (Option A, ZERO-SHOT): long decode + parse FINAL label → metrics
+# - Python 3.9+ compatible
+# - Loads from local HF snapshot only (offline)
+# - Zero-shot (USE_FEW_SHOT=False), but retains few-shot hooks
+# - Greedy decode; parse <|channel|>final block or first ERR/NOT
+# - Uses dtype=..., eager attention fallback (no SDPA), no quantization
 
 import os, sys, logging, re
 from typing import Optional, List, Dict
 from inspect import signature
 
-# ── Environment (same style as your Llama script) ─────────────────────────────
+# ── Minimal, clean env ─────────────────────────────────────────────────────────
 os.environ.pop("TRANSFORMERS_CACHE", None)
-os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
 os.environ.setdefault("HF_HOME", "/hpcwork/ni124545/hf_cache")
+os.environ.setdefault("HF_HUB_ENABLE_HF_TRANSFER", "0")
+os.environ.setdefault("TRANSFORMERS_NO_TORCHVISION", "1")
+os.environ.setdefault("TRANSFORMERS_QUANTIZATION_METHOD", "none")  # don't try MXFP4 etc.
 
 import torch
 import pandas as pd
@@ -22,26 +24,31 @@ from huggingface_hub import snapshot_download
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from sklearn.metrics import matthews_corrcoef, f1_score, confusion_matrix
 
+# Speed niceties (safe on H100)
+torch.set_grad_enabled(False)
+if torch.cuda.is_available():
+    torch.backends.cuda.matmul.allow_tf32 = True
+    torch.backends.cudnn.allow_tf32 = True
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[logging.StreamHandler(sys.stdout)]
 )
-log = logging.getLogger("ced-gptoss-optionA")
+log = logging.getLogger("ced-gptoss-optionA-zeroshot")
 
 # ===================== CONFIG (edit here) =====================================
 MODEL_REPO      = "openai/gpt-oss-20b"  # swap to "openai/gpt-oss-8b" if VRAM is tight
-
 CACHE_ROOT      = "/hpcwork/ni124545/hf_cache"
 MODEL_LOCAL_DIR = os.path.join(CACHE_ROOT, "models", MODEL_REPO.replace("/", "_"))
 
-DEV_TSV         = "/home/ni124545/llm/data/wmt21/ende_majority_dev.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/wmt21/ende_majority_train.tsv"
+DEV_TSV         = "/home/ni124545/llm/data/wmt22/ende_wmt22_dev.tsv"
+TRAIN_TSV       = "/home/ni124545/llm/data/wmt22/ende_wmt22_train.tsv"  # unused in zero-shot
 
 # Row limit: 0 → process ALL rows; >0 → first N rows
 PROCESS_N       = 0
 
-# Few-shot toggle and counts (like your Llama script)
+# Zero-shot toggle (keep False)
 USE_FEW_SHOT        = True
 FEW_SHOT_ERR_CNT    = 5
 FEW_SHOT_NOT_CNT    = 3
@@ -50,7 +57,6 @@ RANDOM_STATE        = 42
 # Decoding: allow enough room to reach FINAL; greedy (no sampling)
 MAX_NEW_TOKENS  = 256
 
-# Same prompt as your Llama script
 SYSTEM_PROMPT = (
     "You are a precise translation evaluator.\n"
     "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
@@ -59,7 +65,7 @@ SYSTEM_PROMPT = (
     "Do not add any explanation, punctuation, or additional text."
 )
 
-# Reasoning effort hint (used if template supports it)
+# Reasoning effort hint (used if the tokenizer's chat template supports it)
 REASONING_EFFORT = "low"   # "low" | "medium" | "high" | None
 
 HF_TOKEN = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_HUB_TOKEN")
@@ -77,14 +83,14 @@ def ensure_snapshot_local(repo_id: str, local_dir: str):
 def load_model_and_tokenizer():
     ensure_snapshot_local(MODEL_REPO, MODEL_LOCAL_DIR)
 
-    # Try FA2; else SDPA
+    # Try FlashAttention2; else force eager (NO SDPA — GPT-OSS not supported on SDPA yet)
     use_fa2 = False
     try:
         import flash_attn  # noqa: F401
         use_fa2 = True
         log.info("flash_attn detected → using FlashAttention 2")
     except Exception:
-        log.info("flash_attn not found → using PyTorch SDPA")
+        log.info("flash_attn not found → using eager attention")
 
     tok = AutoTokenizer.from_pretrained(
         MODEL_LOCAL_DIR, use_fast=True, trust_remote_code=True, local_files_only=True
@@ -95,11 +101,12 @@ def load_model_and_tokenizer():
     mdl = AutoModelForCausalLM.from_pretrained(
         MODEL_LOCAL_DIR,
         device_map="auto",
-        torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
-        attn_implementation="flash_attention_2" if use_fa2 else "sdpa",
+        dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
+        attn_implementation=("flash_attention_2" if use_fa2 else "eager"),
         trust_remote_code=True,
         local_files_only=True,
     )
+
     mdl.config.use_cache = True
     try:
         mdl = torch.compile(mdl, mode="reduce-overhead", fullgraph=False)
@@ -173,11 +180,16 @@ def _extract_final_or_label(decoded: str) -> str:
     return m3.group(1) if m3 else decoded.strip()
 
 def _sanitize_label(t: str) -> str:
-    s = (t or "").strip().upper()
-    if "ERR" in s and "NOT" in s:
-        return "ERR" if s.index("ERR") < s.index("NOT") else "NOT"
-    if "ERR" in s: return "ERR"
-    if "NOT" in s: return "NOT"
+    """Robustly coerce any text to 'ERR' or 'NOT' with conservative fallback."""
+    s = str(t or "").strip().upper()
+    err_pos = s.find("ERR")
+    not_pos = s.find("NOT")
+    if err_pos != -1 and not_pos != -1:
+        return "ERR" if err_pos < not_pos else "NOT"
+    if err_pos != -1:
+        return "ERR"
+    if not_pos != -1:
+        return "NOT"
     return "ERR"  # conservative fallback
 
 @torch.inference_mode()
@@ -220,8 +232,7 @@ def generate_label(model, tok, msgs, reasoning_effort: Optional[str] = None) -> 
     return _sanitize_label(parsed)
 
 def main():
-    """Run inference over the dataset and report metrics."""
-    log.info("Starting GPT-OSS Option-A evaluation (parse FINAL).")
+    log.info("Starting GPT-OSS Option-A evaluation (parse FINAL) — ZERO-SHOT.")
     model, tok = load_model_and_tokenizer()
 
     df = load_tsv_noheader(DEV_TSV)
@@ -236,7 +247,6 @@ def main():
         )
 
     y_true, y_pred = [], []
-    # PREVIEW of first 10 (still printed), with a progress bar for the whole eval
     preview_k = min(10, len(rows))
     print(f"\n=== PREVIEW (first {preview_k}) ===")
 
@@ -250,8 +260,8 @@ def main():
 
         # Optional heartbeat every 200 rows
         if i % 200 == 0:
-            acc_partial = (pd.Series([1 if t=="ERR" else 0 for t in y_true]) ==
-                           pd.Series([1 if p=="ERR" else 0 for p in y_pred])).mean()
+            acc_partial = (pd.Series([1 if t=='ERR' else 0 for t in y_true]) ==
+                           pd.Series([1 if p=='ERR' else 0 for p in y_pred])).mean()
             log.info(f"Progress: {i}/{len(rows)}  partial_acc={acc_partial:.3f}")
 
     # Metrics
@@ -272,5 +282,4 @@ def main():
     print(f"NOT  {cm[1,0]:5d} {cm[1,1]:5d}")
 
 if __name__ == "__main__":
-    torch.set_grad_enabled(False)
     main()

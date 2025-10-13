@@ -1,9 +1,0 @@
-Active Conda Environment: wmt21
-
-=== Metrics on full dev set ===
-MCC    : 0.31386819637772545
-F1-ERR : 0.5406091370558375 F1-NOT : 0.7013201320132012
-Confusion (rows=true, cols=pred):
-      ERR     NOT
-ERR      213      68
-NOT      294     425

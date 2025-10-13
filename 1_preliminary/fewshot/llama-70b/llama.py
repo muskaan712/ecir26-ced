@@ -1,34 +1,261 @@
+# #!/usr/bin/env python3
+# # Few-shot CED (EN→DE) via llama-server (GGUF, GPU via llama.cpp server)
+# # - Adds 5 ERR + 3 NOT few-shot demos sampled from TRAIN (ERR first, then NOT)
+# # - Strict grammar ("ERR" | "NOT"), 1-token output
+# # - tqdm with ETA + latency profiling
+# # - Robust: auto-detect model id + retry on 503/429
+
+# import os, time, requests, sys, random
+# import pandas as pd
+# import numpy as np
+# from tqdm import tqdm
+# from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support
+
+# # ===================== CONFIG =====================
+# API_BASE      = os.environ.get("API_BASE", "http://127.0.0.1:8811")
+# MODEL_ID_ENV  = os.environ.get("MODEL_ID", "").strip()
+
+# # >>> Set your TRAIN file here (same TSV layout as DEV). If empty, we fallback to DEV_TSV.
+# TRAIN_TSV = "/home/ni124545/llm/data/wmt22/ende_wmt22_train.tsv"
+# DEV_TSV   = "/home/ni124545/llm/data/wmt22/ende_wmt22_dev.tsv"
+
+# EVAL_LIMIT      = None      # set to None or 0 for full dataset
+# FEWSHOT_ERR_N   = 5
+# FEWSHOT_NOT_N   = 3
+# FEWSHOT_SEED    = 42        # deterministic sampling
+
+# MAX_NEW_TOKENS  = 1
+# TEMPERATURE     = 0.0
+# TOP_P           = 1.0
+
+# SYSTEM_PROMPT = (
+#     "You are a precise translation evaluator.\n"
+#     "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
+#     "'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate "
+#     "or only has minor imperfections.\n"
+#     "Do not add any explanation, punctuation, or additional text."
+# )
+
+# # Grammar: strictly allow only ERR or NOT
+# GBNF = r"""root ::= ( "ERR" | "NOT" )"""
+# GRAMMAR_FIELD = {"type": "gbnf", "value": GBNF}  # more compatible across server builds
+# # ==================================================
+
+# def load_tsv_noheader(path):
+#     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
+#     n = df.shape[1]
+#     if n >= 5:
+#         df = df.iloc[:, :5]; df.columns = ["id","src","mt","raw","label"]
+#     elif n == 4:
+#         df.columns = ["src","mt","raw","label"]; df.insert(0,"id",range(len(df)))
+#     elif n == 3:
+#         df.columns = ["src","mt","label"]; df.insert(0,"id",range(len(df))); df.insert(3,"raw","")
+#     else:
+#         raise ValueError(f"Unexpected TSV columns: {n}")
+#     df["label"] = df["label"].str.strip().str.upper()
+#     # Only keep the needed columns
+#     return df[["src","mt","label"]]
+
+# def sanitize_label(text: str) -> str:
+#     t = text.strip().upper()
+#     if "ERR" in t and "NOT" in t:
+#         return "ERR" if t.index("ERR") < t.index("NOT") else "NOT"
+#     if "ERR" in t: return "ERR"
+#     if "NOT" in t: return "NOT"
+#     return "ERR"
+
+# def wait_for_server(api_base: str, timeout_s: int = 120):
+#     t0 = time.time()
+#     last_err = None
+#     while time.time() - t0 < timeout_s:
+#         try:
+#             r = requests.get(f"{api_base}/v1/models", timeout=3)
+#             if r.ok:
+#                 return True
+#         except Exception as e:
+#             last_err = e
+#         time.sleep(2)
+#     print(f"[ERR ] Server at {api_base} not reachable after {timeout_s}s. Last error: {last_err}", file=sys.stderr)
+#     return False
+
+# def get_model_id(api_base: str, prefer: str | None):
+#     """Return a valid model id from /v1/models; prefer env if present."""
+#     try:
+#         r = requests.get(f"{api_base}/v1/models", timeout=5)
+#         r.raise_for_status()
+#         data = r.json()
+#         ids = [m.get("id") for m in data.get("data", []) if m.get("id")]
+#         if not ids:
+#             raise RuntimeError("No models returned")
+#         if prefer and prefer in ids:
+#             return prefer
+#         return ids[0]
+#     except Exception as e:
+#         print(f"[WARN] Failed to query /v1/models ({e}); falling back to env or 'local'", file=sys.stderr)
+#         return prefer or "local"
+
+# # ---------- Few-shot sampling & message building ----------
+# def sample_fewshot(df_train: pd.DataFrame, n_err=5, n_not=3, seed=42):
+#     """Return list of demo tuples: [(src, mt, label), ...] in order: all ERR, then NOT."""
+#     rnd = random.Random(seed)
+#     err_rows = df_train[df_train["label"] == "ERR"].copy()
+#     not_rows = df_train[df_train["label"] == "NOT"].copy()
+
+#     # Shuffle deterministically
+#     err_idx = list(err_rows.index); not_idx = list(not_rows.index)
+#     rnd.shuffle(err_idx); rnd.shuffle(not_idx)
+
+#     err_pick = err_rows.loc[err_idx[:min(n_err, len(err_idx))]]
+#     not_pick = not_rows.loc[not_idx[:min(n_not, len(not_idx))]]
+
+#     demos = []
+#     for r in err_pick.itertuples(index=False):
+#         demos.append((r.src, r.mt, "ERR"))
+#     for r in not_pick.itertuples(index=False):
+#         demos.append((r.src, r.mt, "NOT"))
+#     return demos
+
+# def build_messages_with_fewshot(src: str, mt: str, demos):
+#     """
+#     Compose messages as:
+#       system: SYSTEM_PROMPT
+#       user/assistant pairs for each demo
+#       user: current EN/DE
+#     """
+#     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+#     for (d_src, d_mt, d_label) in demos:
+#         messages.append({"role": "user",      "content": f"EN: {d_src.strip()}\nDE: {d_mt.strip()}"})
+#         messages.append({"role": "assistant", "content": d_label})
+#     messages.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}"})
+#     return messages
+
+# def infer_one(src, mt, model_id: str, demos, retries: int = 6):
+#     """POST /v1/chat/completions with retry on 503/429."""
+#     payload = {
+#         "model": model_id,
+#         "messages": build_messages_with_fewshot(src, mt, demos),
+#         "max_tokens": MAX_NEW_TOKENS,
+#         "temperature": TEMPERATURE,
+#         "top_p": TOP_P,
+#         "grammar": GRAMMAR_FIELD,
+#     }
+#     backoff = 0.5
+#     for attempt in range(1, retries+1):
+#         try:
+#             r = requests.post(f"{API_BASE}/v1/chat/completions", json=payload, timeout=180)
+#             if r.status_code in (429, 503):
+#                 raise requests.HTTPError(f"HTTP {r.status_code}", response=r)
+#             r.raise_for_status()
+#             return sanitize_label(r.json()["choices"][0]["message"]["content"])
+#         except requests.HTTPError as e:
+#             code = getattr(e.response, "status_code", None)
+#             if code in (429, 503) and attempt < retries:
+#                 sleep_s = min(4.0, backoff)
+#                 print(f"[WARN] {code} from server (attempt {attempt}/{retries}) — backing off {sleep_s:.1f}s ...")
+#                 time.sleep(sleep_s); backoff *= 2; continue
+#             body = None
+#             try:
+#                 body = e.response.text[:500]
+#             except Exception:
+#                 pass
+#             raise RuntimeError(f"Server error {code}: {body}") from e
+#         except requests.RequestException as e:
+#             if attempt < retries:
+#                 sleep_s = min(4.0, backoff)
+#                 print(f"[WARN] Request error '{e}' (attempt {attempt}/{retries}) — retrying in {sleep_s:.1f}s ...")
+#                 time.sleep(sleep_s); backoff *= 2; continue
+#             raise
+
+# def main():
+#     if not wait_for_server(API_BASE, timeout_s=120):
+#         sys.exit(2)
+
+#     model_id = get_model_id(API_BASE, MODEL_ID_ENV)
+#     print(f"[INFO] Using model id: {model_id}")
+
+#     # Load DEV/EVAL
+#     df_full = load_tsv_noheader(DEV_TSV)
+#     df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
+#     print(f"[INFO] Evaluating {len(df)} row(s) via llama-server at {API_BASE}")
+
+#     # Load TRAIN for few-shot (fallback to DEV if not provided)
+#     train_path = (TRAIN_TSV or "").strip()
+#     if not train_path:
+#         print("[WARN] TRAIN_TSV is empty. Falling back to DEV_TSV for few-shot sampling.", file=sys.stderr)
+#         train_path = DEV_TSV
+
+#     try:
+#         df_train = load_tsv_noheader(train_path)
+#     except Exception as e:
+#         print(f"[WARN] Failed to load TRAIN_TSV ('{train_path}'): {e}. Falling back to DEV_TSV.", file=sys.stderr)
+#         df_train = df_full
+
+#     demos = sample_fewshot(df_train, n_err=FEWSHOT_ERR_N, n_not=FEWSHOT_NOT_N, seed=FEWSHOT_SEED)
+#     err_ct = sum(1 for _,_,lab in demos if lab == "ERR")
+#     not_ct = sum(1 for _,_,lab in demos if lab == "NOT")
+#     print(f"[INFO] Few-shot prepared: {err_ct} ERR + {not_ct} NOT (order: ERR first, then NOT) from '{train_path}'")
+
+#     y_true, y_pred, latencies = [], [], []
+
+#     for row in tqdm(df.itertuples(index=False), total=len(df), desc="Inference", unit="row"):
+#         t0 = time.perf_counter()
+#         pred = infer_one(row.src, row.mt, model_id=model_id, demos=demos)
+#         dt  = time.perf_counter() - t0
+#         latencies.append(dt)
+#         y_pred.append(pred)
+#         y_true.append(row.label)
+#         print(f"[DEBUG] TRUE={row.label} PRED={pred} | latency={dt:.2f}s")
+
+#     map01 = {"ERR":1, "NOT":0}
+#     yt = [map01.get(y,0) for y in y_true]
+#     yp = [map01.get(y,0) for y in y_pred]
+#     mcc = matthews_corrcoef(yt, yp) if len(yt) > 1 else 0.0
+#     prec, rec, f1, sup = precision_recall_fscore_support(yt, yp, labels=[1,0], zero_division=0)
+#     acc = (pd.Series(yt) == pd.Series(yp)).mean()
+
+#     print("\n--- Results ---")
+#     print(f"Subset size: {len(df)}")
+#     print(f"Accuracy: {acc:.4f}, MCC: {mcc:.4f}")
+#     print(f"F1-ERR: {f1[0]:.4f}, F1-NOT: {f1[1]:.4f}")
+#     if latencies:
+#         print(f"Latency (s): mean={np.mean(latencies):.2f}, max={np.max(latencies):.2f}")
+
+# if __name__ == "__main__":
+#     main()
+
+
 #!/usr/bin/env python3
-# Zero-shot / Few-shot CED (EN→DE) via vLLM (GGUF server)
-# Runs only the first N rows for quick debugging.
+# Few-shot CED (EN→DE) via llama-server (GGUF, GPU via llama.cpp server)
+# - Adds 5 ERR + 3 NOT few-shot demos sampled from TRAIN (ERR first, then NOT)
+# - Supports TSV **or** split files: *.src, *.mt, *.label (e.g., dev.src/dev.mt/dev.label)
+# - Strict grammar ("ERR" | "NOT"), 1-token output
+# - tqdm with ETA + latency profiling
+# - Robust: auto-detect model id + retry on 503/429
 
-import requests, pandas as pd
+import os, time, requests, sys, random, glob
+import pandas as pd
+import numpy as np
 from tqdm import tqdm
-from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
+from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support
 
-# ===================== CONFIG (edit here) =====================
-VLLM_BASE_URL   = "http://127.0.0.1:8000"
-MODEL_ID        = "llama33-70b-q4km"   # must match --served-model-name
-DEV_TSV         = "/home/ni124545/llm/data/wmt21/ende_majority_dev.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/wmt21/ende_majority_train.tsv"
+# ===================== CONFIG =====================
+API_BASE      = os.environ.get("API_BASE", "http://127.0.0.1:8811")
+MODEL_ID_ENV  = os.environ.get("MODEL_ID", "").strip()
 
-# Debugging / eval slice
-EVAL_LIMIT      = 1000                 # <-- evaluate only first N rows (set 0/None for all)
+# >>> Point these to EITHER a TSV file OR a directory with *.src/*.mt/*.label
+TRAIN_PATH = "/home/ni124545/llm/data/wmt22/en-de-train"   # e.g., contains train.src, train.mt, train.label
+DEV_PATH   = "/home/ni124545/llm/data/wmt22/en-de-dev"     # e.g., contains dev.src, dev.mt, dev.label
+# (You can also set them to TSV files: ".../ende_wmt22_train.tsv", ".../ende_wmt22_dev.tsv")
 
-# Decoding (deterministic baseline)
-TIMEOUT_SEC     = 180
-MAX_NEW_TOKENS  = 3
+EVAL_LIMIT      = None      # set to None or 0 for full dataset
+FEWSHOT_ERR_N   = 5
+FEWSHOT_NOT_N   = 3
+FEWSHOT_SEED    = 42        # deterministic sampling
+
+MAX_NEW_TOKENS  = 1
 TEMPERATURE     = 0.0
 TOP_P           = 1.0
-TOP_K           = 0   # not sent (server ignores extra_body); left here for reference
 
-# Few-shot config (GPT-4o logic: 5 ERR + 3 NOT from TRAIN, random_state=42)
-USE_FEW_SHOT        = True            # <-- set True to enable few-shot prompting
-FEW_SHOT_ERR_CNT    = 5
-FEW_SHOT_NOT_CNT    = 3
-RANDOM_STATE        = 42
-
-# Prompt
 SYSTEM_PROMPT = (
     "You are a precise translation evaluator.\n"
     "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
@@ -37,30 +264,21 @@ SYSTEM_PROMPT = (
     "Do not add any explanation, punctuation, or additional text."
 )
 
-def build_messages(src: str, mt: str):
-    """Zero-shot messages."""
-    user_prompt = f"EN: {src.strip()}\nDE: {mt.strip()}"
-    return [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user",   "content": user_prompt},
-    ]
+# Grammar: strictly allow only ERR or NOT
+GBNF = r"""root ::= ( "ERR" | "NOT" )"""
+GRAMMAR_FIELD = {"type": "gbnf", "value": GBNF}  # more compatible across server builds
+# ==================================================
 
-def build_messages_fewshot(examples, src: str, mt: str):
-    """
-    Few-shot messages using conversational demonstrations:
-      user: example pair
-      assistant: gold label ('ERR' / 'NOT')
-    Order: all ERR examples first, then NOT (to match your GPT-4o script).
-    """
-    msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
-    for ex in examples:
-        msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}"})
-        msgs.append({"role": "assistant", "content": ex['label'].strip().upper()})
-    msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}"})
-    return msgs
-# =============================================================
+# ---------- Loaders (TSV or split files) ----------
+_LABEL_MAP = {
+    "ERR":"ERR", "NOT":"NOT",
+    "BAD":"ERR", "OK":"NOT",
+    "ERROR":"ERR", "CORRECT":"NOT",
+}
 
-API_URL = f"{VLLM_BASE_URL}/v1/chat/completions"
+def _normalize_label(x: str) -> str:
+    t = (x or "").strip().upper()
+    return _LABEL_MAP.get(t, t if t in ("ERR","NOT") else "ERR")
 
 def load_tsv_noheader(path):
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
@@ -73,9 +291,52 @@ def load_tsv_noheader(path):
         df.columns = ["src","mt","label"]; df.insert(0,"id",range(len(df))); df.insert(3,"raw","")
     else:
         raise ValueError(f"Unexpected TSV columns: {n}")
-    df["label"] = df["label"].str.strip().str.upper()
+    df["label"] = df["label"].map(_normalize_label)
     return df[["src","mt","label"]]
 
+def _read_lines(fp):
+    with open(fp, "r", encoding="utf-8") as f:
+        return [line.rstrip("\n") for line in f]
+
+def load_split_dir(dir_path: str) -> pd.DataFrame:
+    """Load dataset from a directory containing *.src, *.mt, *.label (any prefix)."""
+    src_files   = sorted(glob.glob(os.path.join(dir_path, "*.src")))
+    mt_files    = sorted(glob.glob(os.path.join(dir_path, "*.mt")))
+    label_files = sorted(glob.glob(os.path.join(dir_path, "*.label")))
+    if not (src_files and mt_files and label_files):
+        raise FileNotFoundError(f"Missing split files in {dir_path}. Need *.src, *.mt, *.label")
+
+    # Pick the first match of each kind (supports dev.* or train.*)
+    src_fp, mt_fp, label_fp = src_files[0], mt_files[0], label_files[0]
+
+    src = _read_lines(src_fp)
+    mt  = _read_lines(mt_fp)
+    lb  = _read_lines(label_fp)
+    n = min(len(src), len(mt), len(lb))
+    if not (len(src) == len(mt) == len(lb)):
+        print(f"[WARN] Length mismatch in split files: src={len(src)} mt={len(mt)} label={len(lb)}. Truncating to {n}.", file=sys.stderr)
+
+    df = pd.DataFrame({"src": src[:n], "mt": mt[:n], "label": [ _normalize_label(x) for x in lb[:n] ]}, dtype=str)
+    return df
+
+def load_any_dataset(path_or_dir: str) -> pd.DataFrame:
+    """Auto-detect loader: TSV file or split directory."""
+    p = (path_or_dir or "").strip()
+    if not p:
+        raise ValueError("Empty dataset path")
+    if os.path.isdir(p):
+        return load_split_dir(p)
+    # treat as file
+    ext = os.path.splitext(p)[1].lower()
+    if ext in (".tsv", ".txt"):
+        return load_tsv_noheader(p)
+    # if user points to one of the split files directly, use its directory
+    if ext in (".src", ".mt", ".label"):
+        return load_split_dir(os.path.dirname(p))
+    # default: try TSV parser
+    return load_tsv_noheader(p)
+
+# ---------- Few-shot sampling & message building ----------
 def sanitize_label(text: str) -> str:
     t = text.strip().upper()
     if "ERR" in t and "NOT" in t:
@@ -84,100 +345,159 @@ def sanitize_label(text: str) -> str:
     if "NOT" in t: return "NOT"
     return "ERR"
 
-def select_few_shot_examples_from_train(train_tsv: str,
-                                        n_err: int,
-                                        n_not: int,
-                                        random_state: int = 42):
+def wait_for_server(api_base: str, timeout_s: int = 120):
+    t0 = time.time()
+    last_err = None
+    while time.time() - t0 < timeout_s:
+        try:
+            r = requests.get(f"{api_base}/v1/models", timeout=3)
+            if r.ok:
+                return True
+        except Exception as e:
+            last_err = e
+        time.sleep(2)
+    print(f"[ERR ] Server at {api_base} not reachable after {timeout_s}s. Last error: {last_err}", file=sys.stderr)
+    return False
+
+def get_model_id(api_base: str, prefer: str | None):
+    """Return a valid model id from /v1/models; prefer env if present."""
+    try:
+        r = requests.get(f"{api_base}/v1/models", timeout=5)
+        r.raise_for_status()
+        data = r.json()
+        ids = [m.get("id") for m in data.get("data", []) if m.get("id")]
+        if not ids:
+            raise RuntimeError("No models returned")
+        if prefer and prefer in ids:
+            return prefer
+        return ids[0]
+    except Exception as e:
+        print(f"[WARN] Failed to query /v1/models ({e}); falling back to env or 'local'", file=sys.stderr)
+        return prefer or "local"
+
+def sample_fewshot(df_train: pd.DataFrame, n_err=5, n_not=3, seed=42):
+    """Return list of demo tuples: [(src, mt, label), ...] in order: all ERR, then NOT."""
+    rnd = random.Random(seed)
+    err_rows = df_train[df_train["label"] == "ERR"].copy()
+    not_rows = df_train[df_train["label"] == "NOT"].copy()
+
+    err_idx = list(err_rows.index); not_idx = list(not_rows.index)
+    rnd.shuffle(err_idx); rnd.shuffle(not_idx)
+
+    err_pick = err_rows.loc[err_idx[:min(n_err, len(err_idx))]]
+    not_pick = not_rows.loc[not_idx[:min(n_not, len(not_idx))]]
+
+    demos = []
+    for r in err_pick.itertuples(index=False):
+        demos.append((r.src, r.mt, "ERR"))
+    for r in not_pick.itertuples(index=False):
+        demos.append((r.src, r.mt, "NOT"))
+    return demos
+
+def build_messages_with_fewshot(src: str, mt: str, demos):
     """
-    Replicates the GPT-4o script's logic:
-      - Load TRAIN_TSV
-      - Sample 5 ERR (oversample) + 3 NOT with random_state for reproducibility
-      - Return list of {src, mt, label}; ERRs come first, then NOTs
-    Robust if the split is smaller than requested (falls back to sampling with replacement).
+    Compose messages as:
+      system: SYSTEM_PROMPT
+      user/assistant pairs for each demo
+      user: current EN/DE
     """
-    train_df = load_tsv_noheader(train_tsv)
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    for (d_src, d_mt, d_label) in demos:
+        messages.append({"role": "user",      "content": f"EN: {d_src.strip()}\nDE: {d_mt.strip()}"})
+        messages.append({"role": "assistant", "content": d_label})
+    messages.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}"})
+    return messages
 
-    # Ensure we have uppercase labels and only valid classes
-    train_df = train_df[train_df["label"].isin(["ERR","NOT"])]
-
-    def _sample(df, k):
-        if len(df) == 0:
-            return df
-        if len(df) >= k:
-            return df.sample(k, random_state=random_state)
-        # Not enough rows -> sample with replacement to reach k
-        return df.sample(k, replace=True, random_state=random_state)
-
-    err_df = _sample(train_df[train_df["label"] == "ERR"], n_err)
-    not_df = _sample(train_df[train_df["label"] == "NOT"], n_not)
-
-    examples = []
-    # ERR first (to mirror your few_shot_gpt4o_inference.py order)
-    for _, r in err_df.iterrows():
-        examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "ERR"})
-    # then NOT
-    for _, r in not_df.iterrows():
-        examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "NOT"})
-
-    return examples
-
-def infer_one(src, mt, examples=None):
-    """If examples is provided, do few-shot; otherwise zero-shot."""
-    messages = build_messages_fewshot(examples, src, mt) if examples else build_messages(src, mt)
+def infer_one(src, mt, model_id: str, demos, retries: int = 6):
+    """POST /v1/chat/completions with retry on 503/429."""
     payload = {
-        "model": MODEL_ID,
-        "messages": messages,
+        "model": model_id,
+        "messages": build_messages_with_fewshot(src, mt, demos),
         "max_tokens": MAX_NEW_TOKENS,
         "temperature": TEMPERATURE,
         "top_p": TOP_P,
-        # If your vLLM build supports top_k directly in body, you can add: "top_k": TOP_K
+        "grammar": GRAMMAR_FIELD,
     }
-    r = requests.post(API_URL, json=payload, timeout=TIMEOUT_SEC)
-    r.raise_for_status()
-    out = r.json()["choices"][0]["message"]["content"]
-    return sanitize_label(out)
+    backoff = 0.5
+    for attempt in range(1, retries+1):
+        try:
+            r = requests.post(f"{API_BASE}/v1/chat/completions", json=payload, timeout=180)
+            if r.status_code in (429, 503):
+                raise requests.HTTPError(f"HTTP {r.status_code}", response=r)
+            r.raise_for_status()
+            return sanitize_label(r.json()["choices"][0]["message"]["content"])
+        except requests.HTTPError as e:
+            code = getattr(e.response, "status_code", None)
+            if code in (429, 503) and attempt < retries:
+                sleep_s = min(4.0, backoff)
+                print(f"[WARN] {code} from server (attempt {attempt}/{retries}) — backing off {sleep_s:.1f}s ...")
+                time.sleep(sleep_s); backoff *= 2; continue
+            body = None
+            try:
+                body = e.response.text[:500]
+            except Exception:
+                pass
+            raise RuntimeError(f"Server error {code}: {body}") from e
+        except requests.RequestException as e:
+            if attempt < retries:
+                sleep_s = min(4.0, backoff)
+                print(f"[WARN] Request error '{e}' (attempt {attempt}/{retries}) — retrying in {sleep_s:.1f}s ...")
+                time.sleep(sleep_s); backoff *= 2; continue
+            raise
 
 def main():
-    """Run inference over the dataset and report metrics."""
-    df_full = load_tsv_noheader(DEV_TSV)
-    eval_df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
-    rows = list(eval_df.itertuples(index=False))
+    if not wait_for_server(API_BASE, timeout_s=120):
+        sys.exit(2)
 
-    # Build few-shot examples ONCE from TRAIN (no leakage)
-    few_shots = None
-    if USE_FEW_SHOT:
-        few_shots = select_few_shot_examples_from_train(
-            TRAIN_TSV, FEW_SHOT_ERR_CNT, FEW_SHOT_NOT_CNT, RANDOM_STATE
-        )
+    model_id = get_model_id(API_BASE, MODEL_ID_ENV)
+    print(f"[INFO] Using model id: {model_id}")
 
-    y_true, y_pred = [], []
-    for row in tqdm(rows, total=len(rows), desc=f"Evaluating first {len(rows)} rows"):
-        y_pred.append(infer_one(row.src, row.mt, examples=few_shots))
+    # Load DEV/EVAL (auto-detect TSV vs split dir)
+    df_full = load_any_dataset(DEV_PATH)
+    df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
+    print(f"[INFO] Evaluating {len(df)} row(s) via llama-server at {API_BASE}")
+
+    # Load TRAIN for few-shot (fallback to DEV if not provided/failed)
+    train_path = (TRAIN_PATH or "").strip()
+    if not train_path:
+        print("[WARN] TRAIN_PATH is empty. Falling back to DEV_PATH for few-shot sampling.", file=sys.stderr)
+        train_path = DEV_PATH
+
+    try:
+        df_train = load_any_dataset(train_path)
+    except Exception as e:
+        print(f"[WARN] Failed to load TRAIN_PATH ('{train_path}'): {e}. Falling back to DEV_PATH.", file=sys.stderr)
+        df_train = df_full
+
+    demos = sample_fewshot(df_train, n_err=FEWSHOT_ERR_N, n_not=FEWSHOT_NOT_N, seed=FEWSHOT_SEED)
+    err_ct = sum(1 for _,_,lab in demos if lab == "ERR")
+    not_ct = sum(1 for _,_,lab in demos if lab == "NOT")
+    print(f"[INFO] Few-shot prepared: {err_ct} ERR + {not_ct} NOT (order: ERR first, then NOT) from '{train_path}'")
+
+    y_true, y_pred, latencies = [], [], []
+
+    for row in tqdm(df.itertuples(index=False), total=len(df), desc="Inference", unit="row"):
+        t0 = time.perf_counter()
+        pred = infer_one(row.src, row.mt, model_id=model_id, demos=demos)
+        dt  = time.perf_counter() - t0
+        latencies.append(dt)
+        y_pred.append(pred)
         y_true.append(row.label)
+        print(f"[DEBUG] TRUE={row.label} PRED={pred} | latency={dt:.2f}s")
 
-    # quick per-row print for debugging
-    for i, (yt, yp) in enumerate(zip(y_true, y_pred), 1):
-        print(f"[{i:03d}] TRUE={yt}  PRED={yp}")
-
-    # metrics on the subset
-    map01 = {"ERR":1,"NOT":0}
+    map01 = {"ERR":1, "NOT":0}
     yt = [map01.get(y,0) for y in y_true]
     yp = [map01.get(y,0) for y in y_pred]
-
     mcc = matthews_corrcoef(yt, yp) if len(yt) > 1 else 0.0
     prec, rec, f1, sup = precision_recall_fscore_support(yt, yp, labels=[1,0], zero_division=0)
-    f_err, f_not = f1[0], f1[1]
+    acc = (pd.Series(yt) == pd.Series(yp)).mean()
 
-    acc = (pd.Series(yt)==pd.Series(yp)).mean()
-    cm  = confusion_matrix(yt, yp, labels=[1,0])
-    cm_df = pd.DataFrame(cm, index=["ERR_true","NOT_true"], columns=["ERR_pred","NOT_pred"])
-
-    print(f"\nSubset size: {len(eval_df)}")
-    if USE_FEW_SHOT:
-        print(f"Few-shot demos: {FEW_SHOT_ERR_CNT} ERR + {FEW_SHOT_NOT_CNT} NOT (from TRAIN, rs={RANDOM_STATE})")
-    print(f"MCC: {mcc:.4f}  F1-ERR: {f_err:.4f}  F1-NOT: {f_not:.4f}  Acc: {acc:.4f}")
-    print("\nConfusion Matrix (rows=true │ cols=pred)")
-    print(cm_df.to_string())
+    print("\n--- Results ---")
+    print(f"Subset size: {len(df)}")
+    print(f"Accuracy: {acc:.4f}, MCC: {mcc:.4f}")
+    print(f"F1-ERR: {f1[0]:.4f}, F1-NOT: {f1[1]:.4f}")
+    if latencies:
+        print(f"Latency (s): mean={np.mean(latencies):.2f}, max={np.max(latencies):.2f}")
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,0 @@
-Active Conda Environment: wmt21
-Epoch 1 - avg loss: 0.6524
-Dev MCC: 0.3994, F1-ERR: 0.5851, F1-NOT: 0.8021
-Epoch 2 - avg loss: 0.5676
-Dev MCC: 0.4348, F1-ERR: 0.5863, F1-NOT: 0.8474
-Epoch 3 - avg loss: 0.5206
-Dev MCC: 0.4560, F1-ERR: 0.5989, F1-NOT: 0.8550
-Test MCC: 0.4560, F1-ERR: 0.5989, F1-NOT: 0.8550

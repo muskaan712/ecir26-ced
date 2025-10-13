@@ -1,39 +1,39 @@
 #!/usr/bin/env python3
-# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing (like 20B)
+# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing
+# - Processes the full DEV_TSV (no eval limit)
+# - Few-shot optional from TRAIN_TSV
+# - Parses FINAL channel if present, otherwise first ERR/NOT token
+# - Computes MCC, class-wise F1, accuracy, confusion matrix
 
 import os
 import re
-import time
 import requests
 import pandas as pd
 from tqdm import tqdm
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
 
 # ===================== CONFIG =============================================
-VLLM_BASE_URL   = "http://127.0.0.1:8000"
-MODEL_ID        = "gpt-oss-120b"
+VLLM_BASE_URL   = os.environ.get("VLLM_BASE_URL", "http://127.0.0.1:8000")
+MODEL_ID        = os.environ.get("MODEL_ID", "gpt-oss-120b")
 
-DEV_TSV         = "/home/ni124545/llm/data/wmt21/ende_majority_dev.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/wmt21/ende_majority_train.tsv"
+DEV_TSV         = "/home/ni124545/llm/data/own_data/synced_ende_eval_gold.tsv"
+TRAIN_TSV       = "/home/ni124545/llm/data/own_data/synced_ende_train_silver.tsv"  # unused in zero-shot
 
-# Evaluate only first N rows (set None/0 to use ALL)
-EVAL_LIMIT      = 1000
+# Decoding (allow long reasoning and parse FINAL)
+TIMEOUT_SEC     = int(os.environ.get("TIMEOUT_SEC", "300"))
+MAX_NEW_TOKENS  = int(os.environ.get("MAX_NEW_TOKENS", "256"))
+TEMPERATURE     = float(os.environ.get("TEMPERATURE", "0.0"))
+TOP_P           = float(os.environ.get("TOP_P", "1.0"))
+STOP_TOKENS     = os.environ.get("STOP_TOKENS", "<|end|>,<|return|>").split(",")
 
-# Decoding (match 20B: allow long reasoning and parse FINAL)
-TIMEOUT_SEC     = 300
-MAX_NEW_TOKENS  = 256
-TEMPERATURE     = 0.0
-TOP_P           = 1.0
-STOP_TOKENS     = ["<|end|>", "<|return|>"]  # lets the model close the message naturally
+# Few-shot configuration (static)
+USE_FEW_SHOT     = True          # ← set to False for zero-shot
+FEW_SHOT_ERR_CNT = 5
+FEW_SHOT_NOT_CNT = 3
+RANDOM_STATE     = 42
 
-# Few-shot (keep your 5 ERR / 3 NOT)
-USE_FEW_SHOT        = True
-FEW_SHOT_ERR_CNT    = 5
-FEW_SHOT_NOT_CNT    = 3
-RANDOM_STATE        = 42
-
-# ───────────────────────── Optimized SYSTEM_PROMPT ────────────────────────────
-SYSTEM_PROMPT = """
+SYSTEM_PROMPT = (
+     """
 You are a bilingual (EN→DE) translation safety checker for sentence-level Critical Error Detection (CED).
 
 Task
@@ -67,6 +67,7 @@ Checklist: TOX? SAF? NAM? SEN? NUM? Note any triggers if present.
 ERR
 </final>
 """
+)
 
 API_URL = f"{VLLM_BASE_URL}/v1/chat/completions"
 
@@ -95,7 +96,7 @@ def build_messages_fewshot(examples, src: str, mt: str):
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
         msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}\n\nProvide your FINAL decision."})
-        # Assistant replies with label only (acts as FINAL)
+        # assistant shows only the label (acts as FINAL)
         msgs.append({"role": "assistant", "content": ex['label'].strip().upper()})
     msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."})
     return msgs
@@ -126,7 +127,7 @@ LABEL_RE = re.compile(r"\b(ERR|NOT)\b", re.I)
 FINAL_BLOCK_RE = re.compile(r"<\|channel\|\>final<\|message\|\>(.*?)(?:<\|end\|\>|<\|return\|\>|$)", re.S)
 
 def extract_text_from_choice(choice: dict) -> str:
-    # Combine all potential fields that may contain model text.
+    # Combine fields that may contain model text (vLLM 0.10.x+ often uses reasoning_content).
     msg = choice.get("message", {}) or {}
     content = msg.get("content") or ""
     reasoning = msg.get("reasoning_content") or ""
@@ -145,7 +146,6 @@ def extract_final_or_label(text: str) -> str:
     return m3.group(1).upper() if m3 else text.strip()
 
 def sanitize_label(t: str) -> str:
-    # Conservative fallback to ERR
     s = (t or "").strip().upper()
     if "ERR" in s and "NOT" in s:
         return "ERR" if s.index("ERR") < s.index("NOT") else "NOT"
@@ -154,7 +154,7 @@ def sanitize_label(t: str) -> str:
     return "ERR"
 
 # --- Inference (unguided, long decode, FINAL parsing) ------------------------
-def infer_one_with_retry(src, mt, examples=None, max_retries=3, backoff=1.25):
+def infer_one_with_retry(src, mt, examples=None, max_retries=3):
     messages = build_messages_fewshot(examples, src, mt) if examples else build_messages_zero_shot(src, mt)
 
     payload = {
@@ -164,19 +164,20 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3, backoff=1.25):
         "temperature": TEMPERATURE,
         "top_p": TOP_P,
         "stop": STOP_TOKENS,
+        # Optionally reduce chain-of-thought verbosity if your server supports it:
+        # "reasoning": {"effort": "low"},
     }
 
     for attempt in range(max_retries):
         try:
             r = requests.post(API_URL, json=payload, timeout=TIMEOUT_SEC)
 
-            # Retry on rate limits / transient server errors
-            if r.status_code in (429, 500, 502, 503, 504):
+            # Retry on server errors
+            if r.status_code >= 500:
                 if attempt < max_retries - 1:
-                    time.sleep(backoff ** attempt)
                     continue
                 else:
-                    return "ERR"  # conservative on hard failure
+                    return "ERR"
 
             r.raise_for_status()
             resp = r.json()
@@ -188,15 +189,13 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3, backoff=1.25):
         except requests.exceptions.RequestException:
             if attempt == max_retries - 1:
                 return "ERR"
-            time.sleep(backoff ** attempt)
 
     return "ERR"
 
 # ===================== Main ================================================
 def main():
-    """Run inference over the dataset and report metrics."""
     df_full = load_tsv_noheader(DEV_TSV)
-    eval_df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
+    eval_df = df_full  # ← always use all rows (no eval limit)
     rows = list(eval_df.itertuples(index=False))
 
     print(f"Processing: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} | Max tokens: {MAX_NEW_TOKENS}")
