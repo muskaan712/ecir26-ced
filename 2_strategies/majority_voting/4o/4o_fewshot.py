@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# few_shot_gpt4o_inference_3col_errnot.py
+# few_shot_gpt4o_inference_3col_errnot_mv.py
 #
 # Strict 3-column TSV (no header):
 #   col0 = EN (src), col1 = DE (mt), col_last = label ("ERR" or "NOT")
 # - Only accepts ERR/NOT (no BAD/OK mapping).
 # - Samples with replace if a class has fewer rows than requested.
 # - Logs class counts for TRAIN/DEV.
+# - Majority voting: committee size K=3 (n=3), temperature=0.2
 
 import os, sys, time, logging
 from typing import List, Dict
@@ -13,18 +14,21 @@ import pandas as pd
 from tqdm import tqdm
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
 import openai
+from collections import Counter
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 DEV_TSV    = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
 TRAIN_TSV  = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
 
 # Prefer OPENAI_API_KEY; falls back to OPENAI for your current env
-openai.api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("OPENAI") or ""
+openai.api_key = os.environ.get("OAPI") or os.environ.get("OPENAI") or ""
 
-MODEL       = "gpt-4o"
-MAX_TOKENS  = 3
-TEMPERATURE = 0.0
-COST_PER_1K = 0.002
+MODEL         = "gpt-4o"
+MAX_TOKENS    = 3
+TEMPERATURE   = 0.2          # ← set as requested
+COST_PER_1K   = 0.002        # adjust if you want exact pricing for your model
+COMMITTEE_K   = 3            # ← majority vote committee size
+TIE_FALLBACK  = "NOT"        # deterministic tie-breaker
 
 FEW_SHOT_ERR_CNT = 5
 FEW_SHOT_NOT_CNT = 3
@@ -33,7 +37,7 @@ ALLOWED = {"ERR", "NOT"}
 
 # ── Logging ────────────────────────────────────────────────────────────────────
 logging.basicConfig(
-    filename="inference_gpt4o_few_shot.log",
+    filename="inference_gpt4o_few_shot_mv.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -110,11 +114,28 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
 # ── Prompting ──────────────────────────────────────────────────────────────────
 def build_messages(src: str, mt: str, examples: List[Dict[str,str]]):
     system_prompt = (
-        "You are a precise translation evaluator.\n"
-        "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
-        "'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate "
-        "or only has minor imperfections.\n"
-        "Do not add any explanation, punctuation, or additional text."
+        "You are a STRICT binary classifier for WMT’21 Task 3 (Critical Error Detection, EN→DE).\n\n"
+        "Goal\n"
+        "- Decide if the German MT contains at least one CRITICAL meaning error relative to the English source.\n"
+        "- Output EXACTLY one token: ERR or NOT (UPPERCASE, no punctuation, no spaces, no explanation).\n\n"
+        "Critical errors (any ⇒ ERR)\n"
+        "- TOX: toxicity/hate/violence/profanity introduced, deleted, mistranslated, or left untranslated in a way that changes meaning.\n"
+        "- SAF: health/safety risk introduced, deleted, mistranslated, or left untranslated (e.g., advice flips, risky omissions).\n"
+        "- NAM: named entity added/removed/mistranslated/gibberish/unrecoverable transliteration (people/org/place/product/username).\n"
+        "- SEN: sentiment polarity or negation flipped or materially strengthened/weakened (e.g., “don’t”→“do”, “possibly”→“certainly”).\n"
+        "- NUM: wrong/missing/added numbers, dates, times, units that change meaning (e.g., 8am↔8pm, km↔miles without conversion).\n\n"
+        "Non-critical (ignore; still ⇒ NOT)\n"
+        "- Style/register/awkwardness/locale punctuation.\n"
+        "- Fluency/grammar/typos that don’t change critical meaning.\n"
+        "- Minor lexical changes that keep meaning (page↔site, small intensifier changes that don’t flip sentiment).\n"
+        "- Correct transfer of toxicity that was already in the source (not an error).\n\n"
+        "Decision policy (optimize reliability/MCC)\n"
+        "- Mark ERR only with CLEAR evidence of a critical deviation in the categories above.\n"
+        "- If uncertain, default to NOT.\n\n"
+        "Procedure (think silently; do not write rationale)\n"
+        "1) Read EN source and DE MT. If helpful, internally paraphrase MT to EN.\n"
+        "2) Compare meanings with attention to TOX/SAF/NAM/SEN/NUM.\n"
+        "3) Decide. Output ONLY: ERR or NOT.\n\n"
     )
     messages = [{"role": "system", "content": system_prompt}]
     for ex in examples:
@@ -130,16 +151,26 @@ def parse_label(text: str) -> str:
     """
     if text is None:
         return "NOT"
-    s = str(text).strip().upper()   # <-- FIX: use .upper(), not .str.upper()
-    # Fast paths
+    s = str(text).strip().upper()
     if s == "ERR": return "ERR"
     if s == "NOT": return "NOT"
-    # Containment (avoid cases like "NOT ERR")
     if "ERR" in s and "NOT" not in s: return "ERR"
     if "NOT" in s and "ERR" not in s: return "NOT"
-    # First token fallback
     tok = s.split()[0]
     return tok if tok in ALLOWED else "NOT"
+
+def majority_vote(labels: List[str], tie_fallback: str = TIE_FALLBACK) -> str:
+    """
+    Choose the modal label; deterministic tie fallback.
+    """
+    cnt = Counter(labels)
+    if not cnt:
+        return tie_fallback
+    top = cnt.most_common()
+    if len(top) == 1 or top[0][1] > top[1][1]:
+        return top[0][0]
+    # tie
+    return tie_fallback
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
@@ -152,26 +183,37 @@ def main():
     total_tokens = 0
     t0 = time.time()
 
-    for i, row in tqdm(dev_df.iterrows(), total=len(dev_df), desc="GPT-4o few-shot inference"):
+    for i, row in tqdm(dev_df.iterrows(), total=len(dev_df),
+                       desc=f"GPT-4o few-shot inference (K={COMMITTEE_K}, T={TEMPERATURE})"):
         messages = build_messages(row["src"], row["mt"], examples)
         resp = openai.chat.completions.create(
             model=MODEL,
             messages=messages,
             temperature=TEMPERATURE,
             max_tokens=MAX_TOKENS,
-            n=1
+            n=COMMITTEE_K
         )
-        raw = resp.choices[0].message.content
-        lab = parse_label(raw)
-        gen_labels.append(lab)
+
+        votes: List[str] = []
+        for j, ch in enumerate(resp.choices):
+            raw = getattr(ch.message, "content", None)
+            lab = parse_label(raw)
+            votes.append(lab)
+
+        final_label = majority_vote(votes, TIE_FALLBACK)
+        gen_labels.append(final_label)
+        preds.append(1 if final_label == "ERR" else 0)
 
         usage = getattr(resp, "usage", None)
         if usage is not None:
+            # For n>1, OpenAI usage aggregates across choices
             total_tokens += usage.prompt_tokens + usage.completion_tokens
             logging.info(
-                f"Row {i}: gen={lab!r} raw={raw!r} | prompt={usage.prompt_tokens} completion={usage.completion_tokens}"
+                f"Row {i}: votes={votes} -> final={final_label} | "
+                f"prompt={usage.prompt_tokens} completion={usage.completion_tokens}"
             )
-        preds.append(1 if lab == "ERR" else 0)
+        else:
+            logging.info(f"Row {i}: votes={votes} -> final={final_label} | usage=N/A")
 
     elapsed = time.time() - t0
     logging.info(f"Total inference time: {elapsed:.2f}s")

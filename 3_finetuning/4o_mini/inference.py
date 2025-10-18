@@ -21,19 +21,18 @@ console.setFormatter(logging.Formatter("%(message)s"))
 logging.getLogger().addHandler(console)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DATA_DIR         = "/home/s13mchop/LLMs/data/wmt21"
-DEV_TSV          = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
-TRAIN_TSV        = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
+DEV_TSV    = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
+TRAIN_TSV  = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
 
 openai.api_key   = os.getenv("OAPI") or os.getenv("OPENAI_API_KEY") or ""
 
-MODEL            = "gpt-4o-mini"
+MODEL            = "ft:gpt-4o-mini-2024-07-18:fraunhofer-iais:synced-label-4o-mini:CRA2z471"
 MAX_TOKENS       = 3
 TEMPERATURE      = 0.0
 COST_PER_1K      = 0.002
 
-FEW_SHOT_ERR_CNT = 5
-FEW_SHOT_NOT_CNT = 3
+FEW_SHOT_ERR_CNT = 1
+FEW_SHOT_NOT_CNT = 1
 
 LABEL_MAP = {"ERR": "ERR", "NOT": "NOT", "BAD": "ERR", "OK": "NOT"}  # harmless if not present
 ALLOWED   = {"ERR", "NOT"}
@@ -126,11 +125,9 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
 # ── Prompting ──────────────────────────────────────────────────────────────────
 def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
     system_prompt = (
-        "You are a precise translation evaluator.\n"
-        "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
-        "'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate "
-        "or only has minor imperfections.\n"
-        "Do not add any explanation, punctuation, or additional text."
+    "You are a STRICT binary classifier for EN→DE critical error detection.\n"
+    "Decide if the MT contains a CRITICAL meaning error vs the source.\n"
+    "Output EXACTLY one token: ERR or NOT."
     )
     messages = [{"role": "system", "content": system_prompt}]
     for ex in examples:

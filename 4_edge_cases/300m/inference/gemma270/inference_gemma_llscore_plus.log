@@ -1,3 +1,0 @@
-2025-08-20 03:07:01,174 - Based on the current allocation process, no modules could be assigned to the following devices due to insufficient memory:
-  - 0: 346691586 bytes required
-These minimum requirements are specific to this allocation attempt and may vary. Consider increasing the available memory for these devices to at least the specified minimum, or adjusting the model config.

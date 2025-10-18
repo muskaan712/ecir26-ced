@@ -1,374 +1,0 @@
-Running GPU job on partition ML
-Active Environment: /rwthfs/rz/cluster/home/ni124545/.local/share/mamba/envs/wmt21
-Python 3.12.11
-Name: vllm
-Version: 0.10.1
-Summary: A high-throughput and memory-efficient inference and serving engine for LLMs
-Home-page: https://github.com/vllm-project/vllm
-Author: vLLM Team
-Starting vLLM server...
-vLLM PID: 2837655
-Waiting for vLLM to become ready...
-[still loading @ 30s] tail of server log:
-[still loading @ 60s] tail of server log:
-[still loading @ 240s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_5b68c996'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60435959/e0a85b4b-cff2-4d50-8f1c-9734968eea95', remote_subscribe_addr=None, remote_addr_ipv6=False)
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[still loading @ 270s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_5b68c996'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60435959/e0a85b4b-cff2-4d50-8f1c-9734968eea95', remote_subscribe_addr=None, remote_addr_ipv6=False)
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[still loading @ 300s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_5b68c996'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60435959/e0a85b4b-cff2-4d50-8f1c-9734968eea95', remote_subscribe_addr=None, remote_addr_ipv6=False)
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[still loading @ 330s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_5b68c996'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60435959/e0a85b4b-cff2-4d50-8f1c-9734968eea95', remote_subscribe_addr=None, remote_addr_ipv6=False)
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[still loading @ 480s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_5b68c996'), local_subscribe_addr='ipc:///w0/tmp/slurm_ni124545.60435959/e0a85b4b-cff2-4d50-8f1c-9734968eea95', remote_subscribe_addr=None, remote_addr_ipv6=False)
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[still loading @ 510s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[still loading @ 540s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[still loading @ 570s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[still loading @ 600s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [parallel_state.py:1134] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[still loading @ 750s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[still loading @ 780s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[still loading @ 810s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m WARNING 08-21 03:23:10 [topk_topp_sampler.py:61] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[still loading @ 840s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:10 [gpu_model_runner.py:1953] Starting to load model /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-120b...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[still loading @ 1020s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[still loading @ 1050s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[still loading @ 1080s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [13:47<06:50, 82.15s/it]
-[still loading @ 1110s] tail of server log:
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [gpu_model_runner.py:1985] Loading model from scratch...
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [13:47<06:50, 82.15s/it]
-[still loading @ 1140s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP1 pid=2840660)[0;0m INFO 08-21 03:23:11 [cuda.py:328] Using Flash Attention backend on V1 engine.
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [13:47<06:50, 82.15s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [15:06<05:25, 81.26s/it]
-[still loading @ 1290s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [13:47<06:50, 82.15s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [15:06<05:25, 81.26s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  80% Completed | 12/15 [16:18<03:54, 78.30s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  87% Completed | 13/15 [17:35<02:35, 77.80s/it]
-[still loading @ 1320s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [13:47<06:50, 82.15s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [15:06<05:25, 81.26s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  80% Completed | 12/15 [16:18<03:54, 78.30s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  87% Completed | 13/15 [17:35<02:35, 77.80s/it]
-[still loading @ 1350s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [13:47<06:50, 82.15s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [15:06<05:25, 81.26s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  80% Completed | 12/15 [16:18<03:54, 78.30s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  87% Completed | 13/15 [17:35<02:35, 77.80s/it]
-[still loading @ 1380s] tail of server log:
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [01:18<18:18, 78.49s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [02:47<18:22, 84.84s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [04:11<16:52, 84.37s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [05:33<15:17, 83.43s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [07:08<14:34, 87.45s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [08:23<12:30, 83.36s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [09:51<11:17, 84.75s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [10:57<09:12, 78.93s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [12:22<08:03, 80.66s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [13:47<06:50, 82.15s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [15:06<05:25, 81.26s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  80% Completed | 12/15 [16:18<03:54, 78.30s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  87% Completed | 13/15 [17:35<02:35, 77.80s/it]
-[1;36m(VllmWorker TP0 pid=2840659)[0;0m Loading safetensors checkpoint shards:  93% Completed | 14/15 [18:53<01:17, 77.90s/it]
-vLLM is ready.
-Processing: 1000 rows | Few-shot: ON | Max tokens: 256 | Majority: ON (n=3, temp=0.2)
-Few-shot demos prepared: 5 ERR + 3 NOT
-
-=== PREVIEW (first 10) ===
-[001] TRUE=NOT | PRED=NOT votes=['NOT', 'NOT', 'NOT']
-[002] TRUE=NOT | PRED=NOT votes=['NOT', 'NOT', 'NOT']
-[003] TRUE=ERR | PRED=ERR votes=['ERR', 'ERR', 'ERR']
-[004] TRUE=NOT | PRED=NOT votes=['NOT', 'NOT', 'NOT']
-[005] TRUE=NOT | PRED=NOT votes=['NOT', 'NOT', 'NOT']
-[006] TRUE=ERR | PRED=NOT votes=['NOT', 'NOT', 'NOT']
-[007] TRUE=ERR | PRED=ERR votes=['ERR', 'ERR', 'ERR']
-[008] TRUE=NOT | PRED=ERR votes=['ERR', 'ERR', 'NOT']
-[009] TRUE=ERR | PRED=ERR votes=['ERR', 'ERR', 'ERR']
-[010] TRUE=NOT | PRED=NOT votes=['NOT', 'NOT', 'NOT']
-Progress: 200/1000 | partial_acc=0.735
-Progress: 400/1000 | partial_acc=0.752
-Progress: 600/1000 | partial_acc=0.737
-Progress: 800/1000 | partial_acc=0.740
-Progress: 1000/1000 | partial_acc=0.740
-
-Processed: 1000 rows | Few-shot: ON | Majority: ON
-MCC   : 0.3735
-F1-ERR: 0.5563 | F1-NOT: 0.8161 | Acc: 0.7400
-
-Confusion Matrix (rows=true │ cols=pred)
-      ERR   NOT
-ERR    163   118
-NOT    142   577
-Stopping vLLM...
-Done.

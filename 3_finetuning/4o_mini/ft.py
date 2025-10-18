@@ -6,9 +6,9 @@
 import os, json, time, sys
 
 # ── Edit these ────────────────────────────────────────────────────────────────
-SRC_JSONL    = "/home/s13mchop/LLMs/data/wmt21/ft/training_set.jsonl"   # existing full JSONL
+SRC_JSONL    = "/home/s13mchop/LLMs/data/train.jsonl"   # existing full JSONL
 BASE_MODEL   = "gpt-4o-mini-2024-07-18"
-MODEL_SUFFIX = "ced-label-only-full-v1"
+MODEL_SUFFIX = "synced-label-4o-mini"  # optional; None=omit
 EPOCHS       = 2              # adjust if you need to control cost
 SLEEP_SECS   = 0              # 0 = no wait between polls
 # Uses OPENAI_API_KEY (or OAPI) from env

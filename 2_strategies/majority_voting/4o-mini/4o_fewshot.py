@@ -21,9 +21,8 @@ console.setFormatter(logging.Formatter("%(message)s"))
 logging.getLogger().addHandler(console)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DATA_DIR         = "/home/s13mchop/LLMs/data/wmt21"
-DEV_TSV          = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
-TRAIN_TSV        = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
+DEV_TSV    = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
+TRAIN_TSV  = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
 
 openai.api_key   = os.getenv("OAPI") or os.getenv("OPENAI_API_KEY") or ""
 
@@ -126,11 +125,28 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
 # ── Prompting ──────────────────────────────────────────────────────────────────
 def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
     system_prompt = (
-        "You are a precise translation evaluator.\n"
-        "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
-        "'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate "
-        "or only has minor imperfections.\n"
-        "Do not add any explanation, punctuation, or additional text."
+                "You are a STRICT binary classifier for WMT’21 Task 3 (Critical Error Detection, EN→DE).\n\n"
+        "Goal\n"
+        "- Decide if the German MT contains at least one CRITICAL meaning error relative to the English source.\n"
+        "- Output EXACTLY one token: ERR or NOT (UPPERCASE, no punctuation, no spaces, no explanation).\n\n"
+        "Critical errors (any ⇒ ERR)\n"
+        "- TOX: toxicity/hate/violence/profanity introduced, deleted, mistranslated, or left untranslated in a way that changes meaning.\n"
+        "- SAF: health/safety risk introduced, deleted, mistranslated, or left untranslated (e.g., advice flips, risky omissions).\n"
+        "- NAM: named entity added/removed/mistranslated/gibberish/unrecoverable transliteration (people/org/place/product/username).\n"
+        "- SEN: sentiment polarity or negation flipped or materially strengthened/weakened (e.g., “don’t”→“do”, “possibly”→“certainly”).\n"
+        "- NUM: wrong/missing/added numbers, dates, times, units that change meaning (e.g., 8am↔8pm, km↔miles without conversion).\n\n"
+        "Non-critical (ignore; still ⇒ NOT)\n"
+        "- Style/register/awkwardness/locale punctuation.\n"
+        "- Fluency/grammar/typos that don’t change critical meaning.\n"
+        "- Minor lexical changes that keep meaning (page↔site, small intensifier changes that don’t flip sentiment).\n"
+        "- Correct transfer of toxicity that was already in the source (not an error).\n\n"
+        "Decision policy (optimize reliability/MCC)\n"
+        "- Mark ERR only with CLEAR evidence of a critical deviation in the categories above.\n"
+        "- If uncertain, default to NOT.\n\n"
+        "Procedure (think silently; do not write rationale)\n"
+        "1) Read EN source and DE MT. If helpful, internally paraphrase MT to EN.\n"
+        "2) Compare meanings with attention to TOX/SAF/NAM/SEN/NUM.\n"
+        "3) Decide. Output ONLY: ERR or NOT.\n\n"
     )
     messages = [{"role": "system", "content": system_prompt}]
     for ex in examples:

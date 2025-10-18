@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-# few_shot_gpt4o_inference_3col_errnot.py
+# zero_shot_gpt4o_inference_3col_errnot.py
 #
-# Strict 3-column TSV (no header):
+# Strict 3+ column TSV (no header):
 #   col0 = EN (src), col1 = DE (mt), col_last = label ("ERR" or "NOT")
-# - Only accepts ERR/NOT (no BAD/OK mapping).
-# - Samples with replace if a class has fewer rows than requested.
-# - Logs class counts for TRAIN/DEV.
+# - Only accepts ERR/NOT labels for evaluation (no BAD/OK mapping).
+# - ZERO-SHOT: no few-shot examples are used.
+# - Logs class counts for DEV and prints metrics (MCC, F1 per class, CM).
 
 import os, sys, time, logging
-from typing import List, Dict
+from typing import List
 import pandas as pd
 from tqdm import tqdm
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
@@ -16,24 +16,23 @@ import openai
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 DEV_TSV    = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
-TRAIN_TSV  = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
 
 # Prefer OPENAI_API_KEY; falls back to OPENAI for your current env
-openai.api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("OPENAI") or ""
+openai.api_key = os.environ.get("OPENAI") or os.environ.get("OPENAI") or ""
 
 MODEL       = "gpt-4o"
 MAX_TOKENS  = 3
 TEMPERATURE = 0.0
-COST_PER_1K = 0.002
-
-FEW_SHOT_ERR_CNT = 5
-FEW_SHOT_NOT_CNT = 3
+COST_PER_1K = 0.002   # adjust if your actual pricing differs
 
 ALLOWED = {"ERR", "NOT"}
 
+# Optional: limit rows for quick smoke tests; set to 0 or None for all
+EVAL_LIMIT = 0
+
 # ── Logging ────────────────────────────────────────────────────────────────────
 logging.basicConfig(
-    filename="inference_gpt4o_few_shot.log",
+    filename="inference_gpt4o_zero_shot.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -85,42 +84,19 @@ def load_3col_tsv(path: str, tag: str) -> pd.DataFrame:
     logging.info(f"[{tag}] rows={len(out)} | ERR={c_err} | NOT={c_not}")
     return out
 
-# ── Few-shot selection ─────────────────────────────────────────────────────────
-def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> pd.DataFrame:
-    sub = df[df["label"] == label]
-    n = len(sub)
-    if n == 0:
-        raise RuntimeError(f"No rows for class '{label}' in TRAIN after filtering to ERR/NOT.")
-    replace = n < k
-    if replace:
-        logging.warning(f"Class '{label}' has {n} rows; sampling {k} with replace=True.")
-    return sub.sample(k, random_state=seed, replace=replace)
-
-def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
-    err_examples = sample_with_replace(train_df, "ERR", FEW_SHOT_ERR_CNT)
-    not_examples = sample_with_replace(train_df, "NOT", FEW_SHOT_NOT_CNT)
-    examples: List[Dict[str,str]] = []
-    for _, r in err_examples.iterrows():
-        examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "ERR"})
-    for _, r in not_examples.iterrows():
-        examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "NOT"})
-    logging.info(f"Prepared few-shot set: ERR={len(err_examples)} | NOT={len(not_examples)}")
-    return examples
-
-# ── Prompting ──────────────────────────────────────────────────────────────────
-def build_messages(src: str, mt: str, examples: List[Dict[str,str]]):
+# ── Prompting (ZERO-SHOT) ─────────────────────────────────────────────────────
+def build_messages_zero_shot(src: str, mt: str):
     system_prompt = (
         "You are a precise translation evaluator.\n"
         "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
         "'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate "
         "or only has minor imperfections.\n"
-        "Do not add any explanation, punctuation, or additional text."
+        "Output must be exactly 'ERR' or 'NOT' with no punctuation or explanation."
     )
-    messages = [{"role": "system", "content": system_prompt}]
-    for ex in examples:
-        messages.append({"role": "user", "content": f"EN: {ex['src']}\nDE: {ex['mt']}"})
-        messages.append({"role": "assistant", "content": ex["label"]})
-    messages.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}"})
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}"}
+    ]
     return messages
 
 def parse_label(text: str) -> str:
@@ -130,7 +106,7 @@ def parse_label(text: str) -> str:
     """
     if text is None:
         return "NOT"
-    s = str(text).strip().upper()   # <-- FIX: use .upper(), not .str.upper()
+    s = str(text).strip().upper()
     # Fast paths
     if s == "ERR": return "ERR"
     if s == "NOT": return "NOT"
@@ -143,17 +119,18 @@ def parse_label(text: str) -> str:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
-    dev_df   = load_3col_tsv(DEV_TSV,   "DEV")
-    train_df = load_3col_tsv(TRAIN_TSV, "TRAIN")
-    examples = select_few_shot_examples(train_df)
+    dev_df = load_3col_tsv(DEV_TSV, "DEV")
+    if EVAL_LIMIT and EVAL_LIMIT > 0:
+        dev_df = dev_df.head(EVAL_LIMIT).copy()
+        logging.info(f"[DEV] Limiting evaluation to first {len(dev_df)} rows.")
 
     gen_labels: List[str] = []
     preds: List[int] = []
     total_tokens = 0
     t0 = time.time()
 
-    for i, row in tqdm(dev_df.iterrows(), total=len(dev_df), desc="GPT-4o few-shot inference"):
-        messages = build_messages(row["src"], row["mt"], examples)
+    for i, row in tqdm(dev_df.iterrows(), total=len(dev_df), desc="GPT-4o zero-shot inference"):
+        messages = build_messages_zero_shot(row["src"], row["mt"])
         resp = openai.chat.completions.create(
             model=MODEL,
             messages=messages,
