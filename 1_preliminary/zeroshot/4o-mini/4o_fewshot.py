@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-# zero_shot_gpt4o_inference_3col_errnot.py
-#
-# Strict 3+ column TSV (no header):
-#   col0 = EN (src), col1 = DE (mt), col_last = label ("ERR" or "NOT")
-# - Only accepts ERR/NOT labels for evaluation (no BAD/OK mapping).
-# - ZERO-SHOT: no few-shot examples are used.
-# - Logs class counts for DEV and prints metrics (MCC, F1 per class, CM).
+"""Zero-shot GPT-4o mini evaluation harness for the CED task."""
 
-import os, sys, time, logging
+import logging
+import os
+import sys
+import time
 from typing import List
 import pandas as pd
 from tqdm import tqdm
@@ -15,10 +12,10 @@ from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, 
 import openai
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DEV_TSV    = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
+DEV_TSV = os.environ.get("DEV_TSV", "/path/to/dev_dataset.tsv")
 
-# Prefer OPENAI_API_KEY; falls back to OPENAI for your current env
-openai.api_key = os.environ.get("OAPI") or os.environ.get("OPENAI") or ""
+# Prefer OPENAI_API_KEY; fall back to older OPENAI env var if needed.
+openai.api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("OPENAI") or ""
 
 MODEL       = "gpt-4o-mini"
 MAX_TOKENS  = 3
@@ -86,6 +83,7 @@ def load_3col_tsv(path: str, tag: str) -> pd.DataFrame:
 
 # ── Prompting (ZERO-SHOT) ─────────────────────────────────────────────────────
 def build_messages_zero_shot(src: str, mt: str):
+    """Construct the chat payload for a single sentence pair."""
     system_prompt = (
         "You are a precise translation evaluator.\n"
         "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
@@ -119,6 +117,7 @@ def parse_label(text: str) -> str:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    """Evaluate the DEV set and report aggregate metrics."""
     dev_df = load_3col_tsv(DEV_TSV, "DEV")
     if EVAL_LIMIT and EVAL_LIMIT > 0:
         dev_df = dev_df.head(EVAL_LIMIT).copy()
