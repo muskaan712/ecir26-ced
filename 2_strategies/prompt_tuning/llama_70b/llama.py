@@ -1,16 +1,24 @@
-import os, time, requests, sys, random, glob
-import pandas as pd
+"""Evaluate llama.cpp server outputs for the prompt-tuning configuration."""
+
+import glob
+import os
+import random
+import sys
+import time
+
 import numpy as np
-from tqdm import tqdm
+import pandas as pd
+import requests
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support
+from tqdm import tqdm
 
 # ===================== CONFIG =====================
 API_BASE      = os.environ.get("API_BASE", "http://127.0.0.1:8811")
 MODEL_ID_ENV  = os.environ.get("MODEL_ID", "").strip()
 
 # >>> Point these to EITHER a TSV file OR a directory with *.src/*.mt/*.label
-TRAIN_PATH = "/home/ni124545/llm/data/own_data/synced_ende_train_silver.tsv"   # e.g., contains train.src, train.mt, train.label
-DEV_PATH   = "/home/ni124545/llm/data/own_data/synced_ende_eval_gold.tsv"     # e.g., contains dev.src, dev.mt, dev.label
+TRAIN_PATH = os.environ.get("TRAIN_PATH", "/path/to/train_dataset.tsv")   # e.g., contains train.src, train.mt, train.label
+DEV_PATH = os.environ.get("DEV_PATH", "/path/to/dev_dataset.tsv")     # e.g., contains dev.src, dev.mt, dev.label
 # (You can also set them to TSV files: ".../ende_wmt22_train.tsv", ".../ende_wmt22_dev.tsv")
 
 EVAL_LIMIT      = None      # set to None or 0 for full dataset
@@ -50,10 +58,12 @@ _LABEL_MAP = {
 }
 
 def _normalize_label(x: str) -> str:
+    """Map noisy label variants onto the canonical ``ERR``/``NOT`` set."""
     t = (x or "").strip().upper()
     return _LABEL_MAP.get(t, t if t in ("ERR","NOT") else "ERR")
 
 def load_tsv_noheader(path):
+    """Load a TSV without headers and normalize the label column."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -68,6 +78,7 @@ def load_tsv_noheader(path):
     return df[["src","mt","label"]]
 
 def _read_lines(fp):
+    """Return UTF-8 lines from ``fp`` with trailing newlines removed."""
     with open(fp, "r", encoding="utf-8") as f:
         return [line.rstrip("\n") for line in f]
 
@@ -111,6 +122,7 @@ def load_any_dataset(path_or_dir: str) -> pd.DataFrame:
 
 # ---------- Few-shot sampling & message building ----------
 def sanitize_label(text: str) -> str:
+    """Normalize arbitrary text into a deterministic ERR/NOT label."""
     t = text.strip().upper()
     if "ERR" in t and "NOT" in t:
         return "ERR" if t.index("ERR") < t.index("NOT") else "NOT"
@@ -119,6 +131,7 @@ def sanitize_label(text: str) -> str:
     return "ERR"
 
 def wait_for_server(api_base: str, timeout_s: int = 120):
+    """Poll the llama.cpp server until available or the timeout elapses."""
     t0 = time.time()
     last_err = None
     while time.time() - t0 < timeout_s:
@@ -168,12 +181,7 @@ def sample_fewshot(df_train: pd.DataFrame, n_err=5, n_not=3, seed=42):
     return demos
 
 def build_messages_with_fewshot(src: str, mt: str, demos):
-    """
-    Compose messages as:
-      system: SYSTEM_PROMPT
-      user/assistant pairs for each demo
-      user: current EN/DE
-    """
+    """Compose system/user/assistant messages including each demonstration."""
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for (d_src, d_mt, d_label) in demos:
         messages.append({"role": "user",      "content": f"EN: {d_src.strip()}\nDE: {d_mt.strip()}"})
@@ -182,7 +190,7 @@ def build_messages_with_fewshot(src: str, mt: str, demos):
     return messages
 
 def infer_one(src, mt, model_id: str, demos, retries: int = 6):
-    """POST /v1/chat/completions with retry on 503/429."""
+    """POST ``/v1/chat/completions`` with retry handling for transient errors."""
     payload = {
         "model": model_id,
         "messages": build_messages_with_fewshot(src, mt, demos),
@@ -219,6 +227,7 @@ def infer_one(src, mt, model_id: str, demos, retries: int = 6):
             raise
 
 def main():
+    """Run inference against the llama.cpp server and print summary metrics."""
     if not wait_for_server(API_BASE, timeout_s=120):
         sys.exit(2)
 

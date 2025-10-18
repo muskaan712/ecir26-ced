@@ -225,6 +225,7 @@
 
 
 #!/usr/bin/env python3
+"""Few-shot Critical Error Detection via llama.cpp's llama-server."""
 # Few-shot CED (EN→DE) via llama-server (GGUF, GPU via llama.cpp server)
 # - Adds 5 ERR + 3 NOT few-shot demos sampled from TRAIN (ERR first, then NOT)
 # - Supports TSV **or** split files: *.src, *.mt, *.label (e.g., dev.src/dev.mt/dev.label)
@@ -243,8 +244,8 @@ API_BASE      = os.environ.get("API_BASE", "http://127.0.0.1:8811")
 MODEL_ID_ENV  = os.environ.get("MODEL_ID", "").strip()
 
 # >>> Point these to EITHER a TSV file OR a directory with *.src/*.mt/*.label
-TRAIN_PATH = "/home/ni124545/llm/data/wmt22/en-de-train"   # e.g., contains train.src, train.mt, train.label
-DEV_PATH   = "/home/ni124545/llm/data/wmt22/en-de-dev"     # e.g., contains dev.src, dev.mt, dev.label
+TRAIN_PATH = "/path/to/train_data"   # e.g., contains train.src, train.mt, train.label
+DEV_PATH   = "/path/to/dev_data"     # e.g., contains dev.src, dev.mt, dev.label
 # (You can also set them to TSV files: ".../ende_wmt22_train.tsv", ".../ende_wmt22_dev.tsv")
 
 EVAL_LIMIT      = None      # set to None or 0 for full dataset
@@ -281,6 +282,7 @@ def _normalize_label(x: str) -> str:
     return _LABEL_MAP.get(t, t if t in ("ERR","NOT") else "ERR")
 
 def load_tsv_noheader(path):
+    """Load a TSV dataset without headers into a normalized dataframe."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -338,6 +340,7 @@ def load_any_dataset(path_or_dir: str) -> pd.DataFrame:
 
 # ---------- Few-shot sampling & message building ----------
 def sanitize_label(text: str) -> str:
+    """Reduce arbitrary responses to a deterministic ERR/NOT decision."""
     t = text.strip().upper()
     if "ERR" in t and "NOT" in t:
         return "ERR" if t.index("ERR") < t.index("NOT") else "NOT"
@@ -346,6 +349,7 @@ def sanitize_label(text: str) -> str:
     return "ERR"
 
 def wait_for_server(api_base: str, timeout_s: int = 120):
+    """Poll the llama-server until it responds or a timeout is reached."""
     t0 = time.time()
     last_err = None
     while time.time() - t0 < timeout_s:
@@ -446,6 +450,7 @@ def infer_one(src, mt, model_id: str, demos, retries: int = 6):
             raise
 
 def main():
+    """Run the end-to-end evaluation loop against llama-server."""
     if not wait_for_server(API_BASE, timeout_s=120):
         sys.exit(2)
 

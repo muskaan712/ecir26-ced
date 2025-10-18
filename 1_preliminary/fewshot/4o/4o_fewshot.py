@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
-# few_shot_gpt4o_inference_3col_errnot.py
-#
+"""Few-shot GPT-4o evaluator for Critical Error Detection datasets.
+
+This script expects 3-column TSV files (EN, DE, label) and performs
+few-shot prompting against the OpenAI Chat Completions API.  The script
+derives class-balanced few-shot exemplars, runs inference over the DEV
+set, and prints basic classification metrics.
+"""
+
 # Strict 3-column TSV (no header):
 #   col0 = EN (src), col1 = DE (mt), col_last = label ("ERR" or "NOT")
 # - Only accepts ERR/NOT (no BAD/OK mapping).
@@ -15,8 +21,8 @@ from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, 
 import openai
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DEV_TSV    = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
-TRAIN_TSV  = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
+DEV_TSV    = "/path/to/ende_dev.tsv"
+TRAIN_TSV  = "/path/to/ende_train.tsv"
 
 # Prefer OPENAI_API_KEY; falls back to OPENAI for your current env
 openai.api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("OPENAI") or ""
@@ -87,6 +93,7 @@ def load_3col_tsv(path: str, tag: str) -> pd.DataFrame:
 
 # ── Few-shot selection ─────────────────────────────────────────────────────────
 def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> pd.DataFrame:
+    """Sample ``k`` rows for ``label``; uses replacement when needed."""
     sub = df[df["label"] == label]
     n = len(sub)
     if n == 0:
@@ -97,6 +104,7 @@ def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> p
     return sub.sample(k, random_state=seed, replace=replace)
 
 def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
+    """Prepare the ERR/NOT few-shot demonstrations for prompting."""
     err_examples = sample_with_replace(train_df, "ERR", FEW_SHOT_ERR_CNT)
     not_examples = sample_with_replace(train_df, "NOT", FEW_SHOT_NOT_CNT)
     examples: List[Dict[str,str]] = []
@@ -109,6 +117,7 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
 
 # ── Prompting ──────────────────────────────────────────────────────────────────
 def build_messages(src: str, mt: str, examples: List[Dict[str,str]]):
+    """Create OpenAI Chat messages for a single evaluation example."""
     system_prompt = (
         "You are a precise translation evaluator.\n"
         "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
@@ -143,6 +152,7 @@ def parse_label(text: str) -> str:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    """Run few-shot inference on the DEV dataset and report metrics."""
     dev_df   = load_3col_tsv(DEV_TSV,   "DEV")
     train_df = load_3col_tsv(TRAIN_TSV, "TRAIN")
     examples = select_few_shot_examples(train_df)

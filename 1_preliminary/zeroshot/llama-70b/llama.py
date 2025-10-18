@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-# Zero-shot CED (EN→DE) via llama-server (GGUF, GPU via llama.cpp server)
-# - Evaluate only one row (change EVAL_LIMIT=None for full set)
-# - Strict grammar ("ERR" | "NOT")
-# - tqdm with ETA
-# - Latency profiling
-# - Robust: auto-detect model id + retry on 503/429
+"""Zero-shot CED evaluation using a llama.cpp server backend."""
 
-import os, time, requests, sys
+import os
+import sys
+import time
+
+import requests
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
@@ -16,7 +15,7 @@ from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, 
 API_BASE = os.environ.get("API_BASE", "http://127.0.0.1:8811")
 # MODEL_ID will be auto-filled from /v1/models if not set or invalid
 MODEL_ID_ENV = os.environ.get("MODEL_ID", "").strip()
-DEV_TSV  = "/home/ni124545/llm/data/own_data/synced_ende_eval_gold.tsv"
+DEV_TSV  = os.environ.get("DEV_TSV", "/path/to/dev_dataset.tsv")
 
 EVAL_LIMIT = None  # set to None or 0 for full dataset
 
@@ -38,12 +37,14 @@ GRAMMAR_FIELD = {"type": "gbnf", "value": GBNF}  # more compatible across server
 # ==================================================
 
 def build_messages(src: str, mt: str):
+    """Create a llama.cpp-compatible chat payload for a single example."""
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}"},
     ]
 
 def load_tsv_noheader(path):
+    """Load TSV rows without headers and expose src/mt/label columns."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -58,6 +59,7 @@ def load_tsv_noheader(path):
     return df[["src","mt","label"]]
 
 def sanitize_label(text: str) -> str:
+    """Normalise any model response to the ERR/NOT label set."""
     t = text.strip().upper()
     if "ERR" in t and "NOT" in t:
         return "ERR" if t.index("ERR") < t.index("NOT") else "NOT"
@@ -66,6 +68,7 @@ def sanitize_label(text: str) -> str:
     return "ERR"
 
 def wait_for_server(api_base: str, timeout_s: int = 120):
+    """Poll the llama.cpp server until it is reachable or the timeout elapses."""
     t0 = time.time()
     last_err = None
     while time.time() - t0 < timeout_s:
@@ -97,7 +100,7 @@ def get_model_id(api_base: str, prefer: str | None):
         return prefer or "local"
 
 def infer_one(src, mt, model_id: str, retries: int = 6):
-    """POST /v1/chat/completions with retry on 503/429."""
+    """POST ``/v1/chat/completions`` with retry logic for transient errors."""
     payload = {
         "model": model_id,
         "messages": build_messages(src, mt),
@@ -141,6 +144,7 @@ def infer_one(src, mt, model_id: str, retries: int = 6):
             raise
 
 def main():
+    """Run zero-shot evaluation against the configured llama.cpp server."""
     if not wait_for_server(API_BASE, timeout_s=120):
         sys.exit(2)
 

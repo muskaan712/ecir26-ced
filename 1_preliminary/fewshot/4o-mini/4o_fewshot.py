@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Few-shot GPT-4o-mini evaluation script for Critical Error Detection."""
 # few_shot_gpt4o_inference.py  — robust 3-col/5-col loader + ERR/NOT only
 
 import os, time, logging
@@ -21,9 +22,9 @@ console.setFormatter(logging.Formatter("%(message)s"))
 logging.getLogger().addHandler(console)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DATA_DIR         = "/home/s13mchop/LLMs/data/wmt21"
-DEV_TSV          = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
-TRAIN_TSV        = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
+DATA_DIR         = "/path/to/data_dir"
+DEV_TSV          = "/path/to/ende_dev.tsv"
+TRAIN_TSV        = "/path/to/ende_train.tsv"
 
 openai.api_key   = os.getenv("OAPI") or os.getenv("OPENAI_API_KEY") or ""
 
@@ -103,6 +104,7 @@ def load_data(path: str, tag: str) -> pd.DataFrame:
 
 # ── Few-shot ───────────────────────────────────────────────────────────────────
 def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> pd.DataFrame:
+    """Return ``k`` samples for ``label``; sample with replacement when needed."""
     sub = df[df["label"] == label]
     n = len(sub)
     if n == 0:
@@ -113,6 +115,7 @@ def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> p
     return sub.sample(k, random_state=seed, replace=replace)
 
 def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
+    """Build the ERR/NOT few-shot demonstration list."""
     err_examples = sample_with_replace(train_df, "ERR", FEW_SHOT_ERR_CNT)
     not_examples = sample_with_replace(train_df, "NOT", FEW_SHOT_NOT_CNT)
     examples: List[Dict[str, str]] = []
@@ -125,6 +128,7 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
 
 # ── Prompting ──────────────────────────────────────────────────────────────────
 def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
+    """Format the chat messages for a single evaluation item."""
     system_prompt = (
         "You are a precise translation evaluator.\n"
         "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
@@ -140,6 +144,7 @@ def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
     return messages
 
 def parse_label(text: str) -> str:
+    """Convert raw model output into the canonical ERR/NOT label."""
     if text is None:
         return "NOT"
     s = str(text).strip().upper()
@@ -152,6 +157,7 @@ def parse_label(text: str) -> str:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    """Load data, perform few-shot inference, and print evaluation metrics."""
     dev_df   = load_data(DEV_TSV,   "DEV")
     train_df = load_data(TRAIN_TSV, "TRAIN")
 

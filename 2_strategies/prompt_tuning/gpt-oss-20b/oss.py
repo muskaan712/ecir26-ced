@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-# GPT-OSS CED (Option A, ZERO-SHOT): long decode + parse FINAL label → metrics
-# - Python 3.9+ compatible
-# - Loads from local HF snapshot only (offline)
-# - Zero-shot (USE_FEW_SHOT=False), but retains few-shot hooks
-# - Greedy decode; parse <|channel|>final block or first ERR/NOT
-# - Uses dtype=..., eager attention fallback (no SDPA), no quantization
+"""Run GPT-OSS 20B prompt-tuning evaluation with FINAL-channel parsing."""
 
-import os, sys, logging, re
-from typing import Optional, List, Dict
+import logging
+import os
+import re
+import sys
 from inspect import signature
+from typing import Dict, List, Optional
 
 # ── Minimal, clean env ─────────────────────────────────────────────────────────
 os.environ.pop("TRANSFORMERS_CACHE", None)
-os.environ.setdefault("HF_HOME", "/hpcwork/ni124545/hf_cache")
+os.environ.setdefault("HF_HOME", os.environ.get("HF_HOME", "/path/to/hf_cache"))
 os.environ.setdefault("HF_HUB_ENABLE_HF_TRANSFER", "0")
 os.environ.setdefault("TRANSFORMERS_NO_TORCHVISION", "1")
 os.environ.setdefault("TRANSFORMERS_QUANTIZATION_METHOD", "none")  # don't try MXFP4 etc.
@@ -38,12 +36,12 @@ logging.basicConfig(
 log = logging.getLogger("ced-gptoss-optionA-zeroshot")
 
 # ===================== CONFIG (edit here) =====================================
-MODEL_REPO      = "openai/gpt-oss-20b"  # swap to "openai/gpt-oss-8b" if VRAM is tight
-CACHE_ROOT      = "/hpcwork/ni124545/hf_cache"
+MODEL_REPO = "openai/gpt-oss-20b"  # swap to "openai/gpt-oss-8b" if VRAM is tight
+CACHE_ROOT = os.environ.get("CACHE_ROOT", os.path.expanduser("~/.cache"))
 MODEL_LOCAL_DIR = os.path.join(CACHE_ROOT, "models", MODEL_REPO.replace("/", "_"))
 
-DEV_TSV         = "/home/ni124545/llm/data/own_data/synced_ende_eval_gold.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/own_data/synced_ende_train_silver.tsv"  # unused in zero-shot
+DEV_TSV = os.environ.get("DEV_TSV", "/path/to/dev_dataset.tsv")
+TRAIN_TSV = os.environ.get("TRAIN_TSV", "/path/to/train_dataset.tsv")  # unused in zero-shot
 
 # Row limit: 0 → process ALL rows; >0 → first N rows
 PROCESS_N       = 0
@@ -101,6 +99,7 @@ HF_TOKEN = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_HUB_TOKEN")
 
 # ===================== Helpers ===============================================
 def ensure_snapshot_local(repo_id: str, local_dir: str):
+    """Download ``repo_id`` into ``local_dir`` when it is not already cached."""
     os.makedirs(local_dir, exist_ok=True)
     kwargs = dict(repo_id=repo_id, local_dir=local_dir, token=HF_TOKEN)
     if "use_hf_transfer" in signature(snapshot_download).parameters:
@@ -110,6 +109,7 @@ def ensure_snapshot_local(repo_id: str, local_dir: str):
     log.info("Snapshot ready.")
 
 def load_model_and_tokenizer():
+    """Load the GPT-OSS model and tokenizer from the local snapshot."""
     ensure_snapshot_local(MODEL_REPO, MODEL_LOCAL_DIR)
 
     # Try FlashAttention2; else force eager (NO SDPA — GPT-OSS not supported on SDPA yet)
@@ -145,6 +145,7 @@ def load_model_and_tokenizer():
     return mdl, tok
 
 def load_tsv_noheader(path: str) -> pd.DataFrame:
+    """Load a TSV file without headers and normalize to ``src``, ``mt``, ``label``."""
     log.info(f"Loading TSV: {path}")
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
@@ -160,12 +161,18 @@ def load_tsv_noheader(path: str) -> pd.DataFrame:
     return df[["src","mt","label"]]
 
 def build_messages_zero_shot(src: str, mt: str) -> List[Dict[str, str]]:
+    """Create a zero-shot chat prompt for a single sentence pair."""
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}"},
     ]
 
-def build_messages_fewshot(examples: List[Dict[str,str]], src: str, mt: str) -> List[Dict[str, str]]:
+def build_messages_fewshot(
+    examples: List[Dict[str, str]],
+    src: str,
+    mt: str,
+) -> List[Dict[str, str]]:
+    """Compose chat messages that include the provided few-shot exemplars."""
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
         msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}"})
@@ -173,9 +180,13 @@ def build_messages_fewshot(examples: List[Dict[str,str]], src: str, mt: str) -> 
     msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}"})
     return msgs
 
-def select_few_shot_examples_from_train(train_tsv: str,
-                                        n_err: int, n_not: int,
-                                        random_state: int = 42) -> List[Dict[str,str]]:
+def select_few_shot_examples_from_train(
+    train_tsv: str,
+    n_err: int,
+    n_not: int,
+    random_state: int = 42,
+) -> List[Dict[str, str]]:
+    """Sample ERR/NOT exemplars from the training TSV for prompting."""
     df = load_tsv_noheader(train_tsv)
     df = df[df["label"].isin(["ERR","NOT"])]
 
@@ -223,6 +234,7 @@ def _sanitize_label(t: str) -> str:
 
 @torch.inference_mode()
 def generate_label(model, tok, msgs, reasoning_effort: Optional[str] = None) -> str:
+    """Generate a label using the model and sanitize the resulting text."""
     # Render prompt (pass reasoning_effort if template supports it)
     try:
         prompt_text = tok.apply_chat_template(
@@ -261,6 +273,7 @@ def generate_label(model, tok, msgs, reasoning_effort: Optional[str] = None) -> 
     return _sanitize_label(parsed)
 
 def main():
+    """Evaluate GPT-OSS predictions and report preview plus summary metrics."""
     log.info("Starting GPT-OSS Option-A evaluation (parse FINAL) — ZERO-SHOT.")
     model, tok = load_model_and_tokenizer()
 

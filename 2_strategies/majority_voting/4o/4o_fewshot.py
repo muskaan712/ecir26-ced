@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-# few_shot_gpt4o_inference_3col_errnot_mv.py
-#
-# Strict 3-column TSV (no header):
-#   col0 = EN (src), col1 = DE (mt), col_last = label ("ERR" or "NOT")
-# - Only accepts ERR/NOT (no BAD/OK mapping).
-# - Samples with replace if a class has fewer rows than requested.
-# - Logs class counts for TRAIN/DEV.
-# - Majority voting: committee size K=3 (n=3), temperature=0.2
+"""Run GPT-4o few-shot inference with majority voting for critical error detection.
 
-import os, sys, time, logging
+The script reproduces the original notebook workflow for the WMT'21 Task 3
+evaluation, but adds lightweight logging and safer configuration so it can be
+reused by other practitioners.  Input data is expected to be a headerless TSV
+with at least three columns where the first two correspond to the English
+source (``src``) and German machine translation (``mt``), and the final column
+contains an ``ERR``/``NOT`` label.  The committee uses three samples drawn from
+few-shot exemplars with temperature ``0.2`` and falls back to ``NOT`` on ties.
+"""
+
+import os
+import sys
+import time
+import logging
 from typing import List, Dict
 import pandas as pd
 from tqdm import tqdm
@@ -17,8 +22,8 @@ import openai
 from collections import Counter
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DEV_TSV    = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_dev.tsv"
-TRAIN_TSV  = "/home/s13mchop/LLMs/data/wmt22/ende_wmt22_train.tsv"
+DEV_TSV = os.environ.get("DEV_TSV", "/path/to/dev_dataset.tsv")
+TRAIN_TSV = os.environ.get("TRAIN_TSV", "/path/to/train_dataset.tsv")
 
 # Prefer OPENAI_API_KEY; falls back to OPENAI for your current env
 openai.api_key = os.environ.get("OAPI") or os.environ.get("OPENAI") or ""
@@ -90,7 +95,8 @@ def load_3col_tsv(path: str, tag: str) -> pd.DataFrame:
     return out
 
 # ── Few-shot selection ─────────────────────────────────────────────────────────
-def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> pd.DataFrame:
+def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int = 42) -> pd.DataFrame:
+    """Return ``k`` samples for ``label`` (with replacement when necessary)."""
     sub = df[df["label"] == label]
     n = len(sub)
     if n == 0:
@@ -100,10 +106,11 @@ def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> p
         logging.warning(f"Class '{label}' has {n} rows; sampling {k} with replace=True.")
     return sub.sample(k, random_state=seed, replace=replace)
 
-def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
+def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
+    """Prepare the few-shot exemplar set consumed by the majority vote calls."""
     err_examples = sample_with_replace(train_df, "ERR", FEW_SHOT_ERR_CNT)
     not_examples = sample_with_replace(train_df, "NOT", FEW_SHOT_NOT_CNT)
-    examples: List[Dict[str,str]] = []
+    examples: List[Dict[str, str]] = []
     for _, r in err_examples.iterrows():
         examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "ERR"})
     for _, r in not_examples.iterrows():
@@ -112,7 +119,8 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
     return examples
 
 # ── Prompting ──────────────────────────────────────────────────────────────────
-def build_messages(src: str, mt: str, examples: List[Dict[str,str]]):
+def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
+    """Construct the chat message list combining the prompt and exemplars."""
     system_prompt = (
         "You are a STRICT binary classifier for WMT’21 Task 3 (Critical Error Detection, EN→DE).\n\n"
         "Goal\n"
@@ -174,6 +182,7 @@ def majority_vote(labels: List[str], tie_fallback: str = TIE_FALLBACK) -> str:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    """Execute inference across the dev TSV and report aggregate metrics."""
     dev_df   = load_3col_tsv(DEV_TSV,   "DEV")
     train_df = load_3col_tsv(TRAIN_TSV, "TRAIN")
     examples = select_few_shot_examples(train_df)
