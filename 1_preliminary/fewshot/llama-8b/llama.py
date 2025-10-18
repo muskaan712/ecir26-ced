@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Few-shot evaluation with Meta-Llama-3.1-8B-Instruct for CED."""
 # fewshot_llama31_8b_batch_generate.py
 #
 # Critical Error Detection (EN→DE) with Meta-Llama-3.1-8B-Instruct
@@ -24,9 +25,9 @@ from sklearn.metrics import (
 )
 
 # ─── Paths ─────────────────────────────────────────────────────────────────────
-DATA_DIR   = "/home/s13mchop/LLMs/data/wmt22"
-DEV_TSV    = os.path.join(DATA_DIR, "ende_wmt22_dev.tsv")
-TRAIN_TSV  = os.path.join(DATA_DIR, "ende_wmt22_train.tsv")
+DATA_DIR   = "/path/to/data"
+DEV_TSV    = os.path.join(DATA_DIR, "ende_dev.tsv")
+TRAIN_TSV  = os.path.join(DATA_DIR, "ende_train.tsv")
 
 HF_TOKEN   = os.getenv("HF_TOKEN")  # accept license for Meta-Llama-3.1-8B-Instruct on HF
 MODEL_ID   = "meta-llama/Meta-Llama-3.1-8B-Instruct"
@@ -177,6 +178,7 @@ def extract_label(text: str) -> str:
     return hits[-1] if hits else "NOT"
 
 def main():
+    """Run batched few-shot inference and display evaluation metrics."""
     # 1) Cache model locally
     download_and_cache_model()
 

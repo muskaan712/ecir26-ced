@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Few-shot evaluation harness for GPT-OSS-120B served through vLLM."""
 # GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing
 # - Processes the full DEV_TSV (no eval limit)
 # - Few-shot optional from TRAIN_TSV
@@ -16,8 +17,8 @@ from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, 
 VLLM_BASE_URL   = os.environ.get("VLLM_BASE_URL", "http://127.0.0.1:8000")
 MODEL_ID        = os.environ.get("MODEL_ID", "gpt-oss-120b")
 
-DEV_TSV         = os.environ.get("DEV_TSV",   "/home/ni124545/llm/data/wmt22/ende_wmt22_dev.tsv")
-TRAIN_TSV       = os.environ.get("TRAIN_TSV", "/home/ni124545/llm/data/wmt22/ende_wmt22_train.tsv")
+DEV_TSV         = os.environ.get("DEV_TSV",   "/path/to/ende_dev.tsv")
+TRAIN_TSV       = os.environ.get("TRAIN_TSV", "/path/to/ende_train.tsv")
 
 # Decoding (allow long reasoning and parse FINAL)
 TIMEOUT_SEC     = int(os.environ.get("TIMEOUT_SEC", "300"))
@@ -46,6 +47,7 @@ API_URL = f"{VLLM_BASE_URL}/v1/chat/completions"
 
 # ===================== Helpers =============================================
 def load_tsv_noheader(path: str) -> pd.DataFrame:
+    """Load a TSV without headers and coerce it to ``src/mt/label`` columns."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -60,12 +62,14 @@ def load_tsv_noheader(path: str) -> pd.DataFrame:
     return df[["src","mt","label"]]
 
 def build_messages_zero_shot(src: str, mt: str):
+    """Create zero-shot chat messages for a single evaluation example."""
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."},
     ]
 
 def build_messages_fewshot(examples, src: str, mt: str):
+    """Create chat messages that include few-shot exemplars."""
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
         msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}\n\nProvide your FINAL decision."})
@@ -75,6 +79,7 @@ def build_messages_fewshot(examples, src: str, mt: str):
     return msgs
 
 def select_few_shot_examples_from_train(train_tsv: str, n_err: int, n_not: int, random_state: int = 42):
+    """Sample ERR/NOT demonstrations from the training TSV."""
     df = load_tsv_noheader(train_tsv)
     df = df[df["label"].isin(["ERR","NOT"])]
 
@@ -100,6 +105,7 @@ LABEL_RE = re.compile(r"\b(ERR|NOT)\b", re.I)
 FINAL_BLOCK_RE = re.compile(r"<\|channel\|\>final<\|message\|\>(.*?)(?:<\|end\|\>|<\|return\|\>|$)", re.S)
 
 def extract_text_from_choice(choice: dict) -> str:
+    """Concatenate the relevant text fields returned by vLLM."""
     # Combine fields that may contain model text (vLLM 0.10.x+ often uses reasoning_content).
     msg = choice.get("message", {}) or {}
     content = msg.get("content") or ""
@@ -108,6 +114,7 @@ def extract_text_from_choice(choice: dict) -> str:
     return (" ".join([content, reasoning, alt])).strip()
 
 def extract_final_or_label(text: str) -> str:
+    """Prefer labels from the FINAL channel, otherwise fall back to regex match."""
     if not text:
         return ""
     m = FINAL_BLOCK_RE.search(text)
@@ -119,6 +126,7 @@ def extract_final_or_label(text: str) -> str:
     return m3.group(1).upper() if m3 else text.strip()
 
 def sanitize_label(t: str) -> str:
+    """Normalize arbitrary text to the canonical ERR/NOT label."""
     s = (t or "").strip().upper()
     if "ERR" in s and "NOT" in s:
         return "ERR" if s.index("ERR") < s.index("NOT") else "NOT"
@@ -128,6 +136,7 @@ def sanitize_label(t: str) -> str:
 
 # --- Inference (unguided, long decode, FINAL parsing) ------------------------
 def infer_one_with_retry(src, mt, examples=None, max_retries=3):
+    """Call the vLLM server with retry logic and return an ERR/NOT prediction."""
     messages = build_messages_fewshot(examples, src, mt) if examples else build_messages_zero_shot(src, mt)
 
     payload = {
@@ -167,6 +176,7 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3):
 
 # ===================== Main ================================================
 def main():
+    """Run inference over the DEV set and print evaluation metrics."""
     df_full = load_tsv_noheader(DEV_TSV)
     eval_df = df_full  # ← always use all rows (no eval limit)
     rows = list(eval_df.itertuples(index=False))
