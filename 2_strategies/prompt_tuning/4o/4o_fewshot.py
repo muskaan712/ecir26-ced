@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
-# few_shot_gpt4o_inference_3col_errnot.py
-#
-# Strict 3-column TSV (no header):
-#   col0 = EN (src), col1 = DE (mt), col_last = label ("ERR" or "NOT")
-# - Only accepts ERR/NOT (no BAD/OK mapping).
-# - Samples with replace if a class has fewer rows than requested.
-# - Logs class counts for TRAIN/DEV.
+"""Run GPT-4o few-shot evaluation for prompt-tuning baselines."""
 
-import os, sys, time, logging
-from typing import List, Dict
-import pandas as pd
-from tqdm import tqdm
-from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
+import logging
+import os
+import sys
+import time
+from typing import Dict, List
+
 import openai
+import pandas as pd
+from sklearn.metrics import (
+    confusion_matrix,
+    matthews_corrcoef,
+    precision_recall_fscore_support,
+)
+from tqdm import tqdm
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DEV_TSV    = "/home/s13mchop/LLMs/data/2024_25_data/synced_ende_eval_gold.tsv"
-TRAIN_TSV  = "/home/s13mchop/LLMs/data/2024_25_data/synced_ende_train_silver.tsv"
+DEV_TSV = os.environ.get("DEV_TSV", "/path/to/dev_dataset.tsv")
+TRAIN_TSV = os.environ.get("TRAIN_TSV", "/path/to/train_dataset.tsv")
 
 # Prefer OPENAI_API_KEY; falls back to OPENAI for your current env
 openai.api_key = os.environ.get("OAPI") or os.environ.get("OPENAI") or ""
@@ -86,7 +88,8 @@ def load_3col_tsv(path: str, tag: str) -> pd.DataFrame:
     return out
 
 # ── Few-shot selection ─────────────────────────────────────────────────────────
-def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> pd.DataFrame:
+def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int = 42) -> pd.DataFrame:
+    """Return ``k`` samples for ``label`` (with replacement when required)."""
     sub = df[df["label"] == label]
     n = len(sub)
     if n == 0:
@@ -96,10 +99,11 @@ def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> p
         logging.warning(f"Class '{label}' has {n} rows; sampling {k} with replace=True.")
     return sub.sample(k, random_state=seed, replace=replace)
 
-def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
+def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
+    """Prepare a list of few-shot exemplars consumed by the prompt."""
     err_examples = sample_with_replace(train_df, "ERR", FEW_SHOT_ERR_CNT)
     not_examples = sample_with_replace(train_df, "NOT", FEW_SHOT_NOT_CNT)
-    examples: List[Dict[str,str]] = []
+    examples: List[Dict[str, str]] = []
     for _, r in err_examples.iterrows():
         examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "ERR"})
     for _, r in not_examples.iterrows():
@@ -108,7 +112,8 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str,str]]:
     return examples
 
 # ── Prompting ──────────────────────────────────────────────────────────────────
-def build_messages(src: str, mt: str, examples: List[Dict[str,str]]):
+def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
+    """Compose the chat prompt using the task definition and exemplars."""
     system_prompt = (
                 "You are a STRICT binary classifier for WMT’21 Task 3 (Critical Error Detection, EN→DE).\n\n"
         "Goal\n"
@@ -160,6 +165,7 @@ def parse_label(text: str) -> str:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    """Execute inference over the dev set and report metrics for prompt tuning."""
     dev_df   = load_3col_tsv(DEV_TSV,   "DEV")
     train_df = load_3col_tsv(TRAIN_TSV, "TRAIN")
     examples = select_few_shot_examples(train_df)

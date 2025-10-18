@@ -1,23 +1,24 @@
 #!/usr/bin/env python3
-# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing
-# - Processes the full DEV_TSV (no eval limit)
-# - Few-shot optional from TRAIN_TSV
-# - Parses FINAL channel if present, otherwise first ERR/NOT token
-# - Computes MCC, class-wise F1, accuracy, confusion matrix
+"""Run GPT-OSS 120B prompt-tuning evaluation via vLLM with FINAL parsing."""
 
 import os
 import re
-import requests
+
 import pandas as pd
+import requests
+from sklearn.metrics import (
+    confusion_matrix,
+    matthews_corrcoef,
+    precision_recall_fscore_support,
+)
 from tqdm import tqdm
-from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
 
 # ===================== CONFIG =============================================
 VLLM_BASE_URL   = os.environ.get("VLLM_BASE_URL", "http://127.0.0.1:8000")
 MODEL_ID        = os.environ.get("MODEL_ID", "gpt-oss-120b")
 
-DEV_TSV         = "/home/ni124545/llm/data/own_data/synced_ende_eval_gold.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/own_data/synced_ende_train_silver.tsv"  # unused in zero-shot
+DEV_TSV = os.environ.get("DEV_TSV", "/path/to/dev_dataset.tsv")
+TRAIN_TSV = os.environ.get("TRAIN_TSV", "/path/to/train_dataset.tsv")  # optional in zero-shot
 
 # Decoding (allow long reasoning and parse FINAL)
 TIMEOUT_SEC     = int(os.environ.get("TIMEOUT_SEC", "300"))
@@ -73,6 +74,7 @@ API_URL = f"{VLLM_BASE_URL}/v1/chat/completions"
 
 # ===================== Helpers =============================================
 def load_tsv_noheader(path: str) -> pd.DataFrame:
+    """Load TSV data without headers and normalize to ``src``, ``mt``, ``label``."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -87,12 +89,14 @@ def load_tsv_noheader(path: str) -> pd.DataFrame:
     return df[["src","mt","label"]]
 
 def build_messages_zero_shot(src: str, mt: str):
+    """Construct a zero-shot prompt for the given sentence pair."""
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."},
     ]
 
 def build_messages_fewshot(examples, src: str, mt: str):
+    """Create chat messages that include few-shot exemplars when provided."""
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
         msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}\n\nProvide your FINAL decision."})
@@ -101,7 +105,13 @@ def build_messages_fewshot(examples, src: str, mt: str):
     msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."})
     return msgs
 
-def select_few_shot_examples_from_train(train_tsv: str, n_err: int, n_not: int, random_state: int = 42):
+def select_few_shot_examples_from_train(
+    train_tsv: str,
+    n_err: int,
+    n_not: int,
+    random_state: int = 42,
+):
+    """Sample ERR/NOT exemplars from the training TSV for few-shot prompting."""
     df = load_tsv_noheader(train_tsv)
     df = df[df["label"].isin(["ERR","NOT"])]
 
@@ -127,6 +137,7 @@ LABEL_RE = re.compile(r"\b(ERR|NOT)\b", re.I)
 FINAL_BLOCK_RE = re.compile(r"<\|channel\|\>final<\|message\|\>(.*?)(?:<\|end\|\>|<\|return\|\>|$)", re.S)
 
 def extract_text_from_choice(choice: dict) -> str:
+    """Collapse potential vLLM text fields into a single string."""
     # Combine fields that may contain model text (vLLM 0.10.x+ often uses reasoning_content).
     msg = choice.get("message", {}) or {}
     content = msg.get("content") or ""
@@ -135,6 +146,7 @@ def extract_text_from_choice(choice: dict) -> str:
     return (" ".join([content, reasoning, alt])).strip()
 
 def extract_final_or_label(text: str) -> str:
+    """Prefer the FINAL channel content, falling back to ERR/NOT matches."""
     if not text:
         return ""
     m = FINAL_BLOCK_RE.search(text)
@@ -146,6 +158,7 @@ def extract_final_or_label(text: str) -> str:
     return m3.group(1).upper() if m3 else text.strip()
 
 def sanitize_label(t: str) -> str:
+    """Normalize arbitrary text into a conservative ERR/NOT decision."""
     s = (t or "").strip().upper()
     if "ERR" in s and "NOT" in s:
         return "ERR" if s.index("ERR") < s.index("NOT") else "NOT"
@@ -155,6 +168,7 @@ def sanitize_label(t: str) -> str:
 
 # --- Inference (unguided, long decode, FINAL parsing) ------------------------
 def infer_one_with_retry(src, mt, examples=None, max_retries=3):
+    """Run a single vLLM request (with retries) and sanitize the response."""
     messages = build_messages_fewshot(examples, src, mt) if examples else build_messages_zero_shot(src, mt)
 
     payload = {
@@ -194,6 +208,7 @@ def infer_one_with_retry(src, mt, examples=None, max_retries=3):
 
 # ===================== Main ================================================
 def main():
+    """Evaluate the dataset via vLLM and print preview plus aggregate metrics."""
     df_full = load_tsv_noheader(DEV_TSV)
     eval_df = df_full  # ← always use all rows (no eval limit)
     rows = list(eval_df.itertuples(index=False))

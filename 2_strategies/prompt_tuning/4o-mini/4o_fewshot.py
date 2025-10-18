@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-# few_shot_gpt4o_inference.py  — robust 3-col/5-col loader + ERR/NOT only
+"""Run GPT-4o mini few-shot evaluation used for prompt-tuning experiments."""
 
-import os, time, logging
-from typing import List, Dict, Tuple, Optional
+import logging
+import os
+import time
+from typing import Dict, List
 
 import pandas as pd
 from tqdm import tqdm
@@ -21,8 +23,8 @@ console.setFormatter(logging.Formatter("%(message)s"))
 logging.getLogger().addHandler(console)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DEV_TSV    = "/home/s13mchop/LLMs/data/2024_25_data/synced_ende_eval_gold.tsv"
-TRAIN_TSV  = "/home/s13mchop/LLMs/data/2024_25_data/synced_ende_train_silver.tsv"
+DEV_TSV = os.environ.get("DEV_TSV", "/path/to/dev_dataset.tsv")
+TRAIN_TSV = os.environ.get("TRAIN_TSV", "/path/to/train_dataset.tsv")
 
 openai.api_key   = os.getenv("OAPI") or os.getenv("OPENAI_API_KEY") or ""
 
@@ -91,6 +93,7 @@ def _normalize_labels_inplace(df: pd.DataFrame) -> None:
     df["label_id"] = (df["label"] == "ERR").astype(int)
 
 def load_data(path: str, tag: str) -> pd.DataFrame:
+    """Read, normalize, and log dataset statistics for ``tag``."""
     df_raw = _read_tsv(path)
     logging.info(f"[{tag}] read: rows={len(df_raw)} cols={df_raw.shape[1]}")
     df = _coerce_schema(df_raw)
@@ -101,7 +104,8 @@ def load_data(path: str, tag: str) -> pd.DataFrame:
     return df
 
 # ── Few-shot ───────────────────────────────────────────────────────────────────
-def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> pd.DataFrame:
+def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int = 42) -> pd.DataFrame:
+    """Return ``k`` rows for ``label`` (sampling with replacement if required)."""
     sub = df[df["label"] == label]
     n = len(sub)
     if n == 0:
@@ -112,6 +116,7 @@ def sample_with_replace(df: pd.DataFrame, label: str, k: int, seed: int=42) -> p
     return sub.sample(k, random_state=seed, replace=replace)
 
 def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
+    """Build the few-shot exemplar list used across inference calls."""
     err_examples = sample_with_replace(train_df, "ERR", FEW_SHOT_ERR_CNT)
     not_examples = sample_with_replace(train_df, "NOT", FEW_SHOT_NOT_CNT)
     examples: List[Dict[str, str]] = []
@@ -124,6 +129,7 @@ def select_few_shot_examples(train_df: pd.DataFrame) -> List[Dict[str, str]]:
 
 # ── Prompting ──────────────────────────────────────────────────────────────────
 def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
+    """Construct the messages list for a single classification request."""
     system_prompt = (
                 "You are a STRICT binary classifier for WMT’21 Task 3 (Critical Error Detection, EN→DE).\n\n"
         "Goal\n"
@@ -156,6 +162,7 @@ def build_messages(src: str, mt: str, examples: List[Dict[str, str]]):
     return messages
 
 def parse_label(text: str) -> str:
+    """Normalize generated content into ``ERR`` or ``NOT``."""
     if text is None:
         return "NOT"
     s = str(text).strip().upper()
@@ -168,6 +175,7 @@ def parse_label(text: str) -> str:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
+    """Execute the few-shot evaluation loop and print summary metrics."""
     dev_df   = load_data(DEV_TSV,   "DEV")
     train_df = load_data(TRAIN_TSV, "TRAIN")
 
