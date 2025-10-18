@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Fine-tune the GPT-OSS 20B model for critical error detection using LoRA."""
+
 # GPT-OSS-20B CED — BF16 LoRA with Unsloth (local-only, render-first dataset)
 
 import os, glob
@@ -11,11 +13,11 @@ from trl import SFTTrainer, SFTConfig
 
 # =================== Config (env overrides optional) ==========================
 MODEL_ID   = os.environ.get("MODEL_ID", "openai/gpt-oss-20b")   # repo id OR absolute local path
-HF_HOME    = os.environ.get("HF_HOME", "/hpcwork/ni124545/hf_cache")
+HF_HOME    = os.environ.get("HF_HOME", "/path/to/local/hf_cache")
 DEFAULT_LOCAL = os.path.join(HF_HOME, "models", MODEL_ID.replace("/", "_"))
 
-TRAIN_TSV  = os.environ.get("TRAIN_TSV", "/home/ni124545/llm/data/combined_ende_train.tsv")
-OUT_DIR    = os.environ.get("OUT_DIR",   "/hpcwork/ni124545/ced_oss20b_lora")
+TRAIN_TSV  = os.environ.get("TRAIN_TSV", "/path/to/datasets/combined_ende_train.tsv")
+OUT_DIR    = os.environ.get("OUT_DIR",   "/path/to/outputs/ced_oss20b_lora")
 
 MAX_SEQ_LEN  = int(os.environ.get("MAX_SEQ_LEN", "2048"))
 BATCH_SIZE   = int(os.environ.get("BATCH_SIZE", "4"))
@@ -42,6 +44,7 @@ SYSTEM_PROMPT = (
 
 # =================== Data helpers ============================================
 def load_tsv_noheader(path: str) -> pd.DataFrame:
+    """Load a TSV without headers and normalize to ERR/NOT labels."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -57,6 +60,7 @@ def load_tsv_noheader(path: str) -> pd.DataFrame:
     return df[["src","mt","label"]]
 
 def df_to_messages(df: pd.DataFrame) -> List[Dict[str, Any]]:
+    """Convert dataframe rows to chat message dictionaries."""
     rows = []
     for r in df.itertuples(index=False):
         rows.append({
@@ -70,6 +74,7 @@ def df_to_messages(df: pd.DataFrame) -> List[Dict[str, Any]]:
 
 # =================== Core =====================================================
 def _resolve_local_model_path(model_id: str) -> str:
+    """Return a usable local snapshot directory for the base model."""
     if os.path.isdir(model_id) and os.path.exists(os.path.join(model_id, "config.json")):
         return model_id
     candidate = DEFAULT_LOCAL
@@ -77,10 +82,11 @@ def _resolve_local_model_path(model_id: str) -> str:
         return candidate
     raise FileNotFoundError(
         f"Could not find a local model snapshot. Tried:\n- {model_id}\n- {candidate}\n"
-        "Ensure the snapshot exists locally (e.g., /hpcwork/ni124545/hf_cache/models/openai_gpt-oss-20b)."
+        "Ensure the snapshot exists locally (for example, under your HF cache directory)."
     )
 
 def _assert_has_weights(local_dir: str):
+    """Verify that at least one weight shard is present in ``local_dir``."""
     pats = ["*.safetensors", "*.bin"]
     found = []
     for p in pats:
@@ -93,6 +99,7 @@ def _assert_has_weights(local_dir: str):
         )
 
 def main():
+    """Prepare data, configure LoRA training, and launch supervised fine-tuning."""
     torch.manual_seed(SEED)
     os.makedirs(OUT_DIR, exist_ok=True)
 

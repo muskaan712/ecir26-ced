@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+"""Utility for fine-tuning GPT-4o mini on a prepared JSONL dataset.
+
+The script performs three tasks:
+
+1. Inspect the input dataset for sanity checks (counts and label balance).
+2. Upload the JSONL to OpenAI and launch a fine-tuning job.
+3. Poll the job for new events and stream them to stdout until completion.
+
+Environment variables ``OPENAI_API_KEY`` or ``OAPI`` must be set. Adjust the
+configuration constants below to match your workspace before running.
+"""
+
 # ft_4omini_full_launch.py
 # Use 100% of an existing JSONL to fine-tune 4o-mini (EPOCHS configurable),
 # and stream events live (no blank waits).
@@ -6,7 +18,7 @@
 import os, json, time, sys
 
 # ── Edit these ────────────────────────────────────────────────────────────────
-SRC_JSONL    = "/home/s13mchop/LLMs/data/train.jsonl"   # existing full JSONL
+SRC_JSONL    = "/path/to/datasets/train.jsonl"          # existing full JSONL
 BASE_MODEL   = "gpt-4o-mini-2024-07-18"
 MODEL_SUFFIX = "synced-label-4o-mini"  # optional; None=omit
 EPOCHS       = 2              # adjust if you need to control cost
@@ -43,6 +55,7 @@ def inspect_dataset(in_path):
     return total
 
 def launch_and_stream(training_jsonl):
+    """Create a fine-tuning job and stream status updates until it ends."""
     from openai import OpenAI
     key = os.getenv("OPENAI_API_KEY") or os.getenv("OAPI")
     if not key:
@@ -86,7 +99,7 @@ def launch_and_stream(training_jsonl):
             time.sleep(SLEEP_SECS)
 
 def main():
-    """Run inference over the dataset and report metrics."""
+    """Validate the dataset, launch a job, and stream progress logs."""
     p("[START] Using FULL dataset (no sampling)")
     inspect_dataset(SRC_JSONL)
     p("[FINISH] Dataset inspection")
