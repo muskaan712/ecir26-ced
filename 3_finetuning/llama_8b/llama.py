@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Fine-tune a local Llama 3.1 8B checkpoint for binary error classification."""
+
 # ft_llama31_8b_nodev.py — Llama 3.1 8B CED SFT (local-only, no env vars, no downloads)
 
 import os, math, random
@@ -12,9 +14,9 @@ from transformers import AutoTokenizer, TrainingArguments
 from trl import SFTTrainer
 
 # ── Fixed paths ───────────────────────────────────────────────────────────────
-TRAIN_TSV  = "/home/ni124545/llm/data/combined_ende_train.tsv"
-CACHE_DIR  = "/hpcwork/ni124545/hf_cache/models/meta-llama_Meta-Llama-3.1-8B-Instruct"
-OUTPUT_DIR = "/hpcwork/ni124545/ced_runs/llama31_8b/latest"
+TRAIN_TSV  = "/path/to/datasets/combined_ende_train.tsv"
+CACHE_DIR  = "/path/to/local/hf_cache/models/meta-llama_Meta-Llama-3.1-8B-Instruct"
+OUTPUT_DIR = "/path/to/outputs/llama31_8b/latest"
 
 # ── Training knobs ────────────────────────────────────────────────────────────
 EPOCHS         = 2
@@ -45,6 +47,7 @@ USER_TEMPLATE = "EN: {src}\nDE: {mt}\nAnswer with ONLY 'ERR' or 'NOT'."
 
 # ── TSV utils ─────────────────────────────────────────────────────────────────
 def _map_label_to_err_not(x: str) -> str:
+    """Normalize various labels to the ERR/NOT schema expected by training."""
     s = str(x or "").strip().upper()
     if s == "BAD": return "ERR"
     if s == "OK":  return "NOT"
@@ -54,6 +57,7 @@ def _map_label_to_err_not(x: str) -> str:
     return "ERR"
 
 def _split_tsv_flex(path: str):
+    """Split TSV columns into source, translation, and label series."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n < 3: raise ValueError(f"Expected ≥3 columns (src, mt, label). Got {n} in {path}")
@@ -66,6 +70,7 @@ def _split_tsv_flex(path: str):
     return src.astype(str), mt.astype(str), label.astype(str).map(_map_label_to_err_not)
 
 def load_train_df(path: str) -> pd.DataFrame:
+    """Load the training TSV and optionally subsample rows for quick runs."""
     src, mt, label = _split_tsv_flex(path)
     df = pd.DataFrame({"src": src, "mt": mt, "label": label})
     df = df[df["label"].isin(["ERR","NOT"])].reset_index(drop=True)
@@ -74,6 +79,7 @@ def load_train_df(path: str) -> pd.DataFrame:
     return df
 
 def df_to_text_dataset(df: pd.DataFrame, tokenizer) -> Dataset:
+    """Render chat templates to raw text strings consumable by ``SFTTrainer``."""
     def row_to_chat(r):
         return [
             {"role":"system","content":SYSTEM_PROMPT},
@@ -90,6 +96,7 @@ def df_to_text_dataset(df: pd.DataFrame, tokenizer) -> Dataset:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
+    """Coordinate data loading, model preparation, and supervised fine-tuning."""
     # No HF_* envs at all
     for k in ("HF_HOME","TRANSFORMERS_CACHE","HF_TOKEN","HF_HUB_ENABLE_HF_TRANSFER"):
         os.environ.pop(k, None)

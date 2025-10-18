@@ -1,37 +1,29 @@
 #!/usr/bin/env python3
-# fewshot_llama31_8b_batch_generate.py
-#
-# Critical Error Detection (EN→DE) with Meta-Llama-3.1-8B-Instruct
-# - Robust TSV loading: 3/4/5+ columns supported
-# - Maps WMT22 labels BAD/OK → ERR/NOT
-# - Few-shot demos: 5 ERR + 3 NOT sampled from TRAIN
-# - Batched generation (fast tokenizer batch path)
-# - Forces eager attention (no FlashAttention2 / no SDPA)
-#
-# pip install "transformers>=4.42.0" accelerate huggingface_hub torch pandas scikit-learn tqdm
+"""Run Meta Llama 3.1 8B prompt-tuning evaluation with batched generation."""
 
 import os
 import re
-import torch
+
 import pandas as pd
-from tqdm import tqdm
+import torch
 from huggingface_hub import snapshot_download
-from transformers import AutoTokenizer, AutoModelForCausalLM
 from sklearn.metrics import (
+    confusion_matrix,
     matthews_corrcoef,
     precision_recall_fscore_support,
-    confusion_matrix
 )
+from tqdm import tqdm
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # ─── Paths ─────────────────────────────────────────────────────────────────────
-DATA_DIR   = "/home/s13mchop/LLMs/data/2024_25_data/"
-DEV_TSV    = os.path.join(DATA_DIR, "synced_ende_eval_gold.tsv")
-TRAIN_TSV  = os.path.join(DATA_DIR, "synced_ende_train_silver.tsv")
+DATA_DIR = os.environ.get("DATA_DIR", "/path/to/data")
+DEV_TSV = os.environ.get("DEV_TSV", os.path.join(DATA_DIR, "synced_ende_eval_gold.tsv"))
+TRAIN_TSV = os.environ.get("TRAIN_TSV", os.path.join(DATA_DIR, "synced_ende_train_silver.tsv"))
 
-HF_TOKEN   = os.getenv("HF_TOKEN")  # accept license for Meta-Llama-3.1-8B-Instruct on HF
-MODEL_ID   = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-CACHE_ROOT = "/home/s13mchop/LLMs/ced/1_preliminary/fewshot/llama-8b/modelcachex"
-CACHE_DIR  = os.path.join(CACHE_ROOT, MODEL_ID.replace("/", "_"))
+HF_TOKEN = os.getenv("HF_TOKEN")  # accept license for Meta-Llama-3.1-8B-Instruct on HF
+MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+CACHE_ROOT = os.environ.get("CACHE_ROOT", os.path.expanduser("~/.cache"))
+CACHE_DIR = os.path.join(CACHE_ROOT, MODEL_ID.replace("/", "_"))
 
 # ─── Inference ─────────────────────────────────────────────────────────────────
 BATCH_SIZE     = 8
@@ -119,12 +111,14 @@ def _split_tsv_flex(path: str):
     return src, mt, label
 
 def load_dev(path: str) -> pd.DataFrame:
+    """Load the evaluation split and attach numeric labels."""
     src, mt, label = _split_tsv_flex(path)
     out = pd.DataFrame({"src": src, "mt": mt, "label": label})
     out["label_id"] = out["label"].map({"ERR": 1, "NOT": 0})
     return out
 
 def load_train_minimal(path: str) -> pd.DataFrame:
+    """Load the training data with only the necessary columns for sampling."""
     src, mt, label = _split_tsv_flex(path)
     return pd.DataFrame({"src": src, "mt": mt, "label": label})
 
@@ -132,10 +126,7 @@ def sample_few_shot_examples(train_tsv: str,
                              n_err: int,
                              n_not: int,
                              random_state: int = 42):
-    """
-    Sample 5 ERR + 3 NOT (with replacement if needed).
-    Return list of {src, mt, label} with ERRs first, then NOTs.
-    """
+    """Return a list of ERR/NOT exemplars sampled from the training TSV."""
     train_df = load_train_minimal(train_tsv)
     train_df = train_df[train_df["label"].isin(["ERR", "NOT"])]
 
@@ -157,19 +148,14 @@ def sample_few_shot_examples(train_tsv: str,
     return examples
 
 def build_messages_zero_shot(src: str, mt: str):
+    """Create a zero-shot chat prompt for a single example."""
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}\nAnswer with ONLY 'ERR' or 'NOT'."}
     ]
 
 def build_messages_few_shot(examples, src: str, mt: str):
-    """
-    Few-shot conversational format:
-      (system)
-      user: EN/DE pair → assistant: gold label
-      ...
-      user: EN/DE (query)
-    """
+    """Compose chat messages that include each few-shot demonstration."""
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
         msgs.append({"role": "user",      "content": f"EN: {ex['src']}\nDE: {ex['mt']}"})
@@ -184,6 +170,7 @@ def extract_label(text: str) -> str:
     return hits[-1] if hits else "NOT"
 
 def main():
+    """Download the model if needed, run inference, and print summary metrics."""
     # 1) Cache model locally
     download_and_cache_model()
 

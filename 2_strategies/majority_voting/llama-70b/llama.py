@@ -1,25 +1,31 @@
 #!/usr/bin/env python3
-# Few-shot CED (EN→DE) via llama-server (GGUF, GPU via llama.cpp server) + Majority Voting (fixed)
-# - TSV or split files (*.src/*.mt/*.label)
-# - 5 ERR + 3 NOT few-shots
-# - Strict grammar; safer decoding (3 tokens + stop)
-# - Majority vote with fallback if server ignores `n`
-# - Retries on 429/503; latency profiling; confusion matrix
+"""Run llama.cpp server-based few-shot CED evaluation with majority voting."""
 
-import os, time, requests, sys, random, glob, re
-import pandas as pd
-import numpy as np
+import glob
+import os
+import random
+import re
+import sys
+import time
 from collections import Counter
+
+import numpy as np
+import pandas as pd
+import requests
+from sklearn.metrics import (
+    confusion_matrix,
+    matthews_corrcoef,
+    precision_recall_fscore_support,
+)
 from tqdm import tqdm
-from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
 
 # ===================== CONFIG =====================
-API_BASE      = os.environ.get("API_BASE", "http://127.0.0.1:8811")
-MODEL_ID_ENV  = os.environ.get("MODEL_ID", "").strip()
+API_BASE = os.environ.get("API_BASE", "http://127.0.0.1:8811")
+MODEL_ID_ENV = os.environ.get("MODEL_ID", "").strip()
 
-# Point to TSV or split dirs:
-TRAIN_PATH = "/home/ni124545/llm/data/wmt22/ende_wmt22_train.tsv"
-DEV_PATH   = "/home/ni124545/llm/data/wmt22/ende_wmt22_dev.tsv"
+# Point to TSV or split dirs (environment variables preferred for overrides).
+TRAIN_PATH = os.environ.get("TRAIN_PATH", "/path/to/train_dataset.tsv")
+DEV_PATH = os.environ.get("DEV_PATH", "/path/to/dev_dataset.tsv")
 
 EVAL_LIMIT      = None      # None/0 for full
 FEWSHOT_ERR_N   = 5
@@ -58,10 +64,12 @@ GRAMMAR_FIELD = {"type": "gbnf", "value": GBNF}
 _LABEL_MAP = {"ERR":"ERR","NOT":"NOT","BAD":"ERR","OK":"NOT","ERROR":"ERR","CORRECT":"NOT"}
 
 def _normalize_label(x: str) -> str:
+    """Map various label spellings onto the canonical ``ERR``/``NOT`` set."""
     t = (x or "").strip().upper()
     return _LABEL_MAP.get(t, t if t in ("ERR","NOT") else "ERR")
 
 def load_tsv_noheader(path):
+    """Load a TSV without headers and coerce into ``src``, ``mt``, ``label`` columns."""
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -76,10 +84,12 @@ def load_tsv_noheader(path):
     return df[["src","mt","label"]]
 
 def _read_lines(fp):
+    """Read UTF-8 lines from ``fp`` and strip trailing newlines."""
     with open(fp, "r", encoding="utf-8") as f:
         return [line.rstrip("\n") for line in f]
 
 def load_split_dir(dir_path: str) -> pd.DataFrame:
+    """Load ``*.src``, ``*.mt``, and ``*.label`` files from ``dir_path``."""
     src_files   = sorted(glob.glob(os.path.join(dir_path, "*.src")))
     mt_files    = sorted(glob.glob(os.path.join(dir_path, "*.mt")))
     label_files = sorted(glob.glob(os.path.join(dir_path, "*.label")))
@@ -93,6 +103,7 @@ def load_split_dir(dir_path: str) -> pd.DataFrame:
     return pd.DataFrame({"src": src[:n], "mt": mt[:n], "label": [_normalize_label(x) for x in lb[:n]]}, dtype=str)
 
 def load_any_dataset(path_or_dir: str) -> pd.DataFrame:
+    """Load a dataset from either a TSV file or a directory of split files."""
     p = (path_or_dir or "").strip()
     if not p: raise ValueError("Empty dataset path")
     if os.path.isdir(p): return load_split_dir(p)
@@ -103,6 +114,7 @@ def load_any_dataset(path_or_dir: str) -> pd.DataFrame:
 
 # ---------- Few-shot & prompts ----------
 def sanitize_label(text: str) -> str:
+    """Normalize raw model output into an ``ERR``/``NOT`` decision."""
     if not text: return DEFAULT_LABEL
     t = (text or "").strip().upper()
     if t in ("ERR","NOT"): return t
@@ -116,6 +128,7 @@ def sanitize_label(text: str) -> str:
     return DEFAULT_LABEL
 
 def wait_for_server(api_base: str, timeout_s: int = 120):
+    """Poll the llama.cpp server until it responds or ``timeout_s`` expires."""
     t0 = time.time(); last_err = None
     while time.time() - t0 < timeout_s:
         try:
@@ -128,6 +141,7 @@ def wait_for_server(api_base: str, timeout_s: int = 120):
     return False
 
 def get_model_id(api_base: str, prefer: str | None):
+    """Fetch the server model list and choose an identifier to query."""
     try:
         r = requests.get(f"{api_base}/v1/models", timeout=5); r.raise_for_status()
         ids = [m.get("id") for m in r.json().get("data", []) if m.get("id")]
@@ -138,6 +152,7 @@ def get_model_id(api_base: str, prefer: str | None):
         return prefer or "local"
 
 def sample_fewshot(df_train: pd.DataFrame, n_err=5, n_not=3, seed=42):
+    """Sample ERR/NOT exemplars with deterministic shuffling for reproducibility."""
     rnd = random.Random(seed)
     err_rows = df_train[df_train["label"] == "ERR"].copy()
     not_rows = df_train[df_train["label"] == "NOT"].copy()
@@ -151,6 +166,7 @@ def sample_fewshot(df_train: pd.DataFrame, n_err=5, n_not=3, seed=42):
     return demos
 
 def build_messages_with_fewshot(src: str, mt: str, demos):
+    """Compose chat messages that include few-shot demonstrations."""
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for (d_src, d_mt, d_label) in demos:
         messages.append({"role": "user",      "content": f"EN: {d_src.strip()}\nDE: {d_mt.strip()}\nLabel (ERR or NOT):"})
@@ -160,6 +176,7 @@ def build_messages_with_fewshot(src: str, mt: str, demos):
 
 # ---------- Inference ----------
 def _post_chat(payload, retries: int = 6):
+    """POST to the llama.cpp server with retry/backoff for transient failures."""
     backoff = 0.5
     for attempt in range(1, retries+1):
         try:
@@ -186,6 +203,7 @@ def _post_chat(payload, retries: int = 6):
             raise
 
 def infer_single(src, mt, model_id: str, demos):
+    """Make a single constrained decode request and return the sanitized label."""
     payload = {
         "model": model_id,
         "messages": build_messages_with_fewshot(src, mt, demos),
@@ -199,6 +217,7 @@ def infer_single(src, mt, model_id: str, demos):
     return sanitize_label(data["choices"][0]["message"]["content"])
 
 def infer_majority(src, mt, model_id: str, demos, n_votes: int, temp_for_vote: float):
+    """Run ``n_votes`` inference passes (batched when possible) and majority vote."""
     # Try efficient single-call with `n`
     payload = {
         "model": model_id,
@@ -248,6 +267,7 @@ def infer_majority(src, mt, model_id: str, demos, n_votes: int, temp_for_vote: f
 
 # -------------------- MAIN --------------------
 def main():
+    """Evaluate the dev set via llama.cpp and emit preview plus summary metrics."""
     if not wait_for_server(API_BASE, timeout_s=120):
         sys.exit(2)
     model_id = get_model_id(API_BASE, MODEL_ID_ENV)
