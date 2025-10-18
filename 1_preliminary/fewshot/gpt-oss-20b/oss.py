@@ -43,7 +43,7 @@ CACHE_ROOT      = "/hpcwork/ni124545/hf_cache"
 MODEL_LOCAL_DIR = os.path.join(CACHE_ROOT, "models", MODEL_REPO.replace("/", "_"))
 
 DEV_TSV         = "/home/ni124545/llm/data/wmt22/ende_wmt22_dev.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/wmt22/ende_wmt22_train.tsv"  # unused in zero-shot
+TRAIN_TSV       = "/home/ni124545/llm/data/combined_ende_train.tsv"  # unused in zero-shot
 
 # Row limit: 0 → process ALL rows; >0 → first N rows
 PROCESS_N       = 0

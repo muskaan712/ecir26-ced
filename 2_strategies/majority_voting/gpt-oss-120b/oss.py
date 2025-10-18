@@ -1,43 +1,44 @@
 #!/usr/bin/env python3
-# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing (like 20B)
-# + Majority voting (n choices) with tie-break
+# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing + Majority Voting
 
 import os
 import re
 import requests
 import pandas as pd
-from tqdm import tqdm
 from collections import Counter
+from tqdm import tqdm
 from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
 
 # ===================== CONFIG =============================================
-VLLM_BASE_URL   = "http://127.0.0.1:8000"
-MODEL_ID        = "gpt-oss-120b"
+VLLM_BASE_URL   = os.environ.get("VLLM_BASE_URL", "http://127.0.0.1:8000")
+MODEL_ID        = os.environ.get("MODEL_ID", "gpt-oss-20b")
 
-DEV_TSV         = "/home/ni124545/llm/data/wmt21/ende_majority_dev.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/wmt21/ende_majority_train.tsv"
+DEV_TSV         = "/home/ni124545/llm/data/own_data/synced_ende_eval_gold.tsv"
+TRAIN_TSV       = "/home/ni124545/llm/data/own_data/synced_ende_train_silver.tsv"
 
-EVAL_LIMIT      = 1000
+# Decoding (allow long reasoning and parse FINAL)
+TIMEOUT_SEC     = int(os.environ.get("TIMEOUT_SEC", "300"))
+MAX_NEW_TOKENS  = int(os.environ.get("MAX_NEW_TOKENS", "256"))
+TEMPERATURE     = float(os.environ.get("TEMPERATURE", "0.0"))
+TOP_P           = float(os.environ.get("TOP_P", "1.0"))
+STOP_TOKENS     = os.environ.get("STOP_TOKENS", "<|end|>,<|return|>").split(",")
 
-# Decoding (match 20B: allow long reasoning and parse FINAL)
-TIMEOUT_SEC     = 300
-MAX_NEW_TOKENS  = 256
-TEMPERATURE     = 0.0
-TOP_P           = 1.0
-STOP_TOKENS     = ["<|end|>", "<|return|>"]  # optional; lets the model close the message naturally
+# Few-shot configuration (static)
+USE_FEW_SHOT     = True          # ← set to False for zero-shot
+FEW_SHOT_ERR_CNT = 5
+FEW_SHOT_NOT_CNT = 3
+RANDOM_STATE     = 42
 
-# Few-shot (keep your 5 ERR / 3 NOT)
-USE_FEW_SHOT        = True
-FEW_SHOT_ERR_CNT    = 5
-FEW_SHOT_NOT_CNT    = 3
-RANDOM_STATE        = 42
+# Majority voting
+USE_MAJORITY_VOTE = True    # ← set False for single long decode
+N_VOTES           = 3       # odd (3/5 typical)
+TEMP_FOR_VOTE     = 0.2     # mild diversity
+TOP_P_FOR_VOTE    = 1.0
+TIE_BREAK         = "NOT"   # tie → NOT (specificity-leaning)
+VOTE_DEBUG_PRINT  = False   # print raw vote labels for first rows
 
-# ── Majority vote (mirrors your GPT‑4o script) ───────────────────────────────
-USE_MAJORITY_VOTE = True     # set False to disable
-N_VOTES           = 3        # odd number (3 or 5 typical)
-TEMP_FOR_VOTE     = 0.2      # small >0 to induce slight diversity
-TIE_BREAK         = "NOT"    # "NOT" for precision-leaning; "ERR" for recall-leaning
-# ─────────────────────────────────────────────────────────────────────────────
+assert not USE_MAJORITY_VOTE or (N_VOTES >= 1 and N_VOTES % 2 == 1), "N_VOTES must be odd >= 1"
+DEFAULT_LABEL = TIE_BREAK.upper()
 
 SYSTEM_PROMPT = (
     "You are a precise translation evaluator.\n"
@@ -76,7 +77,6 @@ def build_messages_fewshot(examples, src: str, mt: str):
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
         msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}\n\nProvide your FINAL decision."})
-        # As in your 20B script: assistant shows only the label (acts as FINAL)
         msgs.append({"role": "assistant", "content": ex['label'].strip().upper()})
     msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."})
     return msgs
@@ -107,7 +107,6 @@ LABEL_RE = re.compile(r"\b(ERR|NOT)\b", re.I)
 FINAL_BLOCK_RE = re.compile(r"<\|channel\|\>final<\|message\|\>(.*?)(?:<\|end\|\>|<\|return\|\>|$)", re.S)
 
 def extract_text_from_choice(choice: dict) -> str:
-    # Combine all potential fields that may contain model text.
     msg = choice.get("message", {}) or {}
     content = msg.get("content") or ""
     reasoning = msg.get("reasoning_content") or ""
@@ -120,90 +119,113 @@ def extract_final_or_label(text: str) -> str:
     m = FINAL_BLOCK_RE.search(text)
     if m:
         final_text = (m.group(1) or "").strip()
-        # If FINAL contains label, return that; else return whatever is inside FINAL
         m2 = LABEL_RE.search(final_text)
         return m2.group(1).upper() if m2 else final_text
-    # No FINAL channel; fall back to first label anywhere
     m3 = LABEL_RE.search(text)
     return m3.group(1).upper() if m3 else text.strip()
 
 def sanitize_label(t: str) -> str:
-    # Match 20B behavior: conservative fallback to ERR
     s = (t or "").strip().upper()
     if "ERR" in s and "NOT" in s:
         return "ERR" if s.index("ERR") < s.index("NOT") else "NOT"
     if "ERR" in s: return "ERR"
     if "NOT" in s: return "NOT"
-    return "ERR"
+    return DEFAULT_LABEL
 
-# --- Inference (supports majority voting) ------------------------------------
-def infer_votes_with_retry(src, mt, examples=None, max_retries=3):
-    """Return list of labels (len=1 if voting disabled)."""
+# --- vLLM call helpers -------------------------------------------------------
+def _post_vllm(payload, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            r = requests.post(API_URL, json=payload, timeout=TIMEOUT_SEC)
+            if r.status_code >= 500:
+                if attempt < max_retries - 1:
+                    continue
+                else:
+                    raise requests.HTTPError(f"HTTP {r.status_code}", response=r)
+            r.raise_for_status()
+            return r.json()
+        except requests.RequestException as e:
+            if attempt == max_retries - 1:
+                raise
+            continue
+
+# --- Inference (single) ------------------------------------------------------
+def infer_one_with_retry(src, mt, examples=None, max_retries=3):
     messages = build_messages_fewshot(examples, src, mt) if examples else build_messages_zero_shot(src, mt)
-
-    use_vote = bool(USE_MAJORITY_VOTE and N_VOTES and N_VOTES > 1)
     payload = {
         "model": MODEL_ID,
         "messages": messages,
         "max_tokens": MAX_NEW_TOKENS,
+        "temperature": TEMPERATURE,
         "top_p": TOP_P,
         "stop": STOP_TOKENS,
-        "n": int(N_VOTES) if use_vote else 1,
-        "temperature": float(TEMP_FOR_VOTE) if use_vote else float(TEMPERATURE),
+        # "reasoning": {"effort": "low"},
     }
+    try:
+        resp = _post_vllm(payload, max_retries=max_retries)
+        choice = resp["choices"][0]
+        raw = extract_text_from_choice(choice)
+        parsed = extract_final_or_label(raw)
+        return sanitize_label(parsed)
+    except Exception:
+        return DEFAULT_LABEL
 
-    for attempt in range(max_retries):
-        try:
-            r = requests.post(API_URL, json=payload, timeout=TIMEOUT_SEC)
+# --- Inference (majority vote) ----------------------------------------------
+def infer_majority_with_retry(src, mt, examples=None, n_votes=3, temp_for_vote=0.2,
+                              top_p_for_vote=1.0, max_retries=3, vote_debug=False):
+    messages = build_messages_fewshot(examples, src, mt) if examples else build_messages_zero_shot(src, mt)
 
-            # Retry on transient server errors
-            if r.status_code in (429, 500, 502, 503, 504):
-                if attempt < max_retries - 1:
-                    continue
-                else:
-                    return ["ERR"]  # conservative on hard failure
+    # Try efficient single call with `n`
+    payload = {
+        "model": MODEL_ID,
+        "messages": messages,
+        "max_tokens": MAX_NEW_TOKENS,
+        "temperature": temp_for_vote,
+        "top_p": top_p_for_vote,
+        "n": n_votes,
+        "stop": STOP_TOKENS,
+        # "reasoning": {"effort": "low"},
+    }
+    labels = []
+    try:
+        resp = _post_vllm(payload, max_retries=max_retries)
+        choices = resp.get("choices", [])
+        if len(choices) == n_votes:
+            for ch in choices:
+                raw = extract_text_from_choice(ch)
+                parsed = extract_final_or_label(raw)
+                labels.append(sanitize_label(parsed))
+        else:
+            # If server ignored `n`, fall back to sequential
+            labels = []
+    except Exception:
+        labels = []
 
-            r.raise_for_status()
-            resp = r.json()
-            choices = resp.get("choices", []) or []
-            raws = [extract_text_from_choice(c) for c in choices]
-            parsed = [extract_final_or_label(x) for x in raws]
-            labels = [sanitize_label(x) for x in parsed]
-            if not labels:
-                return ["ERR"]
-            return labels
+    # Sequential fallback if needed
+    if len(labels) != n_votes:
+        labels = []
+        for _ in range(n_votes):
+            lab = infer_one_with_retry(src, mt, examples=examples, max_retries=max_retries)
+            labels.append(lab)
 
-        except requests.exceptions.RequestException:
-            if attempt == max_retries - 1:
-                return ["ERR"]  # conservative on hard failure
-            # else retry
+    if vote_debug:
+        print(f"[VOTE] labels={labels}")
 
-    return ["ERR"]
-
-def decide_from_votes(labels):
-    if not labels:
+    tally = Counter(labels)
+    if tally["ERR"] > tally["NOT"]:
         return "ERR"
-    if len(labels) == 1:
-        return labels[0]
-    c = Counter(labels)
-    if c["ERR"] > c["NOT"]:
-        return "ERR"
-    if c["NOT"] > c["ERR"]:
+    if tally["NOT"] > tally["ERR"]:
         return "NOT"
-    return TIE_BREAK
+    return DEFAULT_LABEL
 
 # ===================== Main ================================================
 def main():
-    """Run inference over the dataset and report metrics."""
     df_full = load_tsv_noheader(DEV_TSV)
-    eval_df = df_full.head(EVAL_LIMIT) if EVAL_LIMIT else df_full
+    eval_df = df_full
     rows = list(eval_df.itertuples(index=False))
 
-    print(
-        f"Processing: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} | "
-        f"Max tokens: {MAX_NEW_TOKENS} | Majority: {'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'} "
-        f"(n={N_VOTES if USE_MAJORITY_VOTE else 1}, temp={TEMP_FOR_VOTE if USE_MAJORITY_VOTE else TEMPERATURE})"
-    )
+    print(f"Processing: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} | "
+          f"Max tokens: {MAX_NEW_TOKENS} | MV: {'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'}")
 
     few_shots = None
     if USE_FEW_SHOT:
@@ -216,15 +238,24 @@ def main():
     print(f"\n=== PREVIEW (first {preview_k}) ===")
 
     for i, row in enumerate(tqdm(rows, desc="Evaluating", unit="row"), 1):
-        vote_labels = infer_votes_with_retry(row.src, row.mt, examples=few_shots)
-        pred = decide_from_votes(vote_labels)
+        if USE_MAJORITY_VOTE and N_VOTES > 1:
+            pred = infer_majority_with_retry(
+                row.src, row.mt,
+                examples=few_shots,
+                n_votes=N_VOTES,
+                temp_for_vote=TEMP_FOR_VOTE,
+                top_p_for_vote=TOP_P_FOR_VOTE,
+                max_retries=3,
+                vote_debug=(VOTE_DEBUG_PRINT and i <= 5)
+            )
+        else:
+            pred = infer_one_with_retry(row.src, row.mt, examples=few_shots, max_retries=3)
 
         y_true.append(row.label)
         y_pred.append(pred)
 
         if i <= preview_k:
-            vb = f" votes={vote_labels}" if len(vote_labels) > 1 else ""
-            print(f"[{i:03d}] TRUE={row.label} | PRED={pred}{vb}")
+            print(f"[{i:03d}] TRUE={row.label} | PRED={pred}")
 
         if i % 200 == 0:
             acc_partial = (pd.Series(y_true) == pd.Series(y_pred)).mean()
@@ -241,7 +272,8 @@ def main():
     acc = (pd.Series(yt) == pd.Series(yp)).mean()
     cm = confusion_matrix(yt, yp, labels=[1,0])
 
-    print(f"\nProcessed: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} | Majority: {'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'}")
+    print(f"\nProcessed: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} "
+          f"| Majority vote: {'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'} (N={N_VOTES})")
     print(f"MCC   : {mcc:.4f}")
     print(f"F1-ERR: {f_err:.4f} | F1-NOT: {f_not:.4f} | Acc: {acc:.4f}")
     print("\nConfusion Matrix (rows=true │ cols=pred)")

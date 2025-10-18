@@ -1,124 +1,59 @@
 #!/usr/bin/env python3
-# GPT-OSS CED (Option A): long decode + parse FINAL label → metrics
-# - Python 3.9 compatible
-# - Uses your HF cache paths & SYSTEM_PROMPT
-# - Few-shot optional (from TRAIN_TSV)
-# - Row limit knob (PROCESS_N); set 0 for ALL rows
-# - No log-prob scoring, just parsing FINAL (fallback to first ERR/NOT)
-# - Majority voting (n samples per prompt) with tie-break
+# GPT-OSS 120B CED evaluation via vLLM — long decode + FINAL-channel parsing + Majority Voting
 
-import os, sys, logging, re
-from typing import Optional, List, Dict, Tuple
-from inspect import signature
-from collections import Counter
-
-# ── Environment (same style as your Llama script) ─────────────────────────────
-os.environ.pop("TRANSFORMERS_CACHE", None)
-os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
-os.environ.setdefault("HF_HOME", "/hpcwork/ni124545/hf_cache")
-
-import torch
+import os
+import re
+import requests
 import pandas as pd
+from collections import Counter
 from tqdm import tqdm
-from huggingface_hub import snapshot_download
-from transformers import AutoTokenizer, AutoModelForCausalLM
-from sklearn.metrics import matthews_corrcoef, f1_score, confusion_matrix
+from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, confusion_matrix
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout)]
-)
-log = logging.getLogger("ced-gptoss-optionA")
+# ===================== CONFIG =============================================
+VLLM_BASE_URL   = os.environ.get("VLLM_BASE_URL", "http://127.0.0.1:8000")
+MODEL_ID        = os.environ.get("MODEL_ID", "gpt-oss-120b")
 
-# ===================== CONFIG (edit here) =====================================
-MODEL_REPO      = "openai/gpt-oss-20b"  # swap to "openai/gpt-oss-8b" if VRAM is tight
+DEV_TSV         = "/home/ni124545/llm/data/wmt22/ende_wmt22_dev.tsv"
+TRAIN_TSV       = "/home/ni124545/llm/data/wmt22/ende_wmt22_train.tsv"
 
-CACHE_ROOT      = "/hpcwork/ni124545/hf_cache"
-MODEL_LOCAL_DIR = os.path.join(CACHE_ROOT, "models", MODEL_REPO.replace("/", "_"))
+# Decoding (allow long reasoning and parse FINAL)
+TIMEOUT_SEC     = int(os.environ.get("TIMEOUT_SEC", "300"))
+MAX_NEW_TOKENS  = int(os.environ.get("MAX_NEW_TOKENS", "256"))
+TEMPERATURE     = float(os.environ.get("TEMPERATURE", "0.0"))
+TOP_P           = float(os.environ.get("TOP_P", "1.0"))
+STOP_TOKENS     = os.environ.get("STOP_TOKENS", "<|end|>,<|return|>").split(",")
 
-DEV_TSV         = "/home/ni124545/llm/data/wmt21/ende_majority_dev.tsv"
-TRAIN_TSV       = "/home/ni124545/llm/data/wmt21/ende_majority_train.tsv"
+# Few-shot configuration (static)
+USE_FEW_SHOT     = True          # ← set to False for zero-shot
+FEW_SHOT_ERR_CNT = 5
+FEW_SHOT_NOT_CNT = 3
+RANDOM_STATE     = 42
 
-# Row limit: 0 → process ALL rows; >0 → first N rows
-PROCESS_N       = 0
+# Majority voting
+USE_MAJORITY_VOTE = True    # ← set False for single long decode
+N_VOTES           = 3       # odd (3/5 typical)
+TEMP_FOR_VOTE     = 0.2     # mild diversity
+TOP_P_FOR_VOTE    = 1.0
+TIE_BREAK         = "NOT"   # tie → NOT (specificity-leaning)
+VOTE_DEBUG_PRINT  = False   # print raw vote labels for first rows
 
-# Few-shot toggle and counts (like your Llama script)
-USE_FEW_SHOT        = True
-FEW_SHOT_ERR_CNT    = 5
-FEW_SHOT_NOT_CNT    = 3
-RANDOM_STATE        = 42
+assert not USE_MAJORITY_VOTE or (N_VOTES >= 1 and N_VOTES % 2 == 1), "N_VOTES must be odd >= 1"
+DEFAULT_LABEL = TIE_BREAK.upper()
 
-# Decoding: allow enough room to reach FINAL
-MAX_NEW_TOKENS  = 256
-
-# ── Majority Vote settings (mirrors your GPT‑4o script) ───────────────────────
-USE_MAJORITY_VOTE = True     # set False to disable
-N_VOTES           = 3        # odd number: 3 or 5 typical
-TEMP_FOR_VOTE     = 0.2      # small > 0 to induce slight diversity
-TIE_BREAK         = "NOT"    # "NOT" (precision-leaning) or "ERR" (recall-leaning)
-# If you disable majority, we use greedy (no sampling).
-
-# Same prompt as your Llama script
 SYSTEM_PROMPT = (
     "You are a precise translation evaluator.\n"
-    "Given an English sentence (EN) and its German translation (DE), respond with exactly one token: "
-    "'ERR' if DE has a major error (meaning shift, omission, or inaccuracy), or 'NOT' if it is accurate "
-    "or only has minor imperfections.\n"
-    "Do not add any explanation, punctuation, or additional text."
+    "Given an English sentence (EN) and its German translation (DE), think carefully and then provide a FINAL decision.\n"
+    "Decision rules:\n"
+    "- ERR: major meaning error, omission, or inaccuracy.\n"
+    "- NOT: accurate or only minor imperfections.\n"
+    "In your FINAL message, output ONLY one token: ERR or NOT.\n"
+    "Use your usual internal structure; if you use channels, ensure the FINAL channel contains exactly ERR or NOT."
 )
 
-# Reasoning effort hint (used if template supports it)
-REASONING_EFFORT = "low"   # "low" | "medium" | "high" | None
+API_URL = f"{VLLM_BASE_URL}/v1/chat/completions"
 
-HF_TOKEN = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_HUB_TOKEN")
-
-# ===================== Helpers ===============================================
-def ensure_snapshot_local(repo_id: str, local_dir: str):
-    os.makedirs(local_dir, exist_ok=True)
-    kwargs = dict(repo_id=repo_id, local_dir=local_dir, token=HF_TOKEN)
-    if "use_hf_transfer" in signature(snapshot_download).parameters:
-        kwargs["use_hf_transfer"] = False
-    log.info(f"Snapshotting repo '{repo_id}' → {local_dir}")
-    snapshot_download(**kwargs)
-    log.info("Snapshot ready.")
-
-def load_model_and_tokenizer():
-    ensure_snapshot_local(MODEL_REPO, MODEL_LOCAL_DIR)
-
-    # Try FA2; else SDPA
-    use_fa2 = False
-    try:
-        import flash_attn  # noqa: F401
-        use_fa2 = True
-        log.info("flash_attn detected → using FlashAttention 2")
-    except Exception:
-        log.info("flash_attn not found → using PyTorch SDPA")
-
-    tok = AutoTokenizer.from_pretrained(
-        MODEL_LOCAL_DIR, use_fast=True, trust_remote_code=True, local_files_only=True
-    )
-    if tok.pad_token is None:
-        tok.pad_token = tok.eos_token
-
-    mdl = AutoModelForCausalLM.from_pretrained(
-        MODEL_LOCAL_DIR,
-        device_map="auto",
-        torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
-        attn_implementation="flash_attention_2" if use_fa2 else "sdpa",
-        trust_remote_code=True,
-        local_files_only=True,
-    )
-    mdl.config.use_cache = True
-    try:
-        mdl = torch.compile(mdl, mode="reduce-overhead", fullgraph=False)
-        log.info("torch.compile applied.")
-    except Exception:
-        pass
-    return mdl, tok
-
+# ===================== Helpers =============================================
 def load_tsv_noheader(path: str) -> pd.DataFrame:
-    log.info(f"Loading TSV: {path}")
     df = pd.read_csv(path, sep="\t", header=None, dtype=str, na_filter=False)
     n = df.shape[1]
     if n >= 5:
@@ -132,23 +67,21 @@ def load_tsv_noheader(path: str) -> pd.DataFrame:
     df["label"] = df["label"].str.strip().str.upper()
     return df[["src","mt","label"]]
 
-def build_messages_zero_shot(src: str, mt: str) -> List[Dict[str, str]]:
+def build_messages_zero_shot(src: str, mt: str):
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}"},
+        {"role": "user",   "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."},
     ]
 
-def build_messages_fewshot(examples: List[Dict[str,str]], src: str, mt: str) -> List[Dict[str, str]]:
+def build_messages_fewshot(examples, src: str, mt: str):
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex in examples:
-        msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}"})
+        msgs.append({"role": "user",      "content": f"EN: {ex['src'].strip()}\nDE: {ex['mt'].strip()}\n\nProvide your FINAL decision."})
         msgs.append({"role": "assistant", "content": ex['label'].strip().upper()})
-    msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}"})
+    msgs.append({"role": "user", "content": f"EN: {src.strip()}\nDE: {mt.strip()}\n\nProvide your FINAL decision."})
     return msgs
 
-def select_few_shot_examples_from_train(train_tsv: str,
-                                        n_err: int, n_not: int,
-                                        random_state: int = 42) -> List[Dict[str,str]]:
+def select_few_shot_examples_from_train(train_tsv: str, n_err: int, n_not: int, random_state: int = 42):
     df = load_tsv_noheader(train_tsv)
     df = df[df["label"].isin(["ERR","NOT"])]
 
@@ -160,128 +93,139 @@ def select_few_shot_examples_from_train(train_tsv: str,
     err_df = _sample(df[df["label"] == "ERR"], n_err)
     not_df = _sample(df[df["label"] == "NOT"], n_not)
 
-    ex = []
+    examples = []
     for _, r in err_df.iterrows():
-        ex.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "ERR"})
+        examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "ERR"})
     for _, r in not_df.iterrows():
-        ex.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "NOT"})
-    log.info(f"Few-shot demos prepared: {len(err_df)} ERR + {len(not_df)} NOT")
-    return ex
+        examples.append({"src": r["src"].strip(), "mt": r["mt"].strip(), "label": "NOT"})
 
-def _extract_final_or_label(decoded: str) -> str:
-    """
-    Extract the label from the FINAL channel if present; else first ERR/NOT in the stream.
-    Keep skip_special_tokens=False when decoding so tags are visible.
-    """
-    m = re.search(r"<\|channel\|\>final<\|message\|\>(.*?)(?:<\|end\|\>|<\|return\|\>|$)", decoded, flags=re.S)
+    print(f"Few-shot demos prepared: {len(err_df)} ERR + {len(not_df)} NOT")
+    return examples
+
+# --- Parsing like 20B: prefer FINAL channel, else first ERR/NOT --------------
+LABEL_RE = re.compile(r"\b(ERR|NOT)\b", re.I)
+FINAL_BLOCK_RE = re.compile(r"<\|channel\|\>final<\|message\|\>(.*?)(?:<\|end\|\>|<\|return\|\>|$)", re.S)
+
+def extract_text_from_choice(choice: dict) -> str:
+    msg = choice.get("message", {}) or {}
+    content = msg.get("content") or ""
+    reasoning = msg.get("reasoning_content") or ""
+    alt = choice.get("text") or ""
+    return (" ".join([content, reasoning, alt])).strip()
+
+def extract_final_or_label(text: str) -> str:
+    if not text:
+        return ""
+    m = FINAL_BLOCK_RE.search(text)
     if m:
-        final_text = m.group(1).strip()
-        m2 = re.search(r"\b(ERR|NOT)\b", final_text)
-        return m2.group(1) if m2 else final_text
-    m3 = re.search(r"\b(ERR|NOT)\b", decoded)
-    return m3.group(1) if m3 else decoded.strip()
+        final_text = (m.group(1) or "").strip()
+        m2 = LABEL_RE.search(final_text)
+        return m2.group(1).upper() if m2 else final_text
+    m3 = LABEL_RE.search(text)
+    return m3.group(1).upper() if m3 else text.strip()
 
-def _sanitize_label(t: str) -> str:
+def sanitize_label(t: str) -> str:
     s = (t or "").strip().upper()
     if "ERR" in s and "NOT" in s:
         return "ERR" if s.index("ERR") < s.index("NOT") else "NOT"
     if "ERR" in s: return "ERR"
     if "NOT" in s: return "NOT"
-    return "ERR"  # conservative fallback
+    return DEFAULT_LABEL
 
-def _eos_token_ids(tok) -> Optional[List[int]]:
-    ids: List[int] = []
-    for tok_str in ("<|end|>", "<|return|>"):
-        tid = tok.convert_tokens_to_ids(tok_str)
-        if tid is not None and tid != -1:
-            ids.append(tid)
-    return ids or None
+# --- vLLM call helpers -------------------------------------------------------
+def _post_vllm(payload, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            r = requests.post(API_URL, json=payload, timeout=TIMEOUT_SEC)
+            if r.status_code >= 500:
+                if attempt < max_retries - 1:
+                    continue
+                else:
+                    raise requests.HTTPError(f"HTTP {r.status_code}", response=r)
+            r.raise_for_status()
+            return r.json()
+        except requests.RequestException as e:
+            if attempt == max_retries - 1:
+                raise
+            continue
 
-@torch.inference_mode()
-def generate_votes(model, tok, msgs, reasoning_effort: Optional[str]) -> List[str]:
-    """
-    Generate one or multiple completions and return the list of parsed labels per completion.
-    - If USE_MAJORITY_VOTE and N_VOTES>1: do_sample=True, temperature=TEMP_FOR_VOTE, num_return_sequences=N_VOTES
-    - Else: greedy single decode.
-    """
-    # Render prompt once
+# --- Inference (single) ------------------------------------------------------
+def infer_one_with_retry(src, mt, examples=None, max_retries=3):
+    messages = build_messages_fewshot(examples, src, mt) if examples else build_messages_zero_shot(src, mt)
+    payload = {
+        "model": MODEL_ID,
+        "messages": messages,
+        "max_tokens": MAX_NEW_TOKENS,
+        "temperature": TEMPERATURE,
+        "top_p": TOP_P,
+        "stop": STOP_TOKENS,
+        # "reasoning": {"effort": "low"},
+    }
     try:
-        prompt_text = tok.apply_chat_template(
-            msgs, tokenize=False, add_generation_prompt=True,
-            reasoning_effort=reasoning_effort
-        )
-    except TypeError:
-        prompt_text = tok.apply_chat_template(
-            msgs, tokenize=False, add_generation_prompt=True
-        )
+        resp = _post_vllm(payload, max_retries=max_retries)
+        choice = resp["choices"][0]
+        raw = extract_text_from_choice(choice)
+        parsed = extract_final_or_label(raw)
+        return sanitize_label(parsed)
+    except Exception:
+        return DEFAULT_LABEL
 
-    enc = tok(prompt_text, return_tensors="pt")
-    inputs = {k: v.to(model.device) for k, v in enc.items()}
+# --- Inference (majority vote) ----------------------------------------------
+def infer_majority_with_retry(src, mt, examples=None, n_votes=3, temp_for_vote=0.2,
+                              top_p_for_vote=1.0, max_retries=3, vote_debug=False):
+    messages = build_messages_fewshot(examples, src, mt) if examples else build_messages_zero_shot(src, mt)
 
-    eos_ids = _eos_token_ids(tok)
+    # Try efficient single call with `n`
+    payload = {
+        "model": MODEL_ID,
+        "messages": messages,
+        "max_tokens": MAX_NEW_TOKENS,
+        "temperature": temp_for_vote,
+        "top_p": top_p_for_vote,
+        "n": n_votes,
+        "stop": STOP_TOKENS,
+        # "reasoning": {"effort": "low"},
+    }
+    labels = []
+    try:
+        resp = _post_vllm(payload, max_retries=max_retries)
+        choices = resp.get("choices", [])
+        if len(choices) == n_votes:
+            for ch in choices:
+                raw = extract_text_from_choice(ch)
+                parsed = extract_final_or_label(raw)
+                labels.append(sanitize_label(parsed))
+        else:
+            # If server ignored `n`, fall back to sequential
+            labels = []
+    except Exception:
+        labels = []
 
-    # Decide decoding mode
-    use_vote = bool(USE_MAJORITY_VOTE and N_VOTES and N_VOTES > 1)
-    gen_kwargs = dict(
-        max_new_tokens=MAX_NEW_TOKENS,
-        pad_token_id=tok.eos_token_id,
-        eos_token_id=eos_ids,            # accepts int or list[int]
-    )
+    # Sequential fallback if needed
+    if len(labels) != n_votes:
+        labels = []
+        for _ in range(n_votes):
+            lab = infer_one_with_retry(src, mt, examples=examples, max_retries=max_retries)
+            labels.append(lab)
 
-    if use_vote:
-        gen_kwargs.update(
-            dict(
-                do_sample=True,
-                temperature=float(TEMP_FOR_VOTE),
-                top_p=1.0,
-                num_return_sequences=int(N_VOTES),
-            )
-        )
-    else:
-        gen_kwargs.update(dict(do_sample=False))
+    if vote_debug:
+        print(f"[VOTE] labels={labels}")
 
-    # Generate
-    out = model.generate(**inputs, **gen_kwargs)  # shape: (num_return_sequences, ...)
-    if out.dim() == 1:
-        out = out.unsqueeze(0)
-
-    # Slice off prompt for each sequence and parse
-    start = inputs["input_ids"].shape[1]
-    labels: List[str] = []
-    for seq in out:
-        gen_ids = seq[start:]
-        raw = tok.decode(gen_ids, skip_special_tokens=False)
-        parsed = _extract_final_or_label(raw)
-        labels.append(_sanitize_label(parsed))
-
-    return labels
-
-def majority_decide(labels: List[str]) -> str:
-    if not labels:
+    tally = Counter(labels)
+    if tally["ERR"] > tally["NOT"]:
         return "ERR"
-    if len(labels) == 1:
-        return labels[0]
-    c = Counter(labels)
-    if c["ERR"] > c["NOT"]:
-        return "ERR"
-    if c["NOT"] > c["ERR"]:
+    if tally["NOT"] > tally["ERR"]:
         return "NOT"
-    return TIE_BREAK
+    return DEFAULT_LABEL
 
 # ===================== Main ================================================
 def main():
-    """Run inference over the dataset and report metrics."""
-    log.info("Starting GPT-OSS Option-A evaluation (parse FINAL) + Majority Voting.")
-    model, tok = load_model_and_tokenizer()
-
-    df = load_tsv_noheader(DEV_TSV)
-    eval_df = df if not PROCESS_N or PROCESS_N <= 0 else df.head(PROCESS_N)
+    df_full = load_tsv_noheader(DEV_TSV)
+    eval_df = df_full
     rows = list(eval_df.itertuples(index=False))
-    log.info(
-        f"Processing rows: {len(rows)}  |  USE_FEW_SHOT={USE_FEW_SHOT}  |  "
-        f"MAX_NEW_TOKENS={MAX_NEW_TOKENS}  |  Majority={'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'} "
-        f"(n={N_VOTES if USE_MAJORITY_VOTE else 1}, temp={TEMP_FOR_VOTE})"
-    )
+
+    print(f"Processing: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} | "
+          f"Max tokens: {MAX_NEW_TOKENS} | MV: {'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'}")
 
     few_shots = None
     if USE_FEW_SHOT:
@@ -293,41 +237,49 @@ def main():
     preview_k = min(10, len(rows))
     print(f"\n=== PREVIEW (first {preview_k}) ===")
 
-    for i, r in enumerate(tqdm(rows, desc="Evaluating", unit="row"), 1):
-        msgs = build_messages_fewshot(few_shots, r.src, r.mt) if USE_FEW_SHOT else build_messages_zero_shot(r.src, r.mt)
+    for i, row in enumerate(tqdm(rows, desc="Evaluating", unit="row"), 1):
+        if USE_MAJORITY_VOTE and N_VOTES > 1:
+            pred = infer_majority_with_retry(
+                row.src, row.mt,
+                examples=few_shots,
+                n_votes=N_VOTES,
+                temp_for_vote=TEMP_FOR_VOTE,
+                top_p_for_vote=TOP_P_FOR_VOTE,
+                max_retries=3,
+                vote_debug=(VOTE_DEBUG_PRINT and i <= 5)
+            )
+        else:
+            pred = infer_one_with_retry(row.src, row.mt, examples=few_shots, max_retries=3)
 
-        vote_labels = generate_votes(model, tok, msgs, REASONING_EFFORT)
-        pred = majority_decide(vote_labels)
-
-        y_true.append(r.label)
+        y_true.append(row.label)
         y_pred.append(pred)
 
         if i <= preview_k:
-            vb = f" votes={vote_labels}" if len(vote_labels) > 1 else ""
-            print(f"[{i:03d}] TRUE={r.label} | PRED={pred}{vb}")
+            print(f"[{i:03d}] TRUE={row.label} | PRED={pred}")
 
         if i % 200 == 0:
-            acc_partial = (pd.Series([1 if t=='ERR' else 0 for t in y_true]) ==
-                           pd.Series([1 if p=='ERR' else 0 for p in y_pred])).mean()
-            log.info(f"Progress: {i}/{len(rows)}  partial_acc={acc_partial:.3f}")
+            acc_partial = (pd.Series(y_true) == pd.Series(y_pred)).mean()
+            print(f"Progress: {i}/{len(rows)} | partial_acc={acc_partial:.3f}")
 
     # Metrics
-    yt = [1 if t == "ERR" else 0 for t in y_true]
-    yp = [1 if p == "ERR" else 0 for p in y_pred]
+    map01 = {"ERR": 1, "NOT": 0}
+    yt = [map01.get(y, 0) for y in y_true]
+    yp = [map01.get(y, 0) for y in y_pred]
 
     mcc = matthews_corrcoef(yt, yp) if len(yt) > 1 else 0.0
-    f1_err = f1_score(yt, yp, pos_label=1, zero_division=0)
-    f1_not = f1_score(yt, yp, pos_label=0, zero_division=0)
+    prec, rec, f1, sup = precision_recall_fscore_support(yt, yp, labels=[1,0], zero_division=0)
+    f_err, f_not = f1[0], f1[1]
+    acc = (pd.Series(yt) == pd.Series(yp)).mean()
     cm = confusion_matrix(yt, yp, labels=[1,0])
 
-    print(f"\nProcessed: {len(rows)} rows  |  Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'}  |  Majority: {'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'}")
+    print(f"\nProcessed: {len(rows)} rows | Few-shot: {'ON' if USE_FEW_SHOT else 'OFF'} "
+          f"| Majority vote: {'ON' if USE_MAJORITY_VOTE and N_VOTES>1 else 'OFF'} (N={N_VOTES})")
     print(f"MCC   : {mcc:.4f}")
-    print(f"F1-ERR: {f1_err:.4f}  F1-NOT: {f1_not:.4f}")
+    print(f"F1-ERR: {f_err:.4f} | F1-NOT: {f_not:.4f} | Acc: {acc:.4f}")
     print("\nConfusion Matrix (rows=true │ cols=pred)")
     print("      ERR   NOT")
     print(f"ERR  {cm[0,0]:5d} {cm[0,1]:5d}")
     print(f"NOT  {cm[1,0]:5d} {cm[1,1]:5d}")
 
 if __name__ == "__main__":
-    torch.set_grad_enabled(False)
     main()
