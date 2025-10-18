@@ -18,8 +18,8 @@ from sklearn.metrics import matthews_corrcoef, precision_recall_fscore_support, 
 import pandas as pd
 
 # ─── Config ──────────────────────────────────────────────────────────────
-TRAIN_FILE = "/home/s13mchop/LLMs/data/2024_25_data/synced_ende_train_silver.tsv"
-DEV_FILE   = "/home/s13mchop/LLMs/data/2024_25_data/synced_ende_eval_gold.tsv"
+TRAIN_FILE = "/your_path_to/the.tsv"
+DEV_FILE   = "/your_path_to/the.tsv"
 OUTPUT_ROOT = "output_all5_models"
 MAX_LENGTH = 256
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
